@@ -1,0 +1,47 @@
+{
+  "navbar": {
+    "mip-mid-system": "Sistema MIP/MID",
+    "information-management": "Gerenciamento de Informações",
+    "research-config": "Configuração da Pesquisa",
+    "integrated-pest-management": "Manejo Integrado de Pragas",
+    "dropdown": {
+      "infoMenu": [{
+          "path": "/macroregion",
+          "navTitle": "Macrorregião",
+          "title": "Macrorregião",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/region",
+          "navTitle": "Região",
+          "title": "Região",
+          "icon": "fas fa-users"
+        },
+        {
+          "path": "/city",
+          "navTitle": "Município",
+          "title": "Município",
+          "icon": "fas fa-shopping-cart"
+        },
+        {
+          "path": "/farmer",
+          "navTitle": "Produtor",
+          "title": "Produtor",
+          "icon": "fas fa-shopping-cart"
+        },
+        {
+          "path": "/supervisor",
+          "navTitle": "Responsável Técnico",
+          "title": "Responsável Técnico",
+          "icon": "fas fa-shopping-cart"
+        },
+        {
+          "path": "/field",
+          "navTitle": "Unidades de Referência",
+          "title": "Unidades de Referência",
+          "icon": "fas fa-shopping-cart"
+        }
+      ]
+    }
+  }
+}

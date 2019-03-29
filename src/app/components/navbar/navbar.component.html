@@ -2,7 +2,7 @@
   <div class="container-fluid pr-0">
     <div id="navbar" class="navbar-nav">
       <a class="nav-link" id="dashboard" [routerLink]="['/dashboard']">
-        <i class="material-icons align-middle icon-size">home</i> Sistema MIP/MID
+        <i class="material-icons align-middle icon-size">home</i> {{ 'navbar.mip-mid-system' | translate }}
       </a>
     </div>
 
@@ -11,11 +11,11 @@
         <i class="material-icons align-middle icon-size">menu</i>
       </a>
       <div class="dropdown-menu dropdown-menu-right scrollable-menu mr-0" ngbDropdownMenu aria-labelledby="menuDropdown">
-        <div class="pl-3 pr-3"> <b>Gerenciamento de Informações</b> </div>
+        <div class="pl-3 pr-3"> <b>{{ 'navbar.information-management' | translate }}</b> </div>
         <a *ngFor="let info of infoMenu" class="dropdown-item" [routerLink]="[info.path]"> * {{ info.navTitle }} </a>
-        <div class="pl-3 pr-3"> <b>Configuração da Pesquisa</b> </div>
+        <div class="pl-3 pr-3"> <b>{{ 'navbar.research-config' | translate }}</b> </div>
         <a *ngFor="let researchConfig of researchConfigMenu" class="dropdown-item" [routerLink]="[researchConfig.path]"> * {{ researchConfig.navTitle }} </a>
-        <div class="pl-3 pr-3"> <b>Manejo Integrado de Pragas</b> </div>
+        <div class="pl-3 pr-3"> <b>{{ 'navbar.integrated-pest-management' | translate }}</b> </div>
         <a *ngFor="let pest of pestMenu" class="dropdown-item" [routerLink]="[pest.path]"> * {{ pest.navTitle }} </a>
       </div>
     </div>
@@ -24,15 +24,15 @@
       <ul class="navbar-nav">
         <li class="nav-item" ngbDropdown id="info">
           <a class="nav-link" id="profileDropdown" ngbDropdownToggle>
-            <i class="material-icons align-middle icon-size">info</i> Gerenciamento de Informações
+            <i class="material-icons align-middle icon-size">info</i> {{ 'navbar.information-management' | translate }}
           </a>
           <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="profileDropdown">
-            <a *ngFor="let info of infoMenu" class="dropdown-item" [routerLink]="[info.path]"> {{ info.navTitle }} </a>
+            <a *ngFor="let info of ('navbar.dropdown.infoMenu' | translate)" class="dropdown-item" [routerLink]="[info.path]"> {{ info.navTitle }} </a>
           </div>
         </li>
         <li class="nav-item" ngbDropdown id="researchConfig">
           <a class="nav-link" id="profileDropdown" ngbDropdownToggle>
-            <i class="material-icons align-middle icon-size">assignment</i> Configuração da Pesquisa
+            <i class="material-icons align-middle icon-size">assignment</i> {{ 'navbar.research-config' | translate }}
           </a>
           <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="profileDropdown">
             <a *ngFor="let researchConfig of researchConfigMenu" class="dropdown-item" [routerLink]="[researchConfig.path]">
@@ -41,7 +41,7 @@
         </li>
         <li class="nav-item" ngbDropdown id="pest">
           <a class="nav-link" id="profileDropdown" ngbDropdownToggle>
-            <i class="material-icons align-middle icon-size">bug_report</i> Manejo Integrado de Pragas
+            <i class="material-icons align-middle icon-size">bug_report</i> {{ 'navbar.integrated-pest-management' | translate }}
           </a>
           <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="profileDropdown">
             <a *ngFor="let pest of pestMenu" class="dropdown-item" [routerLink]="[pest.path]"> {{ pest.navTitle }} </a>

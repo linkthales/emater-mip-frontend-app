@@ -1,0 +1,47 @@
+{
+  "navbar": {
+    "mip-mid-system": "MIP/MID System",
+    "information-management": "Information Management",
+    "research-config": "Research Configuration",
+    "integrated-pest-management": "Integrated Pest Management",
+    "dropdown": {
+      "infoMenu": [{
+          "path": "/macroregion",
+          "navTitle": "Macroregion",
+          "title": "Macroregion",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/region",
+          "navTitle": "Region",
+          "title": "Region",
+          "icon": "fas fa-users"
+        },
+        {
+          "path": "/city",
+          "navTitle": "City",
+          "title": "City",
+          "icon": "fas fa-shopping-cart"
+        },
+        {
+          "path": "/farmer",
+          "navTitle": "Farmer",
+          "title": "Farmer",
+          "icon": "fas fa-shopping-cart"
+        },
+        {
+          "path": "/supervisor",
+          "navTitle": "Supervisor",
+          "title": "Supervisor",
+          "icon": "fas fa-shopping-cart"
+        },
+        {
+          "path": "/field",
+          "navTitle": "Fields",
+          "title": "Fields",
+          "icon": "fas fa-shopping-cart"
+        }
+      ]
+    }
+  }
+}

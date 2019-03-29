@@ -11,6 +11,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import { ComponentsModule } from '../../components/components.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 import 'hammerjs';
 
@@ -23,13 +24,14 @@ import 'hammerjs';
     NgxSelectModule,
     NgbModule,
     TextMaskModule,
+    TranslateModule,
     NgxPaginationModule,
     JwBootstrapSwitchNg2Module
   ],
   declarations: [
     DashboardComponent,
   ],
-  exports: [],
+  exports: [TranslateModule],
   providers: [
     UtilService,
   ]

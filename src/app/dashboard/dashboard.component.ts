@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UtilService } from '../shared/services/utilities.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export class Chart {
   type: string;
@@ -41,6 +42,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private utilService: UtilService,
+    private translateService: TranslateService,
     private router: Router
   ) {}
 

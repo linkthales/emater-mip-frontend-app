@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { FormatHourPipe } from '../shared/pipes/format-hour.pipe';
@@ -22,6 +23,7 @@ import { TableComponent } from './table/table.component';
     RouterModule,
     NgbModule,
     NgxDatatableModule,
+    TranslateModule,
     FormsModule,
   ],
   declarations: [

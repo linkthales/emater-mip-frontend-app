@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Router, GuardsCheckEnd } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 declare interface RouteInfo {
   path: string;
@@ -18,42 +19,42 @@ export class NavbarComponent {
   toggleSidebar = new EventEmitter<any>();
 
   public infoMenu: RouteInfo[] = [
-    {
-      path: '/macroregion',
-      navTitle: 'Macrorregião',
-      title: 'Macrorregião',
-      icon: 'fas fa-chart-pie'
-    },
-    {
-      path: '/region',
-      navTitle: 'Região',
-      title: 'Região',
-      icon: 'fas fa-users'
-    },
-    {
-      path: '/city',
-      navTitle: 'Município',
-      title: 'Município',
-      icon: 'fas fa-shopping-cart'
-    },
-    {
-      path: '/farmer',
-      navTitle: 'Produtor',
-      title: 'Produtor',
-      icon: 'fas fa-shopping-cart'
-    },
-    {
-      path: '/supervisor',
-      navTitle: 'Responsável Técnico',
-      title: 'Responsável Técnico',
-      icon: 'fas fa-shopping-cart'
-    },
-    {
-      path: '/field',
-      navTitle: 'Unidades de Referência',
-      title: 'Unidades de Referência',
-      icon: 'fas fa-shopping-cart'
-    }
+    // {
+    //   path: '/macroregion',
+    //   navTitle: 'Macrorregião',
+    //   title: 'Macrorregião',
+    //   icon: 'fas fa-chart-pie'
+    // },
+    // {
+    //   path: '/region',
+    //   navTitle: 'Região',
+    //   title: 'Região',
+    //   icon: 'fas fa-users'
+    // },
+    // {
+    //   path: '/city',
+    //   navTitle: 'Município',
+    //   title: 'Município',
+    //   icon: 'fas fa-shopping-cart'
+    // },
+    // {
+    //   path: '/farmer',
+    //   navTitle: 'Produtor',
+    //   title: 'Produtor',
+    //   icon: 'fas fa-shopping-cart'
+    // },
+    // {
+    //   path: '/supervisor',
+    //   navTitle: 'Responsável Técnico',
+    //   title: 'Responsável Técnico',
+    //   icon: 'fas fa-shopping-cart'
+    // },
+    // {
+    //   path: '/field',
+    //   navTitle: 'Unidades de Referência',
+    //   title: 'Unidades de Referência',
+    //   icon: 'fas fa-shopping-cart'
+    // }
   ];
 
   public researchConfigMenu: RouteInfo[] = [
@@ -88,7 +89,7 @@ export class NavbarComponent {
 
   public isCollapsed = true;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private translateService: TranslateService) {
     this.router.events.forEach(event => {
       if (event instanceof GuardsCheckEnd) {
         const navMenu = document.getElementById('menuDropdown');

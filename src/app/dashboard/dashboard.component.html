@@ -5,5 +5,6 @@
 
   <div class="main-content">
     <app-card [cards]="cards"></app-card>
+    <button (click)="translateService.use(translateService.currentLang === 'en' ? 'pt' : 'en')">Alterar idioma</button>
   </div>
 </div>
