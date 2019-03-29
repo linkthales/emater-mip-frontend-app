@@ -1,0 +1,13 @@
+<div class="wrapper">
+  <div id="sidebar" class="sidebar" [ngClass]="{'showSidebar': showSidebar}" data-color="blue" style="display: hidden;">
+    <app-sidebar [expanded]="showSidebar"></app-sidebar>
+  </div>
+  <div class="main-content">
+    <div class="navbar">
+      <app-navbar (toggleSidebar)="toggleSidebar($event)"></app-navbar>
+    </div>
+    <div id="mainPanel" class="main-panel">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

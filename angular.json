@@ -8,7 +8,11 @@
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "sass"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -23,9 +27,17 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/scss/now-ui-dashboard.scss",
+              "src/assets/css/ng2-select.css",
+              "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/popper.js/dist/umd/popper.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -43,7 +55,14 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
             },
             "production-pt": {
               "fileReplacements": [
@@ -62,7 +81,7 @@
               "vendorChunk": false,
               "buildOptimizer": true,
               "outputPath": "dist/emater-mip-frontend-app-pt/",
-              "i18nFile": "src/locale/messages.pt.xlf",
+              "i18nFile": "src/i18n/messages.pt.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "pt",
               "i18nMissingTranslation": "error"
@@ -70,10 +89,17 @@
             "pt": {
               "aot": true,
               "outputPath": "dist/emater-mip-frontend-app-pt/",
-              "i18nFile": "src/locale/messages.pt.xlf",
+              "i18nFile": "src/i18n/messages.pt.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "pt",
               "i18nMissingTranslation": "error"
+            },
+            "en": {
+              "aot": true,
+              "outputPath": "dist/angular.io-example-en",
+              "i18nFile": "src/i18n/messages.en.xlf",
+              "i18nFormat": "xlf2",
+              "i18nLocale": "en"
             }
           }
         },
@@ -88,6 +114,9 @@
             },
             "pt": {
               "browserTarget": "angular.io-example:build:pt"
+            },
+            "en": {
+              "browserTarget": "angular.io-example:build:en"
             }
           }
         },
@@ -105,7 +134,9 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/scss/now-ui-dashboard.scss"
             ],
             "scripts": [],
             "assets": [
@@ -124,6 +155,21 @@
             "exclude": [
               "**/node_modules/**"
             ]
+          }
+        },
+        "xliffmerge": {
+          "builder": "@ngx-i18nsupport/tooling:xliffmerge",
+          "options": {
+            "xliffmergeOptions": {
+              "i18nFormat": "xlf2",
+              "srcDir": "src/i18n",
+              "genDir": "src/i18n",
+              "defaultLanguage": "pt",
+              "languages": [
+                "pt",
+                "en"
+              ]
+            }
           }
         }
       }

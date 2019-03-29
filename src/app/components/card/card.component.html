@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-lg-3 col-md-6 customCard" *ngFor="let card of cards">
+    <div class="card card-chart">
+      <div class="card-header">
+      </div>
+      <div class="card-body">
+          <i class="material-icons align-middle icon-size card-icon">{{ card.icon }}</i>
+        <div class="card-content">
+          <p>
+            {{ card.quantity }}
+          </p>
+          <h4>{{ card.title }}</h4>
+        </div>
+      </div>
+      <button class="card-footer">
+        <div class="stats">
+          {{ card.button }}
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

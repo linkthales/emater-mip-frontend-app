@@ -1,0 +1,73 @@
+.logo {
+  a {
+    text-align: center;
+
+    .expanded {
+    }
+
+    .notExpanded {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.sidebar-wrapper {
+  ul {
+    li {
+      a {
+        height: 50px;
+      }
+    }
+
+    .nav-item-end {
+      position: absolute;
+      bottom: 10px;
+      a {
+        width: 50px;
+        height: 50px;
+
+        &.notExpanded {
+          width: 230px;
+        }
+      }
+
+      &.tour {
+        bottom: 70px;
+      }
+    }
+  }
+}
+
+.showSidebar {
+  width: 100%;
+}
+
+.card-selects {
+  .form-control {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    margin: 0 1px 20px;
+  }
+}
+
+input[type=radio] {
+  display: block;
+  margin: 0 auto;
+}
+
+label {
+  display: inline-block;
+}
+
+textarea.form-control {
+  padding: 0px 5px 5px 5px;
+}
+
+.padding-b {
+  padding-bottom: 25px;
+}
+
+.radio-inline {
+  text-align: center;
+}

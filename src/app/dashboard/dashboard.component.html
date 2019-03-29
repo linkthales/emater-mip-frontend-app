@@ -1,0 +1,9 @@
+<div id="dashboardsWrapper">
+  <div id="loader" class="dashboardLoader" *ngIf="loading">
+    <img src="../../assets/img/loading.gif" />
+  </div>
+
+  <div class="main-content">
+    <app-card [cards]="cards"></app-card>
+  </div>
+</div>

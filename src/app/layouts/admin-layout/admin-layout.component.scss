@@ -1,0 +1,112 @@
+.wrapper {
+  display: flex;
+  flex: 1;
+
+  .sidebar {
+    display: flex;
+    width: 0px;
+    // width: 80px;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+
+    &.showSidebar {
+      width: 260px;
+    }
+
+    &.toFront {
+      z-index: 302;
+    }
+  }
+
+  .main-content {
+    display: flex;
+    flex: 80%;
+    flex-direction: column;
+    position: relative;
+    overflow-y: hidden;
+
+    .navbar {
+      min-height: 75px;
+      margin-bottom: 0;
+
+      app-navbar {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    #mainPanel {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: #ebecf1;
+
+      app-icons {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 86% !important;
+      }
+
+      .footer {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+@media(max-width: 991px) {
+  .wrapper {
+    display: flex;
+    flex: 1;
+
+    .sidebar {
+      display: none;
+
+      &.showSidebar {
+        display: flex;
+        width: 260px;
+        flex-direction: column;
+        position: relative;
+      }
+    }
+
+    .main-content {
+      display: flex;
+      flex: 80%;
+      flex-direction: column;
+      position: relative;
+      overflow-y: hidden;
+
+      .navbar {
+        min-height: 75px;
+        margin-bottom: 0;
+
+        app-navbar {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      .main-panel {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        app-icons {
+          display: flex !important;
+          flex-direction: column !important;
+          flex: 86% !important;
+        }
+
+        .footer {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
