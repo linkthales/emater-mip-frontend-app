@@ -41,7 +41,64 @@
           "title": "Fields",
           "icon": "fas fa-shopping-cart"
         }
+      ],
+
+      "researchConfigMenu": [{
+          "path": "/harvest",
+          "navTitle": "Harvest",
+          "title": "Harvest",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/survey-field",
+          "navTitle": "Survey Fields",
+          "title": "Survey Fields",
+          "icon": "fas fa-users"
+        }
+      ],
+
+      "pestMenu": [{
+          "path": "/pest",
+          "navTitle": "Pest",
+          "title": "Pest",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/pest-survey",
+          "navTitle": "Pest Survey",
+          "title": "Pest Survey",
+          "icon": "fas fa-users"
+        }
       ]
     }
+
+  },
+
+  "dashboard": {
+    "cards": [{
+        "title": "Registered SF",
+        "icon": "home",
+        "button": "Create new SF"
+      },
+      {
+        "title": "SF's on Current Research",
+        "icon": "assignment",
+        "button": "Add SF to Research"
+      },
+      {
+        "title": "Samples collected",
+        "icon": "list",
+        "button": "Collect sample"
+      },
+      {
+        "title": "Registered pests",
+        "icon": "bug_report",
+        "button": "Observe pest evolution"
+      }
+    ]
+  },
+
+  "general": {
+    "changeLanguage": "Change language"
   }
 }

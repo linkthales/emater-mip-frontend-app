@@ -12,11 +12,11 @@
       </a>
       <div class="dropdown-menu dropdown-menu-right scrollable-menu mr-0" ngbDropdownMenu aria-labelledby="menuDropdown">
         <div class="pl-3 pr-3"> <b>{{ 'navbar.information-management' | translate }}</b> </div>
-        <a *ngFor="let info of infoMenu" class="dropdown-item" [routerLink]="[info.path]"> * {{ info.navTitle }} </a>
+        <a *ngFor="let info of ('navbar.dropdown.infoMenu' | translate)" class="dropdown-item" [routerLink]="[info.path]"> * {{ info.navTitle }} </a>
         <div class="pl-3 pr-3"> <b>{{ 'navbar.research-config' | translate }}</b> </div>
-        <a *ngFor="let researchConfig of researchConfigMenu" class="dropdown-item" [routerLink]="[researchConfig.path]"> * {{ researchConfig.navTitle }} </a>
+        <a *ngFor="let researchConfig of ('navbar.dropdown.researchConfigMenu' | translate)" class="dropdown-item" [routerLink]="[researchConfig.path]"> * {{ researchConfig.navTitle }} </a>
         <div class="pl-3 pr-3"> <b>{{ 'navbar.integrated-pest-management' | translate }}</b> </div>
-        <a *ngFor="let pest of pestMenu" class="dropdown-item" [routerLink]="[pest.path]"> * {{ pest.navTitle }} </a>
+        <a *ngFor="let pest of ('navbar.dropdown.pestMenu' | translate)" class="dropdown-item" [routerLink]="[pest.path]"> * {{ pest.navTitle }} </a>
       </div>
     </div>
 
@@ -35,7 +35,7 @@
             <i class="material-icons align-middle icon-size">assignment</i> {{ 'navbar.research-config' | translate }}
           </a>
           <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="profileDropdown">
-            <a *ngFor="let researchConfig of researchConfigMenu" class="dropdown-item" [routerLink]="[researchConfig.path]">
+            <a *ngFor="let researchConfig of ('navbar.dropdown.researchConfigMenu' | translate)" class="dropdown-item" [routerLink]="[researchConfig.path]">
               {{ researchConfig.navTitle }} </a>
           </div>
         </li>
@@ -44,7 +44,7 @@
             <i class="material-icons align-middle icon-size">bug_report</i> {{ 'navbar.integrated-pest-management' | translate }}
           </a>
           <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="profileDropdown">
-            <a *ngFor="let pest of pestMenu" class="dropdown-item" [routerLink]="[pest.path]"> {{ pest.navTitle }} </a>
+            <a *ngFor="let pest of ('navbar.dropdown.pestMenu' | translate)" class="dropdown-item" [routerLink]="[pest.path]"> {{ pest.navTitle }} </a>
           </div>
         </li>
       </ul>

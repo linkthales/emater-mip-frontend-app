@@ -18,32 +18,11 @@ export class Chart {
 })
 export class DashboardComponent implements OnInit {
   public loading = true;
-  public cards = [{
-    title: `UR's Cadastradas`,
-    icon: 'home',
-    quantity: 5,
-    button: 'Criar nova UR',
-  }, {
-    title: `UR's na Pesquisa Atual`,
-    icon: 'assignment',
-    quantity: 5,
-    button: 'Adicionar UR à Pesquisa',
-  }, {
-    title: `Amostras coletadas`,
-    icon: 'list',
-    quantity: 25,
-    button: 'Coletar amostra',
-  }, {
-    title: `Pragas registradas`,
-    icon: 'bug_report',
-    quantity: 7,
-    button: 'Observar evolução das pragas',
-  }];
 
   constructor(
-    private utilService: UtilService,
-    private translateService: TranslateService,
-    private router: Router
+    private router: Router,
+    public translateService: TranslateService,
+    private utilService: UtilService
   ) {}
 
   ngOnInit() {

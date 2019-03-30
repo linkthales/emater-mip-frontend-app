@@ -4,7 +4,9 @@
     "information-management": "Gerenciamento de Informações",
     "research-config": "Configuração da Pesquisa",
     "integrated-pest-management": "Manejo Integrado de Pragas",
+
     "dropdown": {
+
       "infoMenu": [{
           "path": "/macroregion",
           "navTitle": "Macrorregião",
@@ -41,7 +43,64 @@
           "title": "Unidades de Referência",
           "icon": "fas fa-shopping-cart"
         }
+      ],
+
+      "researchConfigMenu": [{
+          "path": "/harvest",
+          "navTitle": "Safra",
+          "title": "Safra",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/survey-field",
+          "navTitle": "UR's Participantes",
+          "title": "UR's Participantes",
+          "icon": "fas fa-users"
+        }
+      ],
+
+      "pestMenu": [{
+          "path": "/pest",
+          "navTitle": "Insetos Pragas",
+          "title": "Insetos Pragas",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/pest-survey",
+          "navTitle": "Flutuação das Pragas",
+          "title": "Flutuação das Pragas",
+          "icon": "fas fa-users"
+        }
       ]
     }
+
+  },
+
+  "dashboard": {
+    "cards": [{
+        "title": "UR's Cadastradas",
+        "icon": "home",
+        "button": "Criar nova UR"
+      },
+      {
+        "title": "UR's na Pesquisa Atual",
+        "icon": "assignment",
+        "button": "Adicionar UR à Pesquisa"
+      },
+      {
+        "title": "Amostras coletadas",
+        "icon": "list",
+        "button": "Coletar amostra"
+      },
+      {
+        "title": "Pragas registradas",
+        "icon": "bug_report",
+        "button": "Observar evolução das pragas"
+      }
+    ]
+  },
+
+  "general": {
+    "changeLanguage": "Alterar idioma"
   }
 }

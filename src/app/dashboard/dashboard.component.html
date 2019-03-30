@@ -4,7 +4,7 @@
   </div>
 
   <div class="main-content">
-    <app-card [cards]="cards"></app-card>
-    <button (click)="translateService.use(translateService.currentLang === 'en' ? 'pt' : 'en')">Alterar idioma</button>
+    <app-card [cards]="('dashboard.cards' | translate)"></app-card>
+    <button (click)="translateService.use(translateService.currentLang === 'en' ? 'pt' : 'en')">{{ 'general.changeLanguage' | translate }}</button>
   </div>
 </div>
