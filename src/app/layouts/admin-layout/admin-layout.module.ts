@@ -16,6 +16,7 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { MacroRegionComponent } from '../../macroregion/macroregion.component';
 import { RegionComponent } from '../../region/region.component';
 import { CityComponent } from '../../city/city.component';
+import { FarmerComponent } from '../../farmer/farmer.component';
 
 import 'hammerjs';
 
@@ -37,6 +38,7 @@ import 'hammerjs';
     MacroRegionComponent,
     RegionComponent,
     CityComponent,
+    FarmerComponent,
   ],
   exports: [TranslateModule],
   providers: [

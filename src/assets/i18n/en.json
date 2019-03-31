@@ -121,6 +121,12 @@
     "tableHeaders": ["Name", "Region", "Macroregion", "Actions"]
   },
 
+  "farmer": {
+    "title": "Farmers Management",
+    "create": "Create new Farmer",
+    "tableHeaders": ["Name", "Actions"]
+  },
+
   "general": {
     "changeLanguage": "Change language",
     "search": "Search",

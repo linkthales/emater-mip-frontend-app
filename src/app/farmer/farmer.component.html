@@ -1,0 +1,57 @@
+<div id="farmers-wrapper">
+    <div class="card-body">
+      <div id="loader" class="config-loader" *ngIf="loading">
+        <app-loading></app-loading>
+      </div>
+      <div *ngIf="!loading">
+        <div>
+          <div class="align-row row">
+            <div class="col-sm-8 align-left">
+              <h2 class="m-0">{{ 'farmer.title' | translate }}</h2>
+            </div>
+            <div>
+              <button type="button" class="btn btn-primary">
+                <span>
+                  <i class="fas fa-plus-circle"></i> {{ 'farmer.create' | translate }}
+                </span>
+              </button>
+            </div>
+          </div>
+          <div class="align-row row">
+            <div class="col-sm-6 align-left">
+              <div class="results-per-page">
+                <ngx-select [noAutoComplete]="true" [(ngModel)]="resultsPerPage" [items]="maxResults"
+                  optionValueField="maxResults" (select)="doSelect($event)" (selectionChanges)="doSelectOptions($event)">
+                </ngx-select>
+                <div>
+                  <div class="caption-text">{{ 'general.results' | translate }}</div>
+                </div>
+              </div>
+            </div>
+            <form>
+              <input class="form-control" placeholder="{{ 'general.search' | translate }}.." type="text" (keyup)="keyUp($event)" required
+                [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" />
+              <button class="close-icon" type="reset" (click)="setSearch('')"></button>
+            </form>
+          </div>
+  
+          <div *ngIf="!farmersTable.length">
+            <h3 *ngIf="!searchText">{{ 'general.emptyData' | translate }}</h3>
+            <h3 *ngIf="searchText">{{ 'general.emptyDataForSearch' | translate }}</h3>
+          </div>
+          <app-table [tableData]="farmersTable" [tableHeaders]="('farmer.tableHeaders' | translate)" [tableKeys]="tableKeys" [tableWidth]="tableWidth"></app-table>
+          <div class="align-row row pt-3">
+            <div class="col-sm-6 align-left">
+            <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ farmersTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ resultsPerPage * config.currentPage < allFilteredFarmers.length ? resultsPerPage * config.currentPage : allFilteredFarmers.length }} {{ 'general.of' | translate }} {{ allFilteredFarmers.length }} {{ 'general.registries' | translate }}.</span>
+              <span *ngIf="allFarmers.length !== allFilteredFarmers.length"> ({{ 'general.filtered' | translate }} {{ 'general.from' | translate }} {{ allFarmers.length }} {{ 'general.registries' | translate }})</span>
+            </div>
+            <div>
+              <ngb-pagination [collectionSize]="allFilteredFarmers.length" [(page)]="config.currentPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+              (pageChange)="onPageChange($event)"></ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

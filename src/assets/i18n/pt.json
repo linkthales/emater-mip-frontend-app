@@ -121,6 +121,12 @@
     "tableHeaders": ["Nome", "Região", "Macrorregião", "Ações"]
   },
 
+  "farmer": {
+    "title": "Gerenciamento de Produtores",
+    "create": "Criar novo Produtor",
+    "tableHeaders": ["Nome", "Ações"]
+  },
+
   "general": {
     "changeLanguage": "Alterar idioma",
     "search": "Pesquisar",
