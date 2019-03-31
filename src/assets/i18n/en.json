@@ -127,6 +127,12 @@
     "tableHeaders": ["Name", "Actions"]
   },
 
+  "supervisor": {
+    "title": "Supervisors Management",
+    "create": "Create new Supervisor",
+    "tableHeaders": ["Name", "E-mail", "Actions"]
+  },
+
   "general": {
     "changeLanguage": "Change language",
     "search": "Search",

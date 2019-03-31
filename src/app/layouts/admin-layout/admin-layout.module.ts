@@ -17,6 +17,7 @@ import { MacroRegionComponent } from '../../macroregion/macroregion.component';
 import { RegionComponent } from '../../region/region.component';
 import { CityComponent } from '../../city/city.component';
 import { FarmerComponent } from '../../farmer/farmer.component';
+import { SupervisorComponent } from '../../supervisor/supervisor.component';
 
 import 'hammerjs';
 
@@ -39,6 +40,7 @@ import 'hammerjs';
     RegionComponent,
     CityComponent,
     FarmerComponent,
+    SupervisorComponent,
   ],
   exports: [TranslateModule],
   providers: [

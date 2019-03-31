@@ -127,6 +127,12 @@
     "tableHeaders": ["Nome", "Ações"]
   },
 
+  "supervisor": {
+    "title": "Gerenciamento de Responsáveis Técnicos",
+    "create": "Criar novo Responsável Técnico",
+    "tableHeaders": ["Nome", "E-mail", "Ações"]
+  },
+
   "general": {
     "changeLanguage": "Alterar idioma",
     "search": "Pesquisar",
