@@ -115,6 +115,12 @@
     "tableHeaders": ["Nome", "Macrorregião", "Ações"]
   },
 
+  "city": {
+    "title": "Gerenciamento de Municípios",
+    "create": "Criar novo Município",
+    "tableHeaders": ["Nome", "Região", "Macrorregião", "Ações"]
+  },
+
   "general": {
     "changeLanguage": "Alterar idioma",
     "search": "Pesquisar",

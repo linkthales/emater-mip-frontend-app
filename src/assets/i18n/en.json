@@ -104,15 +104,21 @@
   },
 
   "macroregion": {
-    "title": "Macroregion Management",
+    "title": "Macroregions Management",
     "create": "Create new Macroregion",
     "tableHeaders": ["Name", "Actions"]
   },
 
   "region": {
-    "title": "Region Management",
+    "title": "Regions Management",
     "create": "Create new Region",
     "tableHeaders": ["Name", "Macroregion", "Actions"]
+  },
+
+  "city": {
+    "title": "Cities Management",
+    "create": "Create new City",
+    "tableHeaders": ["Name", "Region", "Macroregion", "Actions"]
   },
 
   "general": {

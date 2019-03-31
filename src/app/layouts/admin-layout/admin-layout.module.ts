@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { MacroRegionComponent } from '../../macroregion/macroregion.component';
 import { RegionComponent } from '../../region/region.component';
+import { CityComponent } from '../../city/city.component';
 
 import 'hammerjs';
 
@@ -35,6 +36,7 @@ import 'hammerjs';
     DashboardComponent,
     MacroRegionComponent,
     RegionComponent,
+    CityComponent,
   ],
   exports: [TranslateModule],
   providers: [
