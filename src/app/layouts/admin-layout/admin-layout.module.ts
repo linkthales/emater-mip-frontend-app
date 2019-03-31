@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UtilService } from '../../shared/services/utilities.service';
 import { NgxSelectModule } from 'ngx-select-ex';
@@ -12,6 +11,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import { ComponentsModule } from '../../components/components.module';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { DashboardComponent } from '../../dashboard/dashboard.component';
+import { MacroRegionComponent } from '../../macroregion/macroregion.component';
 
 import 'hammerjs';
 
@@ -30,6 +32,7 @@ import 'hammerjs';
   ],
   declarations: [
     DashboardComponent,
+    MacroRegionComponent,
   ],
   exports: [TranslateModule],
   providers: [

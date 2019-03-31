@@ -1,16 +1,19 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnChanges, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnChanges {
   @ViewChild('myTable') table: any;
 
   @Input() tableData: any[];
-  @Input() tableColumns: any[];
-
+  @Input() tableHeaders: any[];
+  @Input() tableKeys: any[];
+  @Input() tableWidth: any[];
+  
+  public tableColumns: any[];
   public loadingIndicator = true;
   public detailsHeight: number;
   public expanded: any = {};
@@ -20,7 +23,15 @@ export class TableComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnChanges() {
+    this.tableColumns = this.tableHeaders.map((elem, index) => {
+      const card = {};
+      card.title = this.tableHeaders[index];
+      card.width = this.tableWidth[index];
+      card.dataKey = this.tableKeys[index];
+
+      return card;
+    });
   }
 
   onDetailToggle(event) {}

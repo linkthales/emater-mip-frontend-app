@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UtilService } from '../shared/services/utilities.service';
-import { TranslateService } from '@ngx-translate/core';
 
 export class Chart {
   type: string;
@@ -18,10 +17,10 @@ export class Chart {
 })
 export class DashboardComponent implements OnInit {
   public loading = true;
+  public quantities = [5, 10, 25, 7];
 
   constructor(
     private router: Router,
-    public translateService: TranslateService,
     private utilService: UtilService
   ) {}
 
@@ -36,7 +35,7 @@ export class DashboardComponent implements OnInit {
     const chartsPromise = this.loadCharts();
     const cardsPromise = this.loadCards();
 
-    await this.utilService.pause(3000);
+    await this.utilService.pause(500);
     this.loading = false;
     // Promise.all([chartsPromise, cardsPromise])
     //   .then(() => {
@@ -249,7 +248,7 @@ export class DashboardComponent implements OnInit {
       plugins: {
         datalabels: {
           display: options.dataLabel,
-          backgroundColor: function(context) {
+          backgroundColor(context) {
             return context.dataset.backgroundColor;
           },
           borderColor: 'white',
@@ -412,9 +411,9 @@ export class DashboardComponent implements OnInit {
   }
 
   hexToRGB(hex, alpha) {
-    const red = parseInt(hex.slice(1, 3), 16),
-      green = parseInt(hex.slice(3, 5), 16),
-      blue = parseInt(hex.slice(5, 7), 16);
+    const red = parseInt(hex.slice(1, 3), 16);
+    const green = parseInt(hex.slice(3, 5), 16);
+    const blue = parseInt(hex.slice(5, 7), 16);
 
     if (alpha) {
       return `rgba(${red}, ${green}, ${blue}, ${alpha})`;

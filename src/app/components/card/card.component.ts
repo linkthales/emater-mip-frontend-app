@@ -1,18 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnChanges {
   @Input() cards: any[];
-  public quantities = [5, 10, 25, 7];
+  @Input() quantities: any[];
 
   constructor() {}
 
-  ngOnInit() {
-    console.log(this.cards);
-    this.cards.map((card, index) => card.quantity = this.quantities[index])
+  ngOnChanges() {
+    this.cards.map((card, index) => card.quantity = this.quantities[index]);
   }
 }

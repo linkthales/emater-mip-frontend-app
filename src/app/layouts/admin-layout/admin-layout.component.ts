@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location, PopStateEvent } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { TranslateService } from '@ngx-translate/core';
 import PerfectScrollbar from 'perfect-scrollbar';
 import 'rxjs/add/operator/filter';
 
@@ -12,14 +13,15 @@ import 'rxjs/add/operator/filter';
 })
 export class AdminLayoutComponent implements OnInit {
   public showSidebar = false;
-  private _router: Subscription;
-  private lastPoppedUrl: string;
-  private yScrollStack: number[] = [];
-  private user: any = {};
+  public _router: Subscription;
+  public lastPoppedUrl: string;
+  public yScrollStack: number[] = [];
+  public user: any = {};
 
   constructor(
-    public location: Location,
-    private router: Router
+    private location: Location,
+    private router: Router,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -109,5 +111,9 @@ export class AdminLayoutComponent implements OnInit {
 
   toggleSidebar(ev) {
     this.showSidebar = ev.visible;
+  }
+
+  changeLanguage() {
+    this.translateService.use(this.translateService.currentLang === 'en' ? 'pt' : 'en');
   }
 }

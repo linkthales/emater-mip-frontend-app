@@ -4,7 +4,9 @@
     "information-management": "Information Management",
     "research-config": "Research Configuration",
     "integrated-pest-management": "Integrated Pest Management",
+
     "dropdown": {
+
       "infoMenu": [{
           "path": "/macroregion",
           "navTitle": "Macroregion",
@@ -71,34 +73,53 @@
         }
       ]
     }
-
   },
 
   "dashboard": {
     "cards": [{
         "title": "Registered SF",
         "icon": "home",
+        "quantity": 0,
         "button": "Create new SF"
       },
       {
         "title": "SF's on Current Research",
         "icon": "assignment",
+        "quantity": 0,
         "button": "Add SF to Research"
       },
       {
         "title": "Samples collected",
         "icon": "list",
+        "quantity": 0,
         "button": "Collect sample"
       },
       {
         "title": "Registered pests",
         "icon": "bug_report",
+        "quantity": 0,
         "button": "Observe pest evolution"
       }
     ]
   },
 
+  "macroregion": {
+    "title": "Macroregion Management",
+    "create": "Create new Macroregion",
+    "tableHeaders": ["Name", "Actions"]
+  },
+
   "general": {
-    "changeLanguage": "Change language"
+    "changeLanguage": "Change language",
+    "search": "Search",
+    "results": "results per page",
+    "emptyData": "No data to display!",
+    "emptyDataForSearch": "No data to display with search term!",
+    "showing": "Showing from",
+    "to": "to",
+    "of": "of",
+    "from": "from",
+    "registries": "registries",
+    "filtered": "Filtered"
   }
 }

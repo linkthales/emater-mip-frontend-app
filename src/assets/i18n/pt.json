@@ -73,34 +73,53 @@
         }
       ]
     }
-
   },
 
   "dashboard": {
     "cards": [{
         "title": "UR's Cadastradas",
         "icon": "home",
+        "quantity": 0,
         "button": "Criar nova UR"
       },
       {
         "title": "UR's na Pesquisa Atual",
         "icon": "assignment",
+        "quantity": 0,
         "button": "Adicionar UR à Pesquisa"
       },
       {
         "title": "Amostras coletadas",
         "icon": "list",
+        "quantity": 0,
         "button": "Coletar amostra"
       },
       {
         "title": "Pragas registradas",
         "icon": "bug_report",
+        "quantity": 0,
         "button": "Observar evolução das pragas"
       }
     ]
   },
 
+  "macroregion": {
+    "title": "Gerenciamento de Macrorregiões",
+    "create": "Criar nova Macrorregião",
+    "tableHeaders": ["Nome", "Ações"]
+  },
+
   "general": {
-    "changeLanguage": "Alterar idioma"
+    "changeLanguage": "Alterar idioma",
+    "search": "Pesquisar",
+    "results": "resultados por página",
+    "emptyData": "Sem dados cadastrados!",
+    "emptyDataForSearch": "Sem dados cadastrados com o termo pesquisado!",
+    "showing": "Mostrando de",
+    "to": "até",
+    "of": "de",
+    "from": "de",
+    "registries": "registros",
+    "filtered": "Filtrados"
   }
 }

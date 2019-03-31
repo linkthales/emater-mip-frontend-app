@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-// import { MacroRegionComponent } from '../../macroregion/macroregion.component';
+import { MacroRegionComponent } from '../../macroregion/macroregion.component';
 // import { RegionComponent } from '../../region/region.component';
 // import { CityComponent } from '../../city/city.component';
 // import { FarmerComponent } from '../../farmer/farmer.component';
@@ -13,10 +13,10 @@ export const AdminLayoutRoutes: Routes = [
     path: 'dashboard',
     component: DashboardComponent
   },
-  // {
-  //   path: 'macroregion',
-  //   component: MacroRegionComponent
-  // },
+  {
+    path: 'macroregion',
+    component: MacroRegionComponent
+  },
   // {
   //   path: 'region',
   //   component: RegionComponent
