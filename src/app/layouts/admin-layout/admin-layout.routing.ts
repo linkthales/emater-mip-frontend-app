@@ -6,7 +6,7 @@ import { RegionComponent } from '../../region/region.component';
 import { CityComponent } from '../../city/city.component';
 import { FarmerComponent } from '../../farmer/farmer.component';
 import { SupervisorComponent } from '../../supervisor/supervisor.component';
-// import { FieldComponent } from '../../field/field.component';
+import { FieldComponent } from '../../field/field.component';
 
 export const AdminLayoutRoutes: Routes = [
   {
@@ -33,10 +33,10 @@ export const AdminLayoutRoutes: Routes = [
     path: 'supervisor',
     component: SupervisorComponent
   },
-  // {
-  //   path: 'field',
-  //   component: FieldComponent
-  // },
+  {
+    path: 'field',
+    component: FieldComponent
+  },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' }
 ];

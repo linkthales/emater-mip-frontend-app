@@ -133,6 +133,12 @@
     "tableHeaders": ["Name", "E-mail", "Actions"]
   },
 
+  "field": {
+    "title": "Fields Management",
+    "create": "Create new Field",
+    "tableHeaders": ["Identification", "Location", "City", "Farmer", "Supervisor", "Actions"]
+  },
+
   "general": {
     "changeLanguage": "Change language",
     "search": "Search",

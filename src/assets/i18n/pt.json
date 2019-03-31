@@ -133,6 +133,12 @@
     "tableHeaders": ["Nome", "E-mail", "Ações"]
   },
 
+  "field": {
+    "title": "Gerenciamento de Unidades de Referência",
+    "create": "Criar nova Unidade de Referência",
+    "tableHeaders": ["Identificação", "Localização", "Município", "Produtor", "Responsável Técnico", "Ações"]
+  },
+
   "general": {
     "changeLanguage": "Alterar idioma",
     "search": "Pesquisar",
