@@ -25,10 +25,11 @@ export class TableComponent implements OnChanges {
 
   ngOnChanges() {
     this.tableColumns = this.tableHeaders.map((elem, index) => {
-      const card = {};
-      card.title = this.tableHeaders[index];
-      card.width = this.tableWidth[index];
-      card.dataKey = this.tableKeys[index];
+      const card = {
+        title: this.tableHeaders[index],
+        width: this.tableWidth[index],
+        dataKey: this.tableKeys[index],
+      };
 
       return card;
     });

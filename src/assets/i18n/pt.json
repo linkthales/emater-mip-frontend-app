@@ -109,6 +109,12 @@
     "tableHeaders": ["Nome", "Ações"]
   },
 
+  "region": {
+    "title": "Gerenciamento de Regiões",
+    "create": "Criar nova Região",
+    "tableHeaders": ["Nome", "Macrorregião", "Ações"]
+  },
+
   "general": {
     "changeLanguage": "Alterar idioma",
     "search": "Pesquisar",
