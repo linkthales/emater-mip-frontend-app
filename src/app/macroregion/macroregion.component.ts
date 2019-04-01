@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HTTPService } from '../shared/services/http.service';
 import { UtilService } from '../shared/services/utilities.service';
 import { PaginationInstance } from 'ngx-pagination';
 
@@ -13,32 +14,22 @@ export class MacroRegionComponent implements OnInit {
   public maxResults = [10, 25, 50, 100];
   public resultsPerPage = this.maxResults[0];
   public macroregionsTable = [
-    {
-      name: 'Macro Noroeste'
-    },
-    {
-      name: 'Macro Norte'
-    },
-    {
-      name: 'Macro Oeste'
-    },
-    {
-      name: 'Macro Sul'
-    }
+    // {
+    //   name: 'Macro Noroeste'
+    // },
+    // {
+    //   name: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Macro Oeste'
+    // },
+    // {
+    //   name: 'Macro Sul'
+    // }
   ];
   public allMacroregions = this.macroregionsTable;
   public allFilteredMacroregions = this.macroregionsTable;
   public macroregionsOriginalTable: any = [];
-  // public macroregionsColumns: any = [
-  //   {
-  //     title: 'Nome',
-  //     dataKey: 'name'
-  //   },
-  //   {
-  //     title: 'Ações',
-  //     dataKey: ''
-  //   }
-  // ];
   public tableKeys = ['name', ''];
   public tableWidth = [150, 200];
   public config: PaginationInstance = {
@@ -51,23 +42,37 @@ export class MacroRegionComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private notifyService: UtilService
+    private httpService: HTTPService,
+    private utilService: UtilService
   ) {}
 
   ngOnInit() {
-    this.getRegions(1);
+    this.getMacroregions(1);
     this.searchText = this.activatedRoute.snapshot.params.search
       ? this.activatedRoute.snapshot.params.search
       : '';
   }
 
-  getRegions(startPage) {
-    this.loading = false;
+  async getMacroregions(startPage) {
+    this.loading = true;
 
     const startElement = this.resultsPerPage * (startPage - 1);
     const endElement = this.resultsPerPage * startPage;
 
-    this.macroregionsTable = this.allFilteredMacroregions.slice(startElement, endElement);
+    await this.utilService.pause(1000);
+
+    this.httpService.get('macroregions/').subscribe(data => {
+      this.macroregionsTable = data;
+      this.allMacroregions = data;
+      this.allFilteredMacroregions = data;
+
+      this.macroregionsTable = this.allFilteredMacroregions.slice(
+        startElement,
+        endElement
+      );
+
+      this.loading = false;
+    });
   }
 
   setSearch(text) {
@@ -78,7 +83,10 @@ export class MacroRegionComponent implements OnInit {
 
   keyUp(event?) {
     this.config.currentPage = 1;
-    this.allFilteredMacroregions = this.allMacroregions.filter(this.filterContacts, this);
+    this.allFilteredMacroregions = this.allMacroregions.filter(
+      this.filterContacts,
+      this
+    );
     this.macroregionsTable = this.allFilteredMacroregions;
 
     this.resizeTable();
@@ -133,7 +141,7 @@ export class MacroRegionComponent implements OnInit {
 
   onPageChange(number: number) {
     this.config.currentPage = number;
-    this.getRegions(number);
+    this.getMacroregions(number);
   }
 
   doSelect(ev) {}

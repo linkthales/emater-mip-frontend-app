@@ -52,11 +52,11 @@ export class AdminLayoutComponent implements OnInit {
     });
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationStart) {
-        if (event.url != this.lastPoppedUrl) {
+        if (event.url !== this.lastPoppedUrl) {
           this.yScrollStack.push(window.scrollY);
         }
       } else if (event instanceof NavigationEnd) {
-        if (event.url == this.lastPoppedUrl) {
+        if (event.url === this.lastPoppedUrl) {
           this.lastPoppedUrl = undefined;
           window.scrollTo(0, this.yScrollStack.pop());
         } else {
@@ -81,9 +81,9 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   isMaps(path) {
-    let titlee = this.location.prepareExternalUrl(this.location.path());
-    titlee = titlee.slice(1);
-    if (path == titlee) {
+    let title = this.location.prepareExternalUrl(this.location.path());
+    title = title.slice(1);
+    if (path === title) {
       return false;
     } else {
       return true;

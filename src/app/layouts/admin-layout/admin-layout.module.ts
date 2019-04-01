@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { UtilService } from '../../shared/services/utilities.service';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -19,6 +18,9 @@ import { CityComponent } from '../../city/city.component';
 import { FarmerComponent } from '../../farmer/farmer.component';
 import { SupervisorComponent } from '../../supervisor/supervisor.component';
 import { FieldComponent } from '../../field/field.component';
+
+import { HTTPService } from '../../shared/services/http.service';
+import { UtilService } from '../../shared/services/utilities.service';
 
 import 'hammerjs';
 
@@ -46,6 +48,7 @@ import 'hammerjs';
   ],
   exports: [TranslateModule],
   providers: [
+    HTTPService,
     UtilService,
   ]
 })

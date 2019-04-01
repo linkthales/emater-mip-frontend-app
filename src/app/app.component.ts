@@ -6,13 +6,12 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'mip-frontend';
-
   constructor(private translateService: TranslateService) {
     translateService.addLangs(['pt', 'en']);
     translateService.setDefaultLang('pt');
+    translateService.use('pt');
 
     const browserLang = translateService.getBrowserLang();
-    translateService.use(browserLang.match(/pt|en/) ? browserLang : 'en');
+    translateService.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
   }
 }

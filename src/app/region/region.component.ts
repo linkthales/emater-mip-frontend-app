@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UtilService } from '../shared/services/utilities.service';
 import { PaginationInstance } from 'ngx-pagination';
+import { HTTPService } from '../shared/services/http.service';
 
 @Component({
   selector: 'app-region',
@@ -13,115 +14,98 @@ export class RegionComponent implements OnInit {
   public maxResults = [10, 25, 50, 100];
   public resultsPerPage = this.maxResults[0];
   public regionsTable = [
-    {
-      name: 'Apucarana',
-      macroregion: 'Macro Noroeste'
-    },
-    {
-      name: 'Campo Mourão',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Cascavel',
-      macroregion: 'Macro Oeste'
-    },
-    {
-      name: 'Cianorte',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Cornélio Procópio',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Curitiba',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Dois Vizinhos',
-      macroregion: 'Macro Sul'
-    },
-    {
-      name: 'Francisco Beltrão',
-      macroregion: 'Macro Sul'
-    },
-    {
-      name: 'Guarapuava',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Irati',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Ivaiporã',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Laranjeiras do Sul',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Londrina',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Maringá',
-      macroregion: 'Macro Noroeste'
-    },
-    {
-      name: 'Paranaguá',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Paranavaí',
-      macroregion: 'Macro Noroeste'
-    },
-    {
-      name: 'Pato Branco',
-      macroregion: 'Macro Sul'
-    },
-    {
-      name: 'Ponta Grossa',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Sto. Antonio da Platina',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Toledo',
-      macroregion: 'Macro Norte'
-    },
-    {
-      name: 'Umuarama',
-      macroregion: 'Macro Noroeste'
-    },
-    {
-      name: 'União da Vitória',
-      macroregion: 'Macro Sul'
-    }
+    // {
+    //   name: 'Apucarana',
+    //   macroregion: 'Macro Noroeste'
+    // },
+    // {
+    //   name: 'Campo Mourão',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Cascavel',
+    //   macroregion: 'Macro Oeste'
+    // },
+    // {
+    //   name: 'Cianorte',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Cornélio Procópio',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Curitiba',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Dois Vizinhos',
+    //   macroregion: 'Macro Sul'
+    // },
+    // {
+    //   name: 'Francisco Beltrão',
+    //   macroregion: 'Macro Sul'
+    // },
+    // {
+    //   name: 'Guarapuava',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Irati',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Ivaiporã',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Laranjeiras do Sul',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Londrina',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Maringá',
+    //   macroregion: 'Macro Noroeste'
+    // },
+    // {
+    //   name: 'Paranaguá',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Paranavaí',
+    //   macroregion: 'Macro Noroeste'
+    // },
+    // {
+    //   name: 'Pato Branco',
+    //   macroregion: 'Macro Sul'
+    // },
+    // {
+    //   name: 'Ponta Grossa',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Sto. Antonio da Platina',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Toledo',
+    //   macroregion: 'Macro Norte'
+    // },
+    // {
+    //   name: 'Umuarama',
+    //   macroregion: 'Macro Noroeste'
+    // },
+    // {
+    //   name: 'União da Vitória',
+    //   macroregion: 'Macro Sul'
+    // }
   ];
   public allRegions = this.regionsTable;
   public allFilteredRegions = this.regionsTable;
   public regionsOriginalTable: any = [];
-  // public regionsColumns: any = [
-  //   {
-  //     title: 'Nome',
-  //     dataKey: 'name',
-  //     width: 150
-  //   },
-  //   {
-  //     title: 'Macrorregião',
-  //     dataKey: 'macroregion',
-  //     width: 200
-  //   },
-  //   {
-  //     title: 'Ações',
-  //     dataKey: '',
-  //     width: 200
-  //   }
-  // ];
   public tableKeys = ['name', 'macroregion', ''];
   public tableWidth = [150, 200, 200];
   public config: PaginationInstance = {
@@ -134,7 +118,8 @@ export class RegionComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private notifyService: UtilService
+    private httpService: HTTPService,
+    private utilService: UtilService
   ) {}
 
   ngOnInit() {
@@ -144,13 +129,26 @@ export class RegionComponent implements OnInit {
       : '';
   }
 
-  getRegions(startPage) {
-    this.loading = false;
+  async getRegions(startPage) {
+    this.loading = true;
 
     const startElement = this.resultsPerPage * (startPage - 1);
     const endElement = this.resultsPerPage * startPage;
 
-    this.regionsTable = this.allFilteredRegions.slice(startElement, endElement);
+    await this.utilService.pause(1000);
+
+    this.httpService.get('regions/').subscribe(data => {
+      this.regionsTable = data;
+      this.allRegions = data;
+      this.allFilteredRegions = data;
+
+      this.regionsTable = this.allFilteredRegions.slice(
+        startElement,
+        endElement
+      );
+
+      this.loading = false;
+    });
   }
 
   setSearch(text) {
@@ -219,7 +217,10 @@ export class RegionComponent implements OnInit {
     this.getRegions(number);
   }
 
-  doSelect(ev) {}
+  doSelect(number: number) {
+    this.config.itemsPerPage = number;
+    this.getRegions(1);
+  }
 
   doSelectOptions(ev) {}
 }

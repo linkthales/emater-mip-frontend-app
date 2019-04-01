@@ -44,7 +44,6 @@ export const ROUTES: RouteInfo[] = [
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-
 export class SidebarComponent implements OnInit, OnChanges {
   @Input()
   public expanded = false;
@@ -52,10 +51,7 @@ export class SidebarComponent implements OnInit, OnChanges {
   public user: any = {};
   public feedback: any = {};
 
-  constructor(
-    private modalService: NgbModal,
-  ) {
-  }
+  constructor(private modalService: NgbModal) {}
 
   ngOnInit() {
     this.menuItems = ROUTES;
@@ -73,7 +69,7 @@ export class SidebarComponent implements OnInit, OnChanges {
   openModal(content) {
     this.modalService.open(content, { centered: true }).result.then(
       result => {
-        if (result == 'close') {
+        if (result === 'close') {
           this.feedback = {};
         }
       },

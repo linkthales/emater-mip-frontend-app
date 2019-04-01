@@ -12,7 +12,7 @@ export class TableComponent implements OnChanges {
   @Input() tableHeaders: any[];
   @Input() tableKeys: any[];
   @Input() tableWidth: any[];
-  
+
   public tableColumns: any[];
   public loadingIndicator = true;
   public detailsHeight: number;
@@ -43,7 +43,7 @@ export class TableComponent implements OnChanges {
 
     setTimeout(() => {
       if (this.expandedRow) {
-        if (this.expandedRow == row) {
+        if (this.expandedRow === row) {
           this.table.rowDetail.toggleExpandRow(row);
         } else {
           this.table.rowDetail.collapseAllRows();
