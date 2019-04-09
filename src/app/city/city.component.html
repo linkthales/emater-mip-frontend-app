@@ -20,7 +20,7 @@
           <div class="align-row row">
             <div class="col-sm-6 align-left">
               <div class="results-per-page">
-                <ngx-select [noAutoComplete]="true" [(ngModel)]="resultsPerPage" [items]="maxResults"
+                <ngx-select [noAutoComplete]="true" [(ngModel)]="config.itemsPerPage" [items]="maxResults"
                   optionValueField="maxResults" (select)="doSelect($event)" (selectionChanges)="doSelectOptions($event)">
                 </ngx-select>
                 <div>
@@ -39,14 +39,14 @@
             <h3 *ngIf="!searchText">{{ 'general.emptyData' | translate }}</h3>
             <h3 *ngIf="searchText">{{ 'general.emptyDataForSearch' | translate }}</h3>
           </div>
-          <app-table [tableData]="citiesTable" [tableHeaders]="('city.tableHeaders' | translate)" [tableKeys]="tableKeys" [tableWidth]="tableWidth"></app-table>
+          <app-table [tableData]="citiesTable" [tableHeaders]="('city.tableHeaders' | translate)" [tableKeys]="tableKeys"  [tableWidth]="tableWidth" (event)="action($event)"></app-table>
           <div class="align-row row pt-3">
             <div class="col-sm-6 align-left">
             <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ citiesTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ resultsPerPage * config.currentPage < allFilteredCities.length ? resultsPerPage * config.currentPage : allFilteredCities.length }} {{ 'general.of' | translate }} {{ allFilteredCities.length }} {{ 'general.registries' | translate }}.</span>
               <span *ngIf="allCities.length !== allFilteredCities.length"> ({{ 'general.filtered' | translate }} {{ 'general.from' | translate }} {{ allCities.length }} {{ 'general.registries' | translate }})</span>
             </div>
             <div>
-              <ngb-pagination [collectionSize]="allFilteredCities.length" [(page)]="config.currentPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+              <ngb-pagination [collectionSize]="allFilteredCities.length" [(page)]="config.currentPage" [(pageSize)]="config.itemsPerPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
               (pageChange)="onPageChange($event)"></ngb-pagination>
             </div>
           </div>

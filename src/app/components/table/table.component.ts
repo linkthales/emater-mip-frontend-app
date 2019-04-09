@@ -1,4 +1,11 @@
-import { Component, OnChanges, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild
+} from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -12,6 +19,7 @@ export class TableComponent implements OnChanges {
   @Input() tableHeaders: any[];
   @Input() tableKeys: any[];
   @Input() tableWidth: any[];
+  @Output() event: EventEmitter<any> = new EventEmitter();
 
   public tableColumns: any[];
   public loadingIndicator = true;
@@ -20,15 +28,14 @@ export class TableComponent implements OnChanges {
   public expandedRow = null;
   public spanSize = 21;
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnChanges() {
     this.tableColumns = this.tableHeaders.map((elem, index) => {
       const card = {
         title: this.tableHeaders[index],
         width: this.tableWidth[index],
-        dataKey: this.tableKeys[index],
+        dataKey: this.tableKeys[index]
       };
 
       return card;
@@ -83,5 +90,9 @@ export class TableComponent implements OnChanges {
         .querySelectorAll('.datatable-body')[0]
         .setAttribute('style', `height: 700px`);
     }
+  }
+
+  emitEvent(event) {
+    this.event.emit(event);
   }
 }

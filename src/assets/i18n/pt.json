@@ -112,7 +112,7 @@
   "region": {
     "title": "Gerenciamento de Regiões",
     "create": "Criar nova Região",
-    "tableHeaders": ["Nome", "Macrorregião", "Ações"]
+    "tableHeaders": ["Nome", "Macrorregião", "Municípios", "Ações"]
   },
 
   "city": {
@@ -143,6 +143,11 @@
     "changeLanguage": "Alterar idioma",
     "search": "Pesquisar",
     "results": "resultados por página",
+    "name": "Nome",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "edit": "Alterar",
+    "delete": "Apagar",
     "emptyData": "Sem dados cadastrados!",
     "emptyDataForSearch": "Sem dados cadastrados com o termo pesquisado!",
     "showing": "Mostrando de",

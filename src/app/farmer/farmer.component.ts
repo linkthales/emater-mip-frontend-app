@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UtilService } from '../shared/services/utilities.service';
 import { PaginationInstance } from 'ngx-pagination';
+import { HTTPService } from '../shared/services/http.service';
 
 @Component({
   selector: 'app-farmer',
@@ -11,44 +12,15 @@ import { PaginationInstance } from 'ngx-pagination';
 export class FarmerComponent implements OnInit {
   public searchText = '';
   public maxResults = [10, 25, 50, 100];
-  public resultsPerPage = this.maxResults[0];
-  public farmersTable = [
-    {
-      name: 'Clemente Carnieletto'
-    },
-    {
-      name: 'Gilson Dariva'
-    },
-    {
-      name: 'Luiz Arcangelo Giordani'
-    },
-    {
-      name: 'Maurílio Bertoldo'
-    },
-    {
-      name: 'Rafael Oldoni'
-    }
-  ];
+  public farmersTable = [];
   public allFarmers = this.farmersTable;
   public allFilteredFarmers = this.farmersTable;
   public farmersOriginalTable: any = [];
-  // public farmersColumns: any = [
-  //   {
-  //     title: 'Nome',
-  //     dataKey: 'name',
-  //     width: 150
-  //   },
-  //   {
-  //     title: 'Ações',
-  //     dataKey: '',
-  //     width: 200
-  //   }
-  // ];
-  public tableKeys = ['name', ''];
-  public tableWidth = [150, 200];
+  public tableKeys = ['name', 'edit'];
+  public tableWidth = [150, 100];
   public config: PaginationInstance = {
     id: 'advanced',
-    itemsPerPage: 10,
+    itemsPerPage: this.maxResults[0],
     currentPage: 1
   };
   public loading = true;
@@ -56,23 +28,39 @@ export class FarmerComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private notifyService: UtilService
+    private httpService: HTTPService,
+    private utilService: UtilService
   ) {}
 
   ngOnInit() {
-    this.getRegions(1);
+    this.getFarmers(1);
     this.searchText = this.activatedRoute.snapshot.params.search
       ? this.activatedRoute.snapshot.params.search
       : '';
   }
 
-  getRegions(startPage) {
-    this.loading = false;
+  async getFarmers(startPage) {
+    this.loading = true;
 
-    const startElement = this.resultsPerPage * (startPage - 1);
-    const endElement = this.resultsPerPage * startPage;
+    const startElement = this.config.itemsPerPage * (startPage - 1);
+    const endElement = this.config.itemsPerPage * startPage;
 
-    this.farmersTable = this.allFilteredFarmers.slice(startElement, endElement);
+    await this.utilService.pause(1000);
+
+    this.httpService.get('farmers').subscribe(data => {
+      this.farmersTable = data;
+      this.allFarmers = data;
+      this.allFilteredFarmers = data;
+
+      this.farmersTable = this.allFilteredFarmers.slice(
+        startElement,
+        endElement
+      );
+
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
   }
 
   setSearch(text) {
@@ -83,7 +71,7 @@ export class FarmerComponent implements OnInit {
 
   keyUp(event?) {
     this.config.currentPage = 1;
-    this.allFilteredFarmers = this.allFarmers.filter(this.filterContacts, this);
+    this.allFilteredFarmers = this.allFarmers.filter(this.filterFarmers, this);
     this.farmersTable = this.allFilteredFarmers;
 
     this.resizeTable();
@@ -97,20 +85,20 @@ export class FarmerComponent implements OnInit {
     }
   }
 
-  filterContacts(regions) {
-    for (const key in regions) {
-      if (regions.hasOwnProperty(key)) {
+  filterFarmers(farmers) {
+    for (const key in farmers) {
+      if (farmers.hasOwnProperty(key)) {
         if (
-          this.formatObject(regions[key]).includes(
+          this.formatObject(farmers[key]).includes(
             this.formatText(this.searchText)
           )
         ) {
           return true;
         }
-        for (const childKey in regions[key]) {
-          if (regions[key].hasOwnProperty(childKey)) {
+        for (const childKey in farmers[key]) {
+          if (farmers[key].hasOwnProperty(childKey)) {
             if (
-              this.formatObject(regions[key][childKey]).includes(
+              this.formatObject(farmers[key][childKey]).includes(
                 this.formatText(this.searchText)
               )
             ) {
@@ -136,12 +124,23 @@ export class FarmerComponent implements OnInit {
       .replace(/[\u0300-\u036f]/g, '');
   }
 
-  onPageChange(number: number) {
-    this.config.currentPage = number;
-    this.getRegions(number);
+  onPageChange(pageNumber: number) {
+    this.config.currentPage = pageNumber;
+    this.getFarmers(pageNumber);
   }
 
-  doSelect(ev) {}
+  doSelect(itemsPerPage: number) {
+    this.config.itemsPerPage = itemsPerPage;
+    this.getFarmers(1);
+  }
 
   doSelectOptions(ev) {}
+
+  action(event) {
+    if (event === 'edit') {
+      console.log(event);
+    } else {
+      console.log(event);
+    }
+  }
 }

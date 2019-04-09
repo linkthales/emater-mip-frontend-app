@@ -112,7 +112,7 @@
   "region": {
     "title": "Regions Management",
     "create": "Create new Region",
-    "tableHeaders": ["Name", "Macroregion", "Actions"]
+    "tableHeaders": ["Name", "Macroregion", "Cities", "Actions"]
   },
 
   "city": {
@@ -143,6 +143,11 @@
     "changeLanguage": "Change language",
     "search": "Search",
     "results": "results per page",
+    "name": "Name",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
     "emptyData": "No data to display!",
     "emptyDataForSearch": "No data to display with search term!",
     "showing": "Showing from",

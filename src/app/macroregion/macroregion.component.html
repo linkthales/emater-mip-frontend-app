@@ -10,7 +10,7 @@
             <h2 class="m-0">{{ 'macroregion.title' | translate }}</h2>
           </div>
           <div>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" (click)="openModal(create)">
               <span>
                 <i class="fas fa-plus-circle"></i> {{ 'macroregion.create' | translate }}
               </span>
@@ -20,7 +20,7 @@
         <div class="align-row row">
           <div class="col-sm-6 align-left">
             <div class="results-per-page">
-              <ngx-select [noAutoComplete]="true" [(ngModel)]="resultsPerPage" [items]="maxResults"
+              <ngx-select [noAutoComplete]="true" [(ngModel)]="config.itemsPerPage" [items]="maxResults"
                 optionValueField="maxResults" (select)="doSelect($event)" (selectionChanges)="doSelectOptions($event)">
               </ngx-select>
               <div>
@@ -39,14 +39,14 @@
           <h3 *ngIf="!searchText">{{ 'general.emptyData' | translate }}</h3>
           <h3 *ngIf="searchText">{{ 'general.emptyDataForSearch' | translate }}</h3>
         </div>
-        <app-table [tableData]="macroregionsTable" [tableHeaders]="('macroregion.tableHeaders' | translate)" [tableKeys]="tableKeys" [tableWidth]="tableWidth"></app-table>
+        <app-table [tableData]="macroregionsTable" [tableHeaders]="('macroregion.tableHeaders' | translate)" [tableKeys]="tableKeys" [tableWidth]="tableWidth" (event)="action($event)"></app-table>
         <div class="align-row row pt-3">
           <div class="col-sm-6 align-left">
           <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ macroregionsTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ resultsPerPage * config.currentPage < allFilteredMacroregions.length ? resultsPerPage * config.currentPage : allFilteredMacroregions.length }} {{ 'general.of' | translate }} {{ allFilteredMacroregions.length }} {{ 'general.registries' | translate }}.</span>
             <span *ngIf="allMacroregions.length !== allFilteredMacroregions.length"> ({{ 'general.filtered' | translate }} {{ 'general.from' | translate }} {{ allMacroregions.length }} {{ 'general.registries' | translate }})</span>
           </div>
           <div>
-            <ngb-pagination [collectionSize]="allFilteredMacroregions.length" [(page)]="config.currentPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+            <ngb-pagination [collectionSize]="allFilteredMacroregions.length" [(page)]="config.currentPage" [(pageSize)]="config.itemsPerPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
             (pageChange)="onPageChange($event)"></ngb-pagination>
           </div>
         </div>
@@ -54,3 +54,26 @@
     </div>
   </div>
 </div>
+
+<ng-template #create let-c="close">
+  <div class="modalBox">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ 'macroregion.create' | translate }}</h4>
+      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form action="">
+        <div class="descriptionInput">
+          <label for="">{{ 'general.name' | translate }}</label>
+          <input type="text" class="form-control" name="name" />
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-link btn-secondary" (click)="closeModal()">{{ 'general.cancel' | translate }}</button>
+      <button type="button" class="btn btn-primary" (click)="closeModal()">{{ 'general.save' | translate }}</button>
+    </div>
+  </div>
+</ng-template>

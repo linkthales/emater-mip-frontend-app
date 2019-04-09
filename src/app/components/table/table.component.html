@@ -144,10 +144,14 @@
               </div>
             </ng-template>
 
-            <ng-template *ngIf="column.dataKey !== 'interested' && column.dataKey !== 'icon'"
-              ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-              <span>{{ value ? value : 'Não informado' }}</span>
-              <!-- <span>{{ value ? value : '—————————' }}</span> -->
+            <ng-template *ngIf="column.dataKey == 'edit'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+              let-expanded="expanded" ngx-datatable-cell-template>
+              <a [routerLink]="" class="text-warning" (click)="emitEvent('edit')">
+                <i class="material-icons" data-toggle="tooltip" title="{{ 'general.edit' | translate }}"></i>
+              </a>
+              <a [routerLink]="" class="text-danger" (click)="emitEvent('delete')">
+                <i class="material-icons" data-toggle="tooltip" title="{{ 'general.delete' | translate }}"></i>
+              </a>
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>

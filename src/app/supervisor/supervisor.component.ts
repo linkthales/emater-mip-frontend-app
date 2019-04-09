@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UtilService } from '../shared/services/utilities.service';
 import { PaginationInstance } from 'ngx-pagination';
+import { HTTPService } from '../shared/services/http.service';
 
 @Component({
   selector: 'app-supervisor',
@@ -11,50 +12,15 @@ import { PaginationInstance } from 'ngx-pagination';
 export class SupervisorComponent implements OnInit {
   public searchText = '';
   public maxResults = [10, 25, 50, 100];
-  public resultsPerPage = this.maxResults[0];
-  public supervisorsTable = [
-    {
-      name: 'Ivanderson Borelli',
-      email: 'borelli@emater.pr.gov.br',
-    },
-    {
-      name: 'José Francisco Vilas Boas',
-      email: 'villas@emater.pr.gov.br',
-    },
-    {
-      name: 'Lari Maroli',
-      email: 'maroli@emater.pr.gov.br',
-    },
-    {
-      name: 'Vilmar Grando',
-      email: 'grando@emater.pr.gov.br',
-    },
-  ];
+  public supervisorsTable = [];
   public allSupervisors = this.supervisorsTable;
   public allFilteredSupervisors = this.supervisorsTable;
   public supervisorsOriginalTable: any = [];
-  // public supervisorsColumns: any = [
-  //   {
-  //     title: 'Nome',
-  //     dataKey: 'name',
-  //     width: 150
-  //   },
-  //   {
-  //     title: 'E-mail',
-  //     dataKey: 'email',
-  //     width: 200
-  //   },
-  //   {
-  //     title: 'Ações',
-  //     dataKey: '',
-  //     width: 200
-  //   }
-  // ];
-  public tableKeys = ['name', 'email', ''];
-  public tableWidth = [150, 200, 200];
+  public tableKeys = ['name', 'email', 'edit'];
+  public tableWidth = [200, 200, 100];
   public config: PaginationInstance = {
     id: 'advanced',
-    itemsPerPage: 10,
+    itemsPerPage: this.maxResults[0],
     currentPage: 1
   };
   public loading = true;
@@ -62,23 +28,39 @@ export class SupervisorComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private notifyService: UtilService
+    private httpService: HTTPService,
+    private utilService: UtilService
   ) {}
 
   ngOnInit() {
-    this.getRegions(1);
+    this.getSupervisors(1);
     this.searchText = this.activatedRoute.snapshot.params.search
       ? this.activatedRoute.snapshot.params.search
       : '';
   }
 
-  getRegions(startPage) {
-    this.loading = false;
+  async getSupervisors(startPage) {
+    this.loading = true;
 
-    const startElement = this.resultsPerPage * (startPage - 1);
-    const endElement = this.resultsPerPage * startPage;
+    const startElement = this.config.itemsPerPage * (startPage - 1);
+    const endElement = this.config.itemsPerPage * startPage;
 
-    this.supervisorsTable = this.allFilteredSupervisors.slice(startElement, endElement);
+    await this.utilService.pause(1000);
+
+    this.httpService.get('supervisors').subscribe(data => {
+      this.supervisorsTable = data;
+      this.allSupervisors = data;
+      this.allFilteredSupervisors = data;
+
+      this.supervisorsTable = this.allFilteredSupervisors.slice(
+        startElement,
+        endElement
+      );
+
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
   }
 
   setSearch(text) {
@@ -89,7 +71,7 @@ export class SupervisorComponent implements OnInit {
 
   keyUp(event?) {
     this.config.currentPage = 1;
-    this.allFilteredSupervisors = this.allSupervisors.filter(this.filterContacts, this);
+    this.allFilteredSupervisors = this.allSupervisors.filter(this.filterSupervisors, this);
     this.supervisorsTable = this.allFilteredSupervisors;
 
     this.resizeTable();
@@ -103,20 +85,20 @@ export class SupervisorComponent implements OnInit {
     }
   }
 
-  filterContacts(regions) {
-    for (const key in regions) {
-      if (regions.hasOwnProperty(key)) {
+  filterSupervisors(supervisors) {
+    for (const key in supervisors) {
+      if (supervisors.hasOwnProperty(key)) {
         if (
-          this.formatObject(regions[key]).includes(
+          this.formatObject(supervisors[key]).includes(
             this.formatText(this.searchText)
           )
         ) {
           return true;
         }
-        for (const childKey in regions[key]) {
-          if (regions[key].hasOwnProperty(childKey)) {
+        for (const childKey in supervisors[key]) {
+          if (supervisors[key].hasOwnProperty(childKey)) {
             if (
-              this.formatObject(regions[key][childKey]).includes(
+              this.formatObject(supervisors[key][childKey]).includes(
                 this.formatText(this.searchText)
               )
             ) {
@@ -142,12 +124,23 @@ export class SupervisorComponent implements OnInit {
       .replace(/[\u0300-\u036f]/g, '');
   }
 
-  onPageChange(number: number) {
-    this.config.currentPage = number;
-    this.getRegions(number);
+  onPageChange(pageNumber: number) {
+    this.config.currentPage = pageNumber;
+    this.getSupervisors(pageNumber);
   }
 
-  doSelect(ev) {}
+  doSelect(itemsPerPage: number) {
+    this.config.itemsPerPage = itemsPerPage;
+    this.getSupervisors(1);
+  }
 
   doSelectOptions(ev) {}
+
+  action(event) {
+    if (event === 'edit') {
+      console.log(event);
+    } else {
+      console.log(event);
+    }
+  }
 }

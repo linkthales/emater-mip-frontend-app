@@ -20,7 +20,7 @@
           <div class="align-row row">
             <div class="col-sm-6 align-left">
               <div class="results-per-page">
-                <ngx-select [noAutoComplete]="true" [(ngModel)]="resultsPerPage" [items]="maxResults"
+                <ngx-select [noAutoComplete]="true" [(ngModel)]="config.itemsPerPage" [items]="maxResults"
                   optionValueField="maxResults" (select)="doSelect($event)" (selectionChanges)="doSelectOptions($event)">
                 </ngx-select>
                 <div>
@@ -39,14 +39,14 @@
             <h3 *ngIf="!searchText">{{ 'general.emptyData' | translate }}</h3>
             <h3 *ngIf="searchText">{{ 'general.emptyDataForSearch' | translate }}</h3>
           </div>
-          <app-table [tableData]="farmersTable" [tableHeaders]="('farmer.tableHeaders' | translate)" [tableKeys]="tableKeys" [tableWidth]="tableWidth"></app-table>
+          <app-table [tableData]="farmersTable" [tableHeaders]="('farmer.tableHeaders' | translate)" [tableKeys]="tableKeys"  [tableWidth]="tableWidth" (event)="action($event)"></app-table>
           <div class="align-row row pt-3">
             <div class="col-sm-6 align-left">
             <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ farmersTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ resultsPerPage * config.currentPage < allFilteredFarmers.length ? resultsPerPage * config.currentPage : allFilteredFarmers.length }} {{ 'general.of' | translate }} {{ allFilteredFarmers.length }} {{ 'general.registries' | translate }}.</span>
               <span *ngIf="allFarmers.length !== allFilteredFarmers.length"> ({{ 'general.filtered' | translate }} {{ 'general.from' | translate }} {{ allFarmers.length }} {{ 'general.registries' | translate }})</span>
             </div>
             <div>
-              <ngb-pagination [collectionSize]="allFilteredFarmers.length" [(page)]="config.currentPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+              <ngb-pagination [collectionSize]="allFilteredFarmers.length" [(page)]="config.currentPage" [(pageSize)]="config.itemsPerPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
               (pageChange)="onPageChange($event)"></ngb-pagination>
             </div>
           </div>
