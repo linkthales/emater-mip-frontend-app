@@ -146,10 +146,10 @@
 
             <ng-template *ngIf="column.dataKey == 'edit'" let-rowIndex="rowIndex" let-value="value" let-row="row"
               let-expanded="expanded" ngx-datatable-cell-template>
-              <a [routerLink]="" class="text-warning" (click)="emitEvent('edit')">
+              <a [routerLink]="" class="text-warning" (click)="emitEvent('edit', row)">
                 <i class="material-icons" data-toggle="tooltip" title="{{ 'general.edit' | translate }}"></i>
               </a>
-              <a [routerLink]="" class="text-danger" (click)="emitEvent('delete')">
+              <a [routerLink]="" class="text-danger" (click)="emitEvent('delete', row)">
                 <i class="material-icons" data-toggle="tooltip" title="{{ 'general.delete' | translate }}"></i>
               </a>
             </ng-template>

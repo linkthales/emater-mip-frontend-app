@@ -20,12 +20,6 @@
           "icon": "fas fa-users"
         },
         {
-          "path": "/city",
-          "navTitle": "City",
-          "title": "City",
-          "icon": "fas fa-shopping-cart"
-        },
-        {
           "path": "/farmer",
           "navTitle": "Farmer",
           "title": "Farmer",
@@ -106,36 +100,45 @@
   "macroregion": {
     "title": "Macroregions Management",
     "create": "Create new Macroregion",
+    "edit": "Edit Macroregion",
+    "delete": "Delete Macroregion",
+    "deleteMessage": "Are you sure you want to delete the Macroregion",
     "tableHeaders": ["Name", "Actions"]
   },
 
   "region": {
     "title": "Regions Management",
     "create": "Create new Region",
+    "edit": "Edit Region",
+    "delete": "Delete Region",
+    "deleteMessage": "Are you sure you want to delete the Region",
     "tableHeaders": ["Name", "Macroregion", "Cities", "Actions"]
-  },
-
-  "city": {
-    "title": "Cities Management",
-    "create": "Create new City",
-    "tableHeaders": ["Name", "Region", "Macroregion", "Actions"]
   },
 
   "farmer": {
     "title": "Farmers Management",
     "create": "Create new Farmer",
+    "edit": "Edit Farmer",
+    "delete": "Delete Farmer",
+    "deleteMessage": "Are you sure you want to delete the Farmer",
     "tableHeaders": ["Name", "Actions"]
   },
 
   "supervisor": {
     "title": "Supervisors Management",
     "create": "Create new Supervisor",
+    "edit": "Edit Supervisor",
+    "delete": "Delete Supervisor",
+    "deleteMessage": "Are you sure you want to delete the Supervisor",
     "tableHeaders": ["Name", "E-mail", "Actions"]
   },
 
   "field": {
     "title": "Fields Management",
     "create": "Create new Field",
+    "edit": "Edit Field",
+    "delete": "Delete Field",
+    "deleteMessage": "Are you sure you want to delete the Field",
     "tableHeaders": ["Identification", "Location", "City", "Farmer", "Supervisor", "Actions"]
   },
 
@@ -144,10 +147,13 @@
     "search": "Search",
     "results": "results per page",
     "name": "Name",
+    "create": "Create",
     "save": "Save",
+    "saveChanges": "Save Changes",
     "cancel": "Cancel",
     "edit": "Edit",
     "delete": "Delete",
+    "cannotUndo": "This action CANNOT be undone",
     "emptyData": "No data to display!",
     "emptyDataForSearch": "No data to display with search term!",
     "showing": "Showing from",

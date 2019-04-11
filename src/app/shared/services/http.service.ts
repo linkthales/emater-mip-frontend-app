@@ -24,20 +24,20 @@ export class HTTPService {
     return this.http.get(this.backendURL + url, this.httpOptions);
   }
 
-  post(url, httpOptions?): Observable<any> {
+  post(url, body: any = {}, httpOptions?): Observable<any> {
     if (httpOptions) {
       this.httpOptions = httpOptions;
     }
 
-    return this.http.post(this.backendURL + url, this.httpOptions);
+    return this.http.post(this.backendURL + url, body, this.httpOptions);
   }
 
-  put(url, httpOptions?): Observable<any> {
+  put(url, body: any = {}, httpOptions?): Observable<any> {
     if (httpOptions) {
       this.httpOptions = httpOptions;
     }
 
-    return this.http.put(this.backendURL + url, this.httpOptions);
+    return this.http.put(this.backendURL + url, body, this.httpOptions);
   }
 
   patch(url, httpOptions?): Observable<any> {
@@ -46,5 +46,13 @@ export class HTTPService {
     }
 
     return this.http.patch(this.backendURL + url, this.httpOptions);
+  }
+
+  delete(url, httpOptions?): Observable<any> {
+    if (httpOptions) {
+      this.httpOptions = httpOptions;
+    }
+
+    return this.http.delete(this.backendURL + url, this.httpOptions);
   }
 }

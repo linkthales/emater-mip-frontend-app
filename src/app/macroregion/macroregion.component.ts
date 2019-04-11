@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { HTTPService } from '../shared/services/http.service';
@@ -12,11 +12,17 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./macroregion.component.scss']
 })
 export class MacroRegionComponent implements OnInit {
+  @ViewChild('edit') edit: ElementRef;
+  @ViewChild('delete') delete: ElementRef;
+
   public searchText = '';
   public maxResults = [10, 25, 50, 100];
   public macroregionsTable = [];
+  public validForm = false;
+  public validFormFields = {name: false};
   public allMacroregions = this.macroregionsTable;
   public allFilteredMacroregions = this.macroregionsTable;
+  public selectedMacroregion: any = {};
   public macroregionsOriginalTable: any = [];
   public tableKeys = ['name', 'edit'];
   public tableWidth = [150, 100];
@@ -64,6 +70,7 @@ export class MacroRegionComponent implements OnInit {
 
       this.loading = false;
     }, error => {
+      console.error(error);
       this.loading = false;
     });
   }
@@ -144,7 +151,8 @@ export class MacroRegionComponent implements OnInit {
 
   doSelectOptions(ev) {}
 
-  openModal(content) {
+  openModal(content, newModal?) {
+    this.selectedMacroregion = newModal ? {name: ''} : this.selectedMacroregion;
     this.modalInstance = this.modalService.open(content, {});
   }
 
@@ -152,11 +160,57 @@ export class MacroRegionComponent implements OnInit {
     this.modalInstance.close();
   }
 
+  createMacroregion() {
+    this.httpService.post('macroregions', this.selectedMacroregion).subscribe(data => {
+      this.getMacroregions(1);
+      this.closeModal();
+    }, error => {
+      console.error(error);
+    });
+  }
+
+  updateMacroregion() {
+    this.httpService.put(`macroregions/${this.selectedMacroregion.id}`, this.selectedMacroregion).subscribe(data => {
+      this.getMacroregions(1);
+      this.closeModal();
+    }, error => {
+      console.error(error);
+    });
+  }
+  
+  deleteMacroregion() {
+    this.httpService.delete(`macroregions/${this.selectedMacroregion.id}`).subscribe(data => {
+      this.getMacroregions(1);
+      this.closeModal();
+    }, error => {
+      console.error(error);
+    });
+  }
+
   action(event) {
-    if (event === 'edit') {
-      console.log(event);
+    this.selectedMacroregion = { ...event.object };
+    this.openModal(this[event.event]);
+  }
+
+  validateInput(param, ev?) {
+    if (param === 'name') {
+      if(this.selectedMacroregion[param].length >= 5) {
+        this.validFormFields.name = true;
+        ev.path[1].setAttribute('class', 'form-group has-success');
+      } else {
+        this.validFormFields.name = false;
+        ev.path[1].setAttribute('class', 'form-group has-danger');
+      }
+    }
+
+    this.validateForm();
+  }
+
+  validateForm() {
+    if (this.validFormFields.name) {
+      this.validForm = true;
     } else {
-      console.log(event);
+      this.validForm = false;
     }
   }
 }

@@ -34,7 +34,7 @@
               <button class="close-icon" type="reset" (click)="setSearch('')"></button>
             </form>
           </div>
-  
+
           <div *ngIf="!farmersTable.length">
             <h3 *ngIf="!searchText">{{ 'general.emptyData' | translate }}</h3>
             <h3 *ngIf="searchText">{{ 'general.emptyDataForSearch' | translate }}</h3>
@@ -42,7 +42,7 @@
           <app-table [tableData]="farmersTable" [tableHeaders]="('farmer.tableHeaders' | translate)" [tableKeys]="tableKeys"  [tableWidth]="tableWidth" (event)="action($event)"></app-table>
           <div class="align-row row pt-3">
             <div class="col-sm-6 align-left">
-            <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ farmersTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ resultsPerPage * config.currentPage < allFilteredFarmers.length ? resultsPerPage * config.currentPage : allFilteredFarmers.length }} {{ 'general.of' | translate }} {{ allFilteredFarmers.length }} {{ 'general.registries' | translate }}.</span>
+            <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ farmersTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ config.itemsPerPage * config.currentPage < allFilteredFarmers.length ? config.itemsPerPage * config.currentPage : allFilteredFarmers.length }} {{ 'general.of' | translate }} {{ allFilteredFarmers.length }} {{ 'general.registries' | translate }}.</span>
               <span *ngIf="allFarmers.length !== allFilteredFarmers.length"> ({{ 'general.filtered' | translate }} {{ 'general.from' | translate }} {{ allFarmers.length }} {{ 'general.registries' | translate }})</span>
             </div>
             <div>
@@ -54,4 +54,3 @@
       </div>
     </div>
   </div>
-  

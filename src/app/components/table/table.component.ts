@@ -92,7 +92,7 @@ export class TableComponent implements OnChanges {
     }
   }
 
-  emitEvent(event) {
-    this.event.emit(event);
+  emitEvent(event, object) {
+    this.event.emit({ event: event, object: object });
   }
 }

@@ -20,12 +20,6 @@
           "icon": "fas fa-users"
         },
         {
-          "path": "/city",
-          "navTitle": "Município",
-          "title": "Município",
-          "icon": "fas fa-shopping-cart"
-        },
-        {
           "path": "/farmer",
           "navTitle": "Produtor",
           "title": "Produtor",
@@ -106,36 +100,45 @@
   "macroregion": {
     "title": "Gerenciamento de Macrorregiões",
     "create": "Criar nova Macrorregião",
+    "edit": "Alterar Macrorregião",
+    "delete": "Apagar Macrorregião",
+    "deleteMessage": "Você tem certeza que deseja apagar a Macrorregião",
     "tableHeaders": ["Nome", "Ações"]
   },
 
   "region": {
     "title": "Gerenciamento de Regiões",
     "create": "Criar nova Região",
+    "edit": "Alterar Região",
+    "delete": "Apagar Região",
+    "deleteMessage": "Você tem certeza que deseja apagar a Região",
     "tableHeaders": ["Nome", "Macrorregião", "Municípios", "Ações"]
-  },
-
-  "city": {
-    "title": "Gerenciamento de Municípios",
-    "create": "Criar novo Município",
-    "tableHeaders": ["Nome", "Região", "Macrorregião", "Ações"]
   },
 
   "farmer": {
     "title": "Gerenciamento de Produtores",
     "create": "Criar novo Produtor",
+    "edit": "Alterar Produtor",
+    "delete": "Apagar Produtor",
+    "deleteMessage": "Você tem certeza que deseja apagar a Produtor",
     "tableHeaders": ["Nome", "Ações"]
   },
 
   "supervisor": {
     "title": "Gerenciamento de Responsáveis Técnicos",
     "create": "Criar novo Responsável Técnico",
+    "edit": "Alterar Responsável Técnico",
+    "delete": "Apagar Responsável Técnico",
+    "deleteMessage": "Você tem certeza que deseja apagar a Responsável Técnico",
     "tableHeaders": ["Nome", "E-mail", "Ações"]
   },
 
   "field": {
     "title": "Gerenciamento de Unidades de Referência",
     "create": "Criar nova Unidade de Referência",
+    "edit": "Alterar Unidade de Referência",
+    "delete": "Apagar Unidade de Referência",
+    "deleteMessage": "Você tem certeza que deseja apagar a Unidade de Referência",
     "tableHeaders": ["Identificação", "Localização", "Município", "Produtor", "Responsável Técnico", "Ações"]
   },
 
@@ -144,10 +147,13 @@
     "search": "Pesquisar",
     "results": "resultados por página",
     "name": "Nome",
+    "create": "Criar",
     "save": "Salvar",
+    "saveChanges": "Salvar Alterações",
     "cancel": "Cancelar",
     "edit": "Alterar",
     "delete": "Apagar",
+    "cannotUndo": "Esta ação NÃO pode ser desfeita",
     "emptyData": "Sem dados cadastrados!",
     "emptyDataForSearch": "Sem dados cadastrados com o termo pesquisado!",
     "showing": "Mostrando de",

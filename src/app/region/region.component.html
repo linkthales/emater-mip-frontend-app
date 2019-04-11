@@ -42,7 +42,7 @@
         <app-table [tableData]="regionsTable" [tableHeaders]="('region.tableHeaders' | translate)" [tableKeys]="tableKeys" [tableWidth]="tableWidth" (event)="action($event)"></app-table>
         <div class="align-row row pt-3">
           <div class="col-sm-6 align-left">
-          <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ regionsTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ resultsPerPage * config.currentPage < allFilteredRegions.length ? resultsPerPage * config.currentPage : allFilteredRegions.length }} {{ 'general.of' | translate }} {{ allFilteredRegions.length }} {{ 'general.registries' | translate }}.</span>
+          <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ regionsTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ config.itemsPerPage * config.currentPage < allFilteredRegions.length ? config.itemsPerPage * config.currentPage : allFilteredRegions.length }} {{ 'general.of' | translate }} {{ allFilteredRegions.length }} {{ 'general.registries' | translate }}.</span>
             <span *ngIf="allRegions.length !== allFilteredRegions.length"> ({{ 'general.filtered' | translate }} {{ 'general.from' | translate }} {{ allRegions.length }} {{ 'general.registries' | translate }})</span>
           </div>
           <div>
