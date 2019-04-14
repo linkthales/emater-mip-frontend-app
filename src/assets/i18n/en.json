@@ -163,6 +163,7 @@
     "results": "results per page",
     "name": "Name",
     "email": "E-mail",
+    "location": "Location",
     "create": "Create",
     "save": "Save",
     "saveChanges": "Save Changes",

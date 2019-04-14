@@ -144,8 +144,6 @@ export class FarmerComponent implements OnInit {
     this.getFarmers(1);
   }
 
-  doSelectOptions(ev) {}
-
   action(event) {
     this.selectedFarmer = { ...event.object };
     this.openModal(this[event.event]);

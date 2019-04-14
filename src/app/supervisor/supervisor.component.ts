@@ -163,8 +163,6 @@ export class SupervisorComponent implements OnInit {
     }
   }
 
-  doSelectOptions(ev) {}
-
   action(event) {
     this.selectedSupervisor = { ...event.object };
     this.openModal(this[event.event]);

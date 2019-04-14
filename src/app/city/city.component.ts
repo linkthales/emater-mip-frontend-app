@@ -45,14 +45,14 @@ export class CityComponent implements OnInit {
     const startElement = this.config.itemsPerPage * (startPage - 1);
     const endElement = this.config.itemsPerPage * startPage;
 
-    
+
     await this.utilService.pause(1000);
-    
+
     this.httpService.get('cities?_expand=region&_expand=macroregion').subscribe(data => {
       this.citiesTable = data;
       this.allCities = data;
       this.allFilteredCities = data;
-      
+
       this.citiesTable = this.allFilteredCities.slice(startElement, endElement);
 
       this.loading = false;
@@ -131,8 +131,6 @@ export class CityComponent implements OnInit {
     this.config.itemsPerPage = itemsPerPage;
     this.getCities(1);
   }
-
-  doSelectOptions(ev) {}
 
   action(event) {
     if (event === 'edit') {

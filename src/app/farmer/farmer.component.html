@@ -21,7 +21,7 @@
           <div class="col-sm-6 align-left">
             <div class="results-per-page">
               <ngx-select [noAutoComplete]="true" [(ngModel)]="config.itemsPerPage" [items]="maxResults"
-                optionValueField="maxResults" (select)="doSelect($event)" (selectionChanges)="doSelectOptions($event)">
+                optionValueField="maxResults" (select)="doSelect($event, 'maxResults')">
               </ngx-select>
               <div>
                 <div class="caption-text">{{ 'general.results' | translate }}</div>

@@ -151,8 +151,6 @@ export class MacroRegionComponent implements OnInit {
     this.getMacroregions(1);
   }
 
-  doSelectOptions(ev) {}
-
   action(event) {
     this.selectedMacroregion = { ...event.object };
     this.openModal(this[event.event]);

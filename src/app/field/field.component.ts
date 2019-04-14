@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UtilService } from '../shared/services/utilities.service';
 import { PaginationInstance } from 'ngx-pagination';
 import { HTTPService } from '../shared/services/http.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-field',
@@ -10,30 +11,45 @@ import { HTTPService } from '../shared/services/http.service';
   styleUrls: ['./field.component.scss']
 })
 export class FieldComponent implements OnInit {
+  @ViewChild('edit') edit: ElementRef;
+  @ViewChild('delete') delete: ElementRef;
+
   public searchText = '';
   public maxResults = [10, 25, 50, 100];
   public fieldsTable = [];
+  public citiesList = [];
+  public farmersList = [];
+  public supervisorsList = [];
+  public validForm = false;
+  public validFormFields = { name: false, location: false, cityId: false, farmerId: false, supervisorId: false };
+  public selectedField: any = {};
   public allFields = this.fieldsTable;
   public allFilteredFields = this.fieldsTable;
   public fieldsOriginalTable: any = [];
   public tableKeys = ['name', 'location', 'city.name', 'farmer.name', 'supervisor.name', 'edit'];
-  public tableWidth = [150, 200, 200, 200, 200, 100];
+  public tableWidth = [150, 100, 200, 200, 200, 100];
   public config: PaginationInstance = {
     id: 'advanced',
     itemsPerPage: this.maxResults[0],
-    currentPage: 1
+    currentPage: 1,
+    totalItems: 0
   };
+  public modalInstance = null;
   public loading = true;
   public user: any = {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal,
     private httpService: HTTPService,
     private utilService: UtilService
   ) {}
 
   ngOnInit() {
     this.getFields(1);
+    this.getCities();
+    this.getFarmers();
+    this.getSupervisors();
     this.searchText = this.activatedRoute.snapshot.params.search
       ? this.activatedRoute.snapshot.params.search
       : '';
@@ -61,6 +77,39 @@ export class FieldComponent implements OnInit {
     }, error => {
       this.loading = false;
     });
+  }
+
+  async getCities() {
+    this.httpService.get('cities').subscribe(
+      data => {
+        this.citiesList = data;
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  async getFarmers() {
+    this.httpService.get('farmers').subscribe(
+      data => {
+        this.farmersList = data;
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  async getSupervisors() {
+    this.httpService.get('supervisors').subscribe(
+      data => {
+        this.supervisorsList = data;
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   setSearch(text) {
@@ -129,18 +178,117 @@ export class FieldComponent implements OnInit {
     this.getFields(pageNumber);
   }
 
-  doSelect(itemsPerPage: number) {
-    this.config.itemsPerPage = itemsPerPage;
-    this.getFields(1);
+  doSelect(page, type) {
+    if (type === 'maxResults') {
+      this.config.currentPage = 1;
+      this.config.itemsPerPage = page;
+      this.getFields(1);
+    } else {
+      this.selectedField[type] = page;
+      this.validateInput(type);
+    }
   }
 
-  doSelectOptions(ev) {}
-
   action(event) {
-    if (event === 'edit') {
-      console.log(event);
+    console.log(event.object)
+    this.selectedField = { ...event.object };
+    this.openModal(this[event.event]);
+  }
+
+  openModal(content, newModal?) {
+    if (!newModal) {
+      Object.keys(this.validFormFields).map(
+        key => (this.validFormFields[key] = true)
+      );
+    }
+    this.validForm = !newModal;
+
+    this.selectedField = newModal
+      ? { name: '' }
+      : this.selectedField;
+    this.modalInstance = this.modalService.open(content, {});
+  }
+
+  closeModal() {
+    this.modalInstance.close();
+  }
+
+  createField() {
+    this.httpService.post('fields', this.selectedField).subscribe(
+      data => {
+        this.getFields(1);
+        this.closeModal();
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  updateField() {
+    this.httpService
+      .put(
+        `fields/${this.selectedField.id}`,
+        this.selectedField
+      )
+      .subscribe(
+        data => {
+          this.getFields(1);
+          this.closeModal();
+        },
+        error => {
+          console.error(error);
+        }
+      );
+  }
+
+  deleteField() {
+    this.httpService
+      .delete(`fields/${this.selectedField.id}`)
+      .subscribe(
+        data => {
+          this.getFields(1);
+          this.closeModal();
+        },
+        error => {
+          console.error(error);
+        }
+      );
+  }
+
+  validateInput(param, ev?) {
+    if (param === 'name' || param === 'location') {
+      if (this.selectedField[param].length >= 5) {
+        this.validFormFields[param] = true;
+        ev.path[1].setAttribute('class', 'form-group has-success');
+      } else {
+        this.validFormFields[param] = false;
+        ev.path[1].setAttribute('class', 'form-group has-danger');
+      }
+    } else if (param === 'cityId' || param === 'farmerId' || param === 'supervisorId') {
+      if (this.selectedField[param] !== null) {
+        this.validFormFields[param] = true;
+        // ev.path[1].setAttribute('class', 'form-group has-success');
+      } else {
+        this.validFormFields[param] = false;
+        // ev.path[1].setAttribute('class', 'form-group has-danger');
+      }
+    }
+
+    this.validateForm();
+  }
+
+  validateForm() {
+    if (
+      this.validFormFields.name &&
+      this.validFormFields.location &&
+      this.validFormFields.cityId &&
+      this.validFormFields.farmerId &&
+      this.validFormFields.supervisorId
+    ) {
+      this.validForm = true;
     } else {
-      console.log(event);
+      this.validForm = false;
     }
   }
 }
