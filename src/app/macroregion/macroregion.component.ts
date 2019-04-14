@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
 import { HTTPService } from '../shared/services/http.service';
 import { UtilService } from '../shared/services/utilities.service';
 import { PaginationInstance } from 'ngx-pagination';

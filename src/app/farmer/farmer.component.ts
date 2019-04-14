@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UtilService } from '../shared/services/utilities.service';
 import { PaginationInstance } from 'ngx-pagination';
 import { HTTPService } from '../shared/services/http.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-farmer',
@@ -10,9 +11,15 @@ import { HTTPService } from '../shared/services/http.service';
   styleUrls: ['./farmer.component.scss']
 })
 export class FarmerComponent implements OnInit {
+  @ViewChild('edit') edit: ElementRef;
+  @ViewChild('delete') delete: ElementRef;
+
   public searchText = '';
   public maxResults = [10, 25, 50, 100];
   public farmersTable = [];
+  public validForm = false;
+  public validFormFields = { name: false };
+  public selectedFarmer: any = {};
   public allFarmers = this.farmersTable;
   public allFilteredFarmers = this.farmersTable;
   public farmersOriginalTable: any = [];
@@ -21,13 +28,16 @@ export class FarmerComponent implements OnInit {
   public config: PaginationInstance = {
     id: 'advanced',
     itemsPerPage: this.maxResults[0],
-    currentPage: 1
+    currentPage: 1,
+    totalItems: 0
   };
+  public modalInstance = null;
   public loading = true;
   public user: any = {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal,
     private httpService: HTTPService,
     private utilService: UtilService
   ) {}
@@ -137,10 +147,90 @@ export class FarmerComponent implements OnInit {
   doSelectOptions(ev) {}
 
   action(event) {
-    if (event === 'edit') {
-      console.log(event);
+    this.selectedFarmer = { ...event.object };
+    this.openModal(this[event.event]);
+  }
+
+  openModal(content, newModal?) {
+    if (!newModal) {
+      Object.keys(this.validFormFields).map(
+        key => (this.validFormFields[key] = true)
+      );
+    }
+    this.validForm = !newModal;
+
+    this.selectedFarmer = newModal
+      ? { name: '' }
+      : this.selectedFarmer;
+    this.modalInstance = this.modalService.open(content, {});
+  }
+
+  closeModal() {
+    this.modalInstance.close();
+  }
+
+  createFarmer() {
+    this.httpService.post('farmers', this.selectedFarmer).subscribe(
+      data => {
+        this.getFarmers(1);
+        this.closeModal();
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  updateFarmer() {
+    this.httpService
+      .put(
+        `farmers/${this.selectedFarmer.id}`,
+        this.selectedFarmer
+      )
+      .subscribe(
+        data => {
+          this.getFarmers(1);
+          this.closeModal();
+        },
+        error => {
+          console.error(error);
+        }
+      );
+  }
+
+  deleteFarmer() {
+    this.httpService
+      .delete(`farmers/${this.selectedFarmer.id}`)
+      .subscribe(
+        data => {
+          this.getFarmers(1);
+          this.closeModal();
+        },
+        error => {
+          console.error(error);
+        }
+      );
+  }
+
+  validateInput(param, ev?) {
+    if (param === 'name') {
+      if (this.selectedFarmer[param].length >= 5) {
+        this.validFormFields.name = true;
+        ev.path[1].setAttribute('class', 'form-group has-success');
+      } else {
+        this.validFormFields.name = false;
+        ev.path[1].setAttribute('class', 'form-group has-danger');
+      }
+    }
+
+    this.validateForm();
+  }
+
+  validateForm() {
+    if (this.validFormFields.name) {
+      this.validForm = true;
     } else {
-      console.log(event);
+      this.validForm = false;
     }
   }
 }

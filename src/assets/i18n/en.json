@@ -144,7 +144,7 @@
     "edit": "Edit Supervisor",
     "delete": "Delete Supervisor",
     "deleteMessage": "Are you sure you want to delete the Supervisor",
-    "tableHeaders": ["Name", "E-mail", "Actions"]
+    "tableHeaders": ["Name", "E-mail", "Region", "Actions"]
   },
 
   "field": {
@@ -162,6 +162,7 @@
     "search": "Search",
     "results": "results per page",
     "name": "Name",
+    "email": "E-mail",
     "create": "Create",
     "save": "Save",
     "saveChanges": "Save Changes",

@@ -144,7 +144,7 @@
     "edit": "Alterar Responsável Técnico",
     "delete": "Apagar Responsável Técnico",
     "deleteMessage": "Você tem certeza que deseja apagar a Responsável Técnico",
-    "tableHeaders": ["Nome", "E-mail", "Ações"]
+    "tableHeaders": ["Nome", "E-mail", "Região", "Ações"]
   },
 
   "field": {
@@ -162,6 +162,7 @@
     "search": "Pesquisar",
     "results": "resultados por página",
     "name": "Nome",
+    "email": "E-mail",
     "create": "Criar",
     "save": "Salvar",
     "saveChanges": "Salvar Alterações",

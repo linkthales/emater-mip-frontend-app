@@ -1,56 +1,141 @@
 <div id="supervisors-wrapper">
-    <div class="card-body">
-      <div id="loader" class="config-loader" *ngIf="loading">
-        <app-loading></app-loading>
-      </div>
-      <div *ngIf="!loading">
-        <div>
-          <div class="align-row row">
-            <div class="col-sm-8 align-left">
-              <h2 class="m-0">{{ 'supervisor.title' | translate }}</h2>
-            </div>
-            <div>
-              <button type="button" class="btn btn-primary">
-                <span>
-                  <i class="fas fa-plus-circle"></i> {{ 'supervisor.create' | translate }}
-                </span>
-              </button>
-            </div>
+  <div class="card-body">
+    <div id="loader" class="config-loader" *ngIf="loading">
+      <app-loading></app-loading>
+    </div>
+    <div *ngIf="!loading">
+      <div>
+        <div class="align-row row">
+          <div class="col-sm-8 align-left">
+            <h2 class="m-0">{{ 'supervisor.title' | translate }}</h2>
           </div>
-          <div class="align-row row">
-            <div class="col-sm-6 align-left">
-              <div class="results-per-page">
-                <ngx-select [noAutoComplete]="true" [(ngModel)]="config.itemsPerPage" [items]="maxResults"
-                  optionValueField="maxResults" (select)="doSelect($event)" (selectionChanges)="doSelectOptions($event)">
-                </ngx-select>
-                <div>
-                  <div class="caption-text">{{ 'general.results' | translate }}</div>
-                </div>
+          <div>
+            <button type="button" class="btn btn-primary" (click)="openModal(create, 'new')">
+              <span>
+                <i class="fas fa-plus-circle"></i> {{ 'supervisor.create' | translate }}
+              </span>
+            </button>
+          </div>
+        </div>
+        <div class="align-row row">
+          <div class="col-sm-6 align-left">
+            <div class="results-per-page">
+              <ngx-select [noAutoComplete]="true" [(ngModel)]="config.itemsPerPage" [items]="maxResults"
+                optionValueField="maxResults" (select)="doSelect($event)" (selectionChanges)="doSelectOptions($event)">
+              </ngx-select>
+              <div>
+                <div class="caption-text">{{ 'general.results' | translate }}</div>
               </div>
             </div>
-            <form>
-              <input class="form-control" placeholder="{{ 'general.search' | translate }}.." type="text" (keyup)="keyUp($event)" required
-                [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" />
-              <button class="close-icon" type="reset" (click)="setSearch('')"></button>
-            </form>
           </div>
+          <form>
+            <input class="form-control" placeholder="{{ 'general.search' | translate }}.." type="text" (keyup)="keyUp($event)" required
+              [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" />
+            <button class="close-icon" type="reset" (click)="setSearch('')"></button>
+          </form>
+        </div>
 
-          <div *ngIf="!supervisorsTable.length">
-            <h3 *ngIf="!searchText">{{ 'general.emptyData' | translate }}</h3>
-            <h3 *ngIf="searchText">{{ 'general.emptyDataForSearch' | translate }}</h3>
+        <div *ngIf="!supervisorsTable.length">
+          <h3 *ngIf="!searchText">{{ 'general.emptyData' | translate }}</h3>
+          <h3 *ngIf="searchText">{{ 'general.emptyDataForSearch' | translate }}</h3>
+        </div>
+        <app-table [tableData]="supervisorsTable" [tableHeaders]="('supervisor.tableHeaders' | translate)" [tableKeys]="tableKeys"  [tableWidth]="tableWidth" (event)="action($event)"></app-table>
+        <div class="align-row row pt-3">
+          <div class="col-sm-6 align-left">
+          <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ supervisorsTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ config.itemsPerPage * config.currentPage < allFilteredSupervisors.length ? config.itemsPerPage * config.currentPage : allFilteredSupervisors.length }} {{ 'general.of' | translate }} {{ allFilteredSupervisors.length }} {{ 'general.registries' | translate }}.</span>
+            <span *ngIf="allSupervisors.length !== allFilteredSupervisors.length"> ({{ 'general.filtered' | translate }} {{ 'general.from' | translate }} {{ allSupervisors.length }} {{ 'general.registries' | translate }})</span>
           </div>
-          <app-table [tableData]="supervisorsTable" [tableHeaders]="('supervisor.tableHeaders' | translate)" [tableKeys]="tableKeys"  [tableWidth]="tableWidth" (event)="action($event)"></app-table>
-          <div class="align-row row pt-3">
-            <div class="col-sm-6 align-left">
-            <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ supervisorsTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ config.itemsPerPage * config.currentPage < allFilteredSupervisors.length ? config.itemsPerPage * config.currentPage : allFilteredSupervisors.length }} {{ 'general.of' | translate }} {{ allFilteredSupervisors.length }} {{ 'general.registries' | translate }}.</span>
-              <span *ngIf="allSupervisors.length !== allFilteredSupervisors.length"> ({{ 'general.filtered' | translate }} {{ 'general.from' | translate }} {{ allSupervisors.length }} {{ 'general.registries' | translate }})</span>
-            </div>
-            <div>
-              <ngb-pagination [collectionSize]="allFilteredSupervisors.length" [(page)]="config.currentPage" [(pageSize)]="config.itemsPerPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-              (pageChange)="onPageChange($event)"></ngb-pagination>
-            </div>
+          <div>
+            <ngb-pagination [collectionSize]="allFilteredSupervisors.length" [(page)]="config.currentPage" [(pageSize)]="config.itemsPerPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+            (pageChange)="onPageChange($event)"></ngb-pagination>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<ng-template #create let-c="close">
+  <div class="modalBox">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ 'supervisor.create' | translate }}</h4>
+      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form action="">
+        <div class="descriptionInput">
+          <label for="name">{{ 'general.name' | translate }}</label>
+          <input class="form-control" type="text" class="form-control" name="name" (keyup)="validateInput('name', $event)" [(ngModel)]="selectedSupervisor.name"/>
+        </div><br>
+        <div class="descriptionInput">
+          <label for="">{{ 'general.email' | translate }}</label>
+          <input class="form-control" type="text" class="form-control" name="email" (keyup)="validateInput('email', $event)" [(ngModel)]="selectedSupervisor.email"/>
+        </div><br>
+        <label>{{ 'region.name' | translate }}:</label>
+        <div class="card-selects">
+          <ngx-select [(ngModel)]="selectedSupervisor.regionId" [items]="regionsList" name="regionId"
+            optionValueField="id" optionTextField="name" (select)="doSelect($event, 'regionId')"></ngx-select>
+        </div><br>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-link btn-secondary" (click)="closeModal()">{{ 'general.cancel' | translate }}</button>
+      <button type="button" class="btn btn-success" (click)="createSupervisor()" [disabled]="!validForm">{{ 'general.create' | translate }}</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #edit let-c="close">
+  <div class="modalBox">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ 'supervisor.edit' | translate }}</h4>
+      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form action="">
+        <div class="descriptionInput">
+          <label for="name">{{ 'general.name' | translate }}</label>
+          <input class="form-control" type="text" class="form-control" name="name" (keyup)="validateInput('name', $event)" [(ngModel)]="selectedSupervisor.name"/>
+        </div><br>
+        <div class="descriptionInput">
+          <label for="">{{ 'general.email' | translate }}</label>
+          <input class="form-control" type="text" class="form-control" name="email" (keyup)="validateInput('email', $event)" [(ngModel)]="selectedSupervisor.email"/>
+        </div><br>
+        <label>{{ 'region.name' | translate }}:</label>
+        <div class="card-selects">
+          <ngx-select [(ngModel)]="selectedSupervisor.regionId" [items]="regionsList" name="regionId"
+            optionValueField="id" optionTextField="name" (select)="doSelect($event, 'regionId')"></ngx-select>
+        </div><br>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-link btn-secondary" (click)="closeModal()">{{ 'general.cancel' | translate }}</button>
+      <button type="button" class="btn btn-primary" (click)="updateSupervisor()" [disabled]="!validForm">{{ 'general.saveChanges' | translate }}</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #delete let-c="close">
+  <div class="modalBox">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ 'supervisor.delete' | translate }}</h4>
+      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="descriptionInput">
+          <h5 class="m-0">{{ 'supervisor.deleteMessage' | translate }} "<span class="delete">{{ selectedSupervisor.name }}</span>"?</h5><br>
+          <h5 class="important">{{ 'general.cannotUndo' | translate }}</h5>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-link btn-secondary" (click)="closeModal()">{{ 'general.cancel' | translate }}</button>
+      <button type="button" class="btn btn-danger" (click)="deleteSupervisor()">{{ 'general.delete' | translate }}</button>
+    </div>
+  </div>
+</ng-template>
