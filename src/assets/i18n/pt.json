@@ -98,6 +98,7 @@
   },
 
   "macroregion": {
+    "name": "Macrorregião",
     "title": "Gerenciamento de Macrorregiões",
     "create": "Criar nova Macrorregião",
     "edit": "Alterar Macrorregião",
@@ -107,6 +108,7 @@
   },
 
   "region": {
+    "name": "Região",
     "title": "Gerenciamento de Regiões",
     "create": "Criar nova Região",
     "edit": "Alterar Região",
@@ -115,7 +117,18 @@
     "tableHeaders": ["Nome", "Macrorregião", "Municípios", "Ações"]
   },
 
+  "city": {
+    "name": "Município",
+    "title": "Gerenciamento de Municípios",
+    "create": "Criar novo Município",
+    "edit": "Alterar Município",
+    "delete": "Apagar Município",
+    "deleteMessage": "Você tem certeza que deseja apagar o Município",
+    "tableHeaders": ["Nome", "Macrorregião", "Municípios", "Ações"]
+  },
+
   "farmer": {
+    "name": "Produtor",
     "title": "Gerenciamento de Produtores",
     "create": "Criar novo Produtor",
     "edit": "Alterar Produtor",
@@ -125,6 +138,7 @@
   },
 
   "supervisor": {
+    "name": "Responsável Técnico",
     "title": "Gerenciamento de Responsáveis Técnicos",
     "create": "Criar novo Responsável Técnico",
     "edit": "Alterar Responsável Técnico",
@@ -134,6 +148,7 @@
   },
 
   "field": {
+    "name": "Unidade de Referência",
     "title": "Gerenciamento de Unidades de Referência",
     "create": "Criar nova Unidade de Referência",
     "edit": "Alterar Unidade de Referência",

@@ -10,7 +10,7 @@
             <h2 class="m-0">{{ 'region.title' | translate }}</h2>
           </div>
           <div>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" (click)="openModal(create, 'new')">
               <span>
                 <i class="fas fa-plus-circle"></i> {{ 'region.create' | translate }}
               </span>
@@ -21,7 +21,7 @@
           <div class="col-sm-6 align-left">
             <div class="results-per-page">
               <ngx-select [noAutoComplete]="true" [(ngModel)]="config.itemsPerPage" [items]="maxResults"
-                optionValueField="maxResults" (select)="doSelect($event)" (selectionChanges)="doSelectOptions($event)">
+                optionValueField="maxResults" (select)="doSelect($event, 'maxResults')">
               </ngx-select>
               <div>
                 <div class="caption-text">{{ 'general.results' | translate }}</div>
@@ -54,3 +54,96 @@
     </div>
   </div>
 </div>
+
+<ng-template #create let-c="close">
+  <div class="modalBox">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ 'region.create' | translate }}</h4>
+      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form action="">
+        <div class="descriptionInput">
+          <label for="name">{{ 'general.name' | translate }}</label>
+          <input class="form-control" type="text" class="form-control" name="name" (keyup)="validateInput('name', $event)" [(ngModel)]="selectedRegion.name"/>
+        </div><br>
+        <label>{{ 'macroregion.name' | translate }}:</label>
+        <div class="card-selects">
+          <ngx-select [(ngModel)]="selectedRegion.macroregionId" [items]="macroregionsList" name="macroregionId"
+            optionValueField="id" optionTextField="name" (select)="doSelect($event, 'macroregionId')"></ngx-select>
+          <!-- <select [ngModel]="selectedRegion.macroregionId" (ngModelChange)="doSelect($event, 'macroregionId')" name="macroregionId" class="form-control">
+            <option *ngFor="let macroregion of macroregionsList" [value]="macroregion.id">{{ macroregion.name }}</option>
+          </select> -->
+        </div><br>
+        <label>{{ 'city.name' | translate }}:</label>
+        <div class="card-selects">
+          <ngx-select [(ngModel)]="selectedRegion.cityId" [items]="citiesList" name="cityId"
+            optionValueField="id" optionTextField="name" (select)="doSelect($event, 'cityId')"></ngx-select>
+          <!-- <select [ngModel]="selectedRegion.macroregionId" (ngModelChange)="doSelect($event, 'cityId')" name="cityId" class="form-control">
+            <option *ngFor="let city of citiesList" [value]="city.id">{{ city.name }}</option>
+          </select> -->
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-link btn-secondary" (click)="closeModal()">{{ 'general.cancel' | translate }}</button>
+      <button type="button" class="btn btn-success" (click)="createRegion()" [disabled]="!validForm">{{ 'general.create' | translate }}</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #edit let-c="close">
+  <div class="modalBox">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ 'region.edit' | translate }}</h4>
+      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form action="">
+        <div class="descriptionInput">
+          <label for="">{{ 'general.name' | translate }}</label>
+          <input class="form-control" type="text" class="form-control" name="name" (keyup)="validateInput('name', $event)" [(ngModel)]="selectedRegion.name"/>
+        </div><br>
+        <label>{{ 'macroregion.name' | translate }}:</label>
+        <div class="card-selects">
+          <ngx-select [(ngModel)]="selectedRegion.macroregionId" [items]="macroregionsList" name="macroregionId"
+            optionValueField="id" optionTextField="name" (select)="doSelect($event, 'macroregionId')"></ngx-select>
+        </div><br>
+        <label>{{ 'city.name' | translate }}:</label>
+        <div class="card-selects">
+          <ngx-select [(ngModel)]="selectedRegion.cityId" [items]="citiesList" name="cityId"
+            optionValueField="id" optionTextField="name" (select)="doSelect($event, 'cityId')"></ngx-select>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-link btn-secondary" (click)="closeModal()">{{ 'general.cancel' | translate }}</button>
+      <button type="button" class="btn btn-primary" (click)="updateRegion()" [disabled]="!validForm">{{ 'general.saveChanges' | translate }}</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #delete let-c="close">
+  <div class="modalBox">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ 'region.delete' | translate }}</h4>
+      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="descriptionInput">
+          <h5 class="m-0">{{ 'region.deleteMessage' | translate }} "<span class="delete">{{ selectedRegion.name }}</span>"?</h5><br>
+          <h5 class="important">{{ 'general.cannotUndo' | translate }}</h5>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-link btn-secondary" (click)="closeModal()">{{ 'general.cancel' | translate }}</button>
+      <button type="button" class="btn btn-danger" (click)="deleteRegion()">{{ 'general.delete' | translate }}</button>
+    </div>
+  </div>
+</ng-template>

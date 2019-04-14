@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UtilService } from '../shared/services/utilities.service';
 import { PaginationInstance } from 'ngx-pagination';
 import { HTTPService } from '../shared/services/http.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-region',
@@ -10,9 +11,17 @@ import { HTTPService } from '../shared/services/http.service';
   styleUrls: ['./region.component.scss']
 })
 export class RegionComponent implements OnInit {
+  @ViewChild('edit') edit: ElementRef;
+  @ViewChild('delete') delete: ElementRef;
+
   public searchText = '';
   public maxResults = [10, 25, 50, 100];
   public regionsTable = [];
+  public macroregionsList = [];
+  public citiesList = [];
+  public validForm = false;
+  public validFormFields = { name: false, macroregionId: false, cityId: false };
+  public selectedRegion: any = {};
   public allRegions = this.regionsTable;
   public allFilteredRegions = this.regionsTable;
   public regionsOriginalTable: any = [];
@@ -23,17 +32,21 @@ export class RegionComponent implements OnInit {
     itemsPerPage: this.maxResults[0],
     currentPage: 1
   };
+  public modalInstance = null;
   public loading = true;
   public user: any = {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal,
     private httpService: HTTPService,
     private utilService: UtilService
   ) {}
 
   ngOnInit() {
     this.getRegions(1);
+    this.getMacroregions();
+    this.getCities();
     this.searchText = this.activatedRoute.snapshot.params.search
       ? this.activatedRoute.snapshot.params.search
       : '';
@@ -61,7 +74,30 @@ export class RegionComponent implements OnInit {
         this.loading = false;
       },
       error => {
+        console.error(error);
         this.loading = false;
+      }
+    );
+  }
+
+  async getMacroregions() {
+    this.httpService.get('macroregions').subscribe(
+      data => {
+        this.macroregionsList = data;
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  async getCities() {
+    this.httpService.get('cities').subscribe(
+      data => {
+        this.citiesList = data;
+      },
+      error => {
+        console.error(error);
       }
     );
   }
@@ -132,18 +168,108 @@ export class RegionComponent implements OnInit {
     this.getRegions(pageNumber);
   }
 
-  doSelect(itemsPerPage: number) {
-    this.config.itemsPerPage = itemsPerPage;
-    this.getRegions(1);
+  doSelect(page, type) {
+    if (type === 'maxResults') {
+      this.config.currentPage = 1;
+      this.config.itemsPerPage = page;
+      this.getRegions(1);
+    } else {
+      this.selectedRegion[type] = page;
+      this.validateInput(type);
+    }
   }
 
-  doSelectOptions(ev) {}
-
   action(event) {
-    if (event === 'edit') {
-      console.log(event);
+    this.selectedRegion = { ...event.object, cityId: 1 };
+    this.openModal(this[event.event]);
+  }
+
+  openModal(content, newModal?) {
+    Object.keys(this.validFormFields).map(
+      key => (this.validFormFields[key] = !newModal)
+    );
+
+    this.validForm = !newModal;
+
+    this.selectedRegion = newModal
+      ? { name: '', macroregionId: null, cityId: null }
+      : this.selectedRegion;
+    this.modalInstance = this.modalService.open(content, {});
+  }
+
+  closeModal() {
+    this.modalInstance.close();
+  }
+
+  createRegion() {
+    this.httpService.post('regions', this.selectedRegion).subscribe(
+      data => {
+        this.getRegions(1);
+        this.closeModal();
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  updateRegion() {
+    this.httpService
+      .put(`regions/${this.selectedRegion.id}`, this.selectedRegion)
+      .subscribe(
+        data => {
+          this.getRegions(1);
+          this.closeModal();
+        },
+        error => {
+          console.error(error);
+        }
+      );
+  }
+
+  deleteRegion() {
+    this.httpService.delete(`regions/${this.selectedRegion.id}`).subscribe(
+      data => {
+        this.getRegions(1);
+        this.closeModal();
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  validateInput(param, ev?) {
+    if (param === 'name') {
+      if (this.selectedRegion[param].length >= 5) {
+        this.validFormFields.name = true;
+        ev.path[1].setAttribute('class', 'form-group has-success');
+      } else {
+        this.validFormFields.name = false;
+        ev.path[1].setAttribute('class', 'form-group has-danger');
+      }
+    } else if (param === 'macroregionId' || param === 'cityId') {
+      if (this.selectedRegion[param] !== null) {
+        this.validFormFields[param] = true;
+        // ev.path[1].setAttribute('class', 'form-group has-success');
+      } else {
+        this.validFormFields[param] = false;
+        // ev.path[1].setAttribute('class', 'form-group has-danger');
+      }
+    }
+
+    this.validateForm();
+  }
+
+  validateForm() {
+    if (
+      this.validFormFields.name &&
+      this.validFormFields.macroregionId &&
+      this.validFormFields.cityId
+    ) {
+      this.validForm = true;
     } else {
-      console.log(event);
+      this.validForm = false;
     }
   }
 }

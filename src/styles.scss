@@ -36,7 +36,7 @@ ngx-select {
 }
 
 .ngx-select__selected, .ngx-select__toggle {
-  width: 70px;
+  width: 100%;
   margin: 0;
 }
 
@@ -46,7 +46,7 @@ ngx-select {
 }
 
 a.ngx-select__item.dropdown-item, ul.ngx-select__choices.dropdown-menu.show, li.ngx-select__item-group {
-  max-width: 70px;
+  max-width: 100%;
   min-width: 0;
 }
 

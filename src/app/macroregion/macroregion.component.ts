@@ -19,10 +19,10 @@ export class MacroRegionComponent implements OnInit {
   public maxResults = [10, 25, 50, 100];
   public macroregionsTable = [];
   public validForm = false;
-  public validFormFields = {name: false};
+  public validFormFields = { name: false };
+  public selectedMacroregion: any = {};
   public allMacroregions = this.macroregionsTable;
   public allFilteredMacroregions = this.macroregionsTable;
-  public selectedMacroregion: any = {};
   public macroregionsOriginalTable: any = [];
   public tableKeys = ['name', 'edit'];
   public tableWidth = [150, 100];
@@ -58,21 +58,24 @@ export class MacroRegionComponent implements OnInit {
 
     await this.utilService.pause(1000);
 
-    this.httpService.get('macroregions').subscribe(data => {
-      this.macroregionsTable = data;
-      this.allMacroregions = data;
-      this.allFilteredMacroregions = data;
+    this.httpService.get('macroregions').subscribe(
+      data => {
+        this.macroregionsTable = data;
+        this.allMacroregions = data;
+        this.allFilteredMacroregions = data;
 
-      this.macroregionsTable = this.allFilteredMacroregions.slice(
-        startElement,
-        endElement
-      );
+        this.macroregionsTable = this.allFilteredMacroregions.slice(
+          startElement,
+          endElement
+        );
 
-      this.loading = false;
-    }, error => {
-      console.error(error);
-      this.loading = false;
-    });
+        this.loading = false;
+      },
+      error => {
+        console.error(error);
+        this.loading = false;
+      }
+    );
   }
 
   setSearch(text) {
@@ -151,8 +154,22 @@ export class MacroRegionComponent implements OnInit {
 
   doSelectOptions(ev) {}
 
+  action(event) {
+    this.selectedMacroregion = { ...event.object };
+    this.openModal(this[event.event]);
+  }
+
   openModal(content, newModal?) {
-    this.selectedMacroregion = newModal ? {name: ''} : this.selectedMacroregion;
+    if (!newModal) {
+      Object.keys(this.validFormFields).map(
+        key => (this.validFormFields[key] = true)
+      );
+    }
+    this.validForm = !newModal;
+
+    this.selectedMacroregion = newModal
+      ? { name: '' }
+      : this.selectedMacroregion;
     this.modalInstance = this.modalService.open(content, {});
   }
 
@@ -161,40 +178,51 @@ export class MacroRegionComponent implements OnInit {
   }
 
   createMacroregion() {
-    this.httpService.post('macroregions', this.selectedMacroregion).subscribe(data => {
-      this.getMacroregions(1);
-      this.closeModal();
-    }, error => {
-      console.error(error);
-    });
+    this.httpService.post('macroregions', this.selectedMacroregion).subscribe(
+      data => {
+        this.getMacroregions(1);
+        this.closeModal();
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   updateMacroregion() {
-    this.httpService.put(`macroregions/${this.selectedMacroregion.id}`, this.selectedMacroregion).subscribe(data => {
-      this.getMacroregions(1);
-      this.closeModal();
-    }, error => {
-      console.error(error);
-    });
-  }
-  
-  deleteMacroregion() {
-    this.httpService.delete(`macroregions/${this.selectedMacroregion.id}`).subscribe(data => {
-      this.getMacroregions(1);
-      this.closeModal();
-    }, error => {
-      console.error(error);
-    });
+    this.httpService
+      .put(
+        `macroregions/${this.selectedMacroregion.id}`,
+        this.selectedMacroregion
+      )
+      .subscribe(
+        data => {
+          this.getMacroregions(1);
+          this.closeModal();
+        },
+        error => {
+          console.error(error);
+        }
+      );
   }
 
-  action(event) {
-    this.selectedMacroregion = { ...event.object };
-    this.openModal(this[event.event]);
+  deleteMacroregion() {
+    this.httpService
+      .delete(`macroregions/${this.selectedMacroregion.id}`)
+      .subscribe(
+        data => {
+          this.getMacroregions(1);
+          this.closeModal();
+        },
+        error => {
+          console.error(error);
+        }
+      );
   }
 
   validateInput(param, ev?) {
     if (param === 'name') {
-      if(this.selectedMacroregion[param].length >= 5) {
+      if (this.selectedMacroregion[param].length >= 5) {
         this.validFormFields.name = true;
         ev.path[1].setAttribute('class', 'form-group has-success');
       } else {
