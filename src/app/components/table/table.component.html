@@ -1,157 +1,196 @@
 <ngx-datatable *ngIf="tableData.length" #myTable class="bootstrap fixed-header expandable"
-          [loadingIndicator]="loadingIndicator" [rows]="tableData" columnMode="'force'" [headerHeight]="30"
-          [footerHeight]="0" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" tourAnchor="tableContacts" id="tableContacts">
+  [loadingIndicator]="loadingIndicator" [rows]="tableData" columnMode="force" [headerHeight]="30"
+  [footerHeight]="0" [rowHeight]="40" [scrollbarV]="false" [scrollbarH]="true">
 
-          <ngx-datatable-row-detail [rowHeight]="detailsHeight" #myDetailRow (toggle)="onDetailToggle($event)">
-            <ng-template let-row="row" let-rowIndex="rowIndex" let-expanded="expanded"
-              ngx-datatable-row-detail-template>
-              <div class="table-details">
-                <div class="table-info">
-                  <ul>
-                    <li *ngIf="row.additionalInfo.address">
-                      <b>Endereço:</b> {{ row.additionalInfo.address.street }}, {{ row.additionalInfo.address.number
-                      }} <span *ngIf="row.additionalInfo.address.complement">{{
-                        row.additionalInfo.address.complement }}</span> ({{ row.additionalInfo.address.city }} - {{
-                      row.additionalInfo.address.state }})
-                    </li>
-                    <li *ngIf="row.additionalInfo.cpf">
-                      <b>CPF:</b> {{ row.additionalInfo.cpf }}
-                    </li>
-                    <li *ngIf="row.additionalInfo.birthDate">
-                      <b>Nascimento:</b> {{ row.additionalInfo.birthDate.slice(0, 10) | formatDate: 'DD/MM/YYYY' }}
-                    </li>
-                    <li *ngIf="row.additionalInfo.nationality">
-                      <b>Nacionalidade:</b> {{ row.additionalInfo.nationality }}
-                    </li>
-                    <li *ngIf="row.additionalInfo.sex">
-                      <b>Sexo:</b> {{ row.additionalInfo.sex }}
-                    </li>
-                    <li *ngIf="row.additionalInfo.studies">
-                      <b>Estudou ensino médio em escola:</b> {{ row.additionalInfo.studies }}
-                    </li>
-                    <li *ngIf="row.additionalInfo.lastFormationYear">
-                      <b>Terminou últimos estudos em:</b> {{ row.additionalInfo.lastFormationYear }}
-                    </li>
-                  </ul>
-                </div>
-                <div class="table-info">
-                  <ul *ngIf="row.scheduledExam">
-                    <li *ngIf="row.scheduledExam.firstCourse">
-                      <b>Primeira opção:</b> {{ row.scheduledExam.firstCourse }}
-                    </li>
-                    <li *ngIf="row.scheduledExam.secondCourse">
-                      <b>Segunda opção:</b> {{ row.scheduledExam.secondCourse }}
-                    </li>
-                    <li *ngIf="row.scheduledExam.examLocation">
-                      <b>Realizará prova no polo de:</b> {{ row.scheduledExam.examLocation }}
-                    </li>
-                    <li *ngIf="row.scheduledExam.training !== null">
-                      <b>Treineiro?</b> {{ row.scheduledExam.training === 'POSITIVO' ? 'Sim' : 'Não' }}
-                    </li>
-                  </ul>
-                  <ul *ngIf="row.transferRequest">
-                    <li *ngIf="row.transferRequest.transferCourse">
-                      <b>Deseja transferir para o curso:</b> {{ row.transferRequest.transferCourse }}
-                    </li>
-                    <li *ngIf="row.transferRequest.transferTo">
-                      <b>No Polo:</b> {{ row.transferRequest.transferTo }}
-                    </li>
-                    <li *ngIf="row.transferRequest.previousCourse">
-                      <b>Curso anterior:</b> {{ row.transferRequest.previousCourse }}
-                    </li>
-                    <li *ngIf="row.transferRequest.transferFrom">
-                      <b>Faculdade anterior:</b> {{ row.transferRequest.transferFrom }}
-                    </li>
-                    <li *ngIf="row.transferRequest.courseTime">
-                      <b>Período:</b> {{ row.transferRequest.courseTime }} - {{ row.transferRequest.studentPeriod }}º
-                    </li>
-                    <li *ngIf="row.transferRequest.previousState">
-                      <b>Estado anterior:</b> {{ row.transferRequest.previousState }}
-                    </li>
-                    <li *ngIf="row.transferRequest.previousCity">
-                      <b>Cidade anterior:</b> {{ row.transferRequest.previousCity }}
-                    </li>
-                    <li *ngIf="row.transferRequest.registered !== null">
-                      <b>Está matriculado?</b> {{ row.transferRequest.registered ? 'Sim' : 'Não' }}
-                    </li>
-                    <li *ngIf="row.transferRequest.locked !== null">
-                      <b>Matrícula trancada?</b> {{ row.transferRequest.locked ? 'Sim' : 'Não' }}
-                    </li>
-                    <li *ngIf="row.transferRequest.dismissDiscipline !== null">
-                      <b>Quer convalidar disciplinas?</b> {{ row.transferRequest.dismissDiscipline ? 'Sim' : 'Não' }}
-                    </li>
-                    <li *ngIf="row.transferRequest.fies !== null">
-                      <b>% Fies:</b> {{ row.transferRequest.fies ? row.transferRequest.fies : 'Não tem' }}
-                    </li>
-                    <li *ngIf="row.transferRequest.prouni !== null">
-                      <b>% ProUni:</b> {{ row.transferRequest.prouni ? row.transferRequest.prouni : 'Não tem' }}
-                    </li>
-                  </ul>
-                  <ul *ngIf="row.secondGraduation">
-                    <li *ngIf="row.secondGraduation.wantedCourse">
-                      <b>Deseja cursar:</b> {{ row.secondGraduation.wantedCourse }}
-                    </li>
-                    <li *ngIf="row.secondGraduation.transferTo">
-                      <b>No Polo:</b> {{ row.secondGraduation.transferTo }}
-                    </li>
-                    <li *ngIf="row.secondGraduation.previousCourse">
-                      <b>Curso anterior:</b> {{ row.secondGraduation.previousCourse }}
-                    </li>
-                    <li *ngIf="row.secondGraduation.previousInstitute">
-                      <b>Faculdade anterior:</b> {{ row.secondGraduation.previousInstitute }}
-                    </li>
-                    <li *ngIf="row.secondGraduation.previousState">
-                      <b>Estado anterior:</b> {{ row.secondGraduation.previousState }}
-                    </li>
-                    <li *ngIf="row.secondGraduation.previousCity">
-                      <b>Cidade anterior:</b> {{ row.secondGraduation.previousCity }}
-                    </li>
-                    <li *ngIf="row.secondGraduation.dismissDiscipline !== null">
-                      <b>Quer convalidar disciplinas?</b> {{ row.secondGraduation.dismissDiscipline ? 'Sim' : 'Não'
-                      }}
-                    </li>
-                    <li *ngIf="row.secondGraduation.fies !== null">
-                      <b>% Fies:</b> {{ row.secondGraduation.fies ? row.secondGraduation.fies : 'Não tem'}}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </ng-template>
-          </ngx-datatable-row-detail>
+  <ngx-datatable-row-detail [rowHeight]="detailsHeight" #myDetailRow (toggle)="onDetailToggle($event)">
+    <ng-template let-row="row" let-rowIndex="rowIndex" let-expanded="expanded"
+      ngx-datatable-row-detail-template>
+      <div class="table-details">
+        <div class="table-info">
+          <ul>
+            <li *ngIf="row.additionalInfo.address">
+              <b>Endereço:</b> {{ row.additionalInfo.address.street }}, {{ row.additionalInfo.address.number
+              }} <span *ngIf="row.additionalInfo.address.complement">{{
+                row.additionalInfo.address.complement }}</span> ({{ row.additionalInfo.address.city }} - {{
+              row.additionalInfo.address.state }})
+            </li>
+            <li *ngIf="row.additionalInfo.cpf">
+              <b>CPF:</b> {{ row.additionalInfo.cpf }}
+            </li>
+            <li *ngIf="row.additionalInfo.birthDate">
+              <b>Nascimento:</b> {{ row.additionalInfo.birthDate.slice(0, 10) | formatDate: 'DD/MM/YYYY' }}
+            </li>
+            <li *ngIf="row.additionalInfo.nationality">
+              <b>Nacionalidade:</b> {{ row.additionalInfo.nationality }}
+            </li>
+            <li *ngIf="row.additionalInfo.sex">
+              <b>Sexo:</b> {{ row.additionalInfo.sex }}
+            </li>
+            <li *ngIf="row.additionalInfo.studies">
+              <b>Estudou ensino médio em escola:</b> {{ row.additionalInfo.studies }}
+            </li>
+            <li *ngIf="row.additionalInfo.lastFormationYear">
+              <b>Terminou últimos estudos em:</b> {{ row.additionalInfo.lastFormationYear }}
+            </li>
+          </ul>
+        </div>
+        <div class="table-info">
+          <ul *ngIf="row.scheduledExam">
+            <li *ngIf="row.scheduledExam.firstCourse">
+              <b>Primeira opção:</b> {{ row.scheduledExam.firstCourse }}
+            </li>
+            <li *ngIf="row.scheduledExam.secondCourse">
+              <b>Segunda opção:</b> {{ row.scheduledExam.secondCourse }}
+            </li>
+            <li *ngIf="row.scheduledExam.examLocation">
+              <b>Realizará prova no polo de:</b> {{ row.scheduledExam.examLocation }}
+            </li>
+            <li *ngIf="row.scheduledExam.training !== null">
+              <b>Treineiro?</b> {{ row.scheduledExam.training === 'POSITIVO' ? 'Sim' : 'Não' }}
+            </li>
+          </ul>
+          <ul *ngIf="row.transferRequest">
+            <li *ngIf="row.transferRequest.transferCourse">
+              <b>Deseja transferir para o curso:</b> {{ row.transferRequest.transferCourse }}
+            </li>
+            <li *ngIf="row.transferRequest.transferTo">
+              <b>No Polo:</b> {{ row.transferRequest.transferTo }}
+            </li>
+            <li *ngIf="row.transferRequest.previousCourse">
+              <b>Curso anterior:</b> {{ row.transferRequest.previousCourse }}
+            </li>
+            <li *ngIf="row.transferRequest.transferFrom">
+              <b>Faculdade anterior:</b> {{ row.transferRequest.transferFrom }}
+            </li>
+            <li *ngIf="row.transferRequest.courseTime">
+              <b>Período:</b> {{ row.transferRequest.courseTime }} - {{ row.transferRequest.studentPeriod }}º
+            </li>
+            <li *ngIf="row.transferRequest.previousState">
+              <b>Estado anterior:</b> {{ row.transferRequest.previousState }}
+            </li>
+            <li *ngIf="row.transferRequest.previousCity">
+              <b>Cidade anterior:</b> {{ row.transferRequest.previousCity }}
+            </li>
+            <li *ngIf="row.transferRequest.registered !== null">
+              <b>Está matriculado?</b> {{ row.transferRequest.registered ? 'Sim' : 'Não' }}
+            </li>
+            <li *ngIf="row.transferRequest.locked !== null">
+              <b>Matrícula trancada?</b> {{ row.transferRequest.locked ? 'Sim' : 'Não' }}
+            </li>
+            <li *ngIf="row.transferRequest.dismissDiscipline !== null">
+              <b>Quer convalidar disciplinas?</b> {{ row.transferRequest.dismissDiscipline ? 'Sim' : 'Não' }}
+            </li>
+            <li *ngIf="row.transferRequest.fies !== null">
+              <b>% Fies:</b> {{ row.transferRequest.fies ? row.transferRequest.fies : 'Não tem' }}
+            </li>
+            <li *ngIf="row.transferRequest.prouni !== null">
+              <b>% ProUni:</b> {{ row.transferRequest.prouni ? row.transferRequest.prouni : 'Não tem' }}
+            </li>
+          </ul>
+          <ul *ngIf="row.secondGraduation">
+            <li *ngIf="row.secondGraduation.wantedCourse">
+              <b>Deseja cursar:</b> {{ row.secondGraduation.wantedCourse }}
+            </li>
+            <li *ngIf="row.secondGraduation.transferTo">
+              <b>No Polo:</b> {{ row.secondGraduation.transferTo }}
+            </li>
+            <li *ngIf="row.secondGraduation.previousCourse">
+              <b>Curso anterior:</b> {{ row.secondGraduation.previousCourse }}
+            </li>
+            <li *ngIf="row.secondGraduation.previousInstitute">
+              <b>Faculdade anterior:</b> {{ row.secondGraduation.previousInstitute }}
+            </li>
+            <li *ngIf="row.secondGraduation.previousState">
+              <b>Estado anterior:</b> {{ row.secondGraduation.previousState }}
+            </li>
+            <li *ngIf="row.secondGraduation.previousCity">
+              <b>Cidade anterior:</b> {{ row.secondGraduation.previousCity }}
+            </li>
+            <li *ngIf="row.secondGraduation.dismissDiscipline !== null">
+              <b>Quer convalidar disciplinas?</b> {{ row.secondGraduation.dismissDiscipline ? 'Sim' : 'Não'
+              }}
+            </li>
+            <li *ngIf="row.secondGraduation.fies !== null">
+              <b>% Fies:</b> {{ row.secondGraduation.fies ? row.secondGraduation.fies : 'Não tem'}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-template>
+  </ngx-datatable-row-detail>
 
-          <ngx-datatable-column *ngFor="let column of tableColumns" name="{{column.title}}" prop="{{column.dataKey}}"
-            [width]="column.width" [frozenLeft]="column.title === 'Nome' ? true : false">
-            <ng-template *ngIf="column.dataKey == 'icon'" let-rowIndex="rowIndex" let-value="value" let-row="row"
-              let-expanded="expanded" ngx-datatable-cell-template>
-              <a *ngIf="rowIndex === 0" href="javascript:void(0);" [class.datatable-icon-right]="!expanded"
-                [class.datatable-icon-down]="expanded" title="Expand/Collapse Row" (click)="toggleExpandRow(row, rowIndex)"
-                class="desktop-hidden" tourAnchor="expandContact" id="expandContact">
-              </a>
-              <a *ngIf="rowIndex !== 0" href="javascript:void(0);" [class.datatable-icon-right]="!expanded"
-                [class.datatable-icon-down]="expanded" title="Expand/Collapse Row" (click)="toggleExpandRow(row, rowIndex)"
-                class="desktop-hidden">
-              </a>
-            </ng-template>
+  <ngx-datatable-column *ngFor="let column of tableColumns" name="{{ column.title }}" prop="{{ column.dataKey }}"
+    [width]="column.width">
+    <ng-template *ngIf="column.dataKey == 'icon'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      <a *ngIf="rowIndex === 0" href="javascript:void(0);" [class.datatable-icon-right]="!expanded"
+        [class.datatable-icon-down]="expanded" title="Expand/Collapse Row" (click)="toggleExpandRow(row, rowIndex)"
+        class="desktop-hidden">
+      </a>
+      <a *ngIf="rowIndex !== 0" href="javascript:void(0);" [class.datatable-icon-right]="!expanded"
+        [class.datatable-icon-down]="expanded" title="Expand/Collapse Row" (click)="toggleExpandRow(row, rowIndex)"
+        class="desktop-hidden">
+      </a>
+    </ng-template>
 
-            <ng-template *ngIf="column.title == 'Telefone'" let-rowIndex="rowIndex" let-value="value" let-row="row"
-              let-expanded="expanded" ngx-datatable-cell-template>
-              <span>{{ value }} </span>
-            </ng-template>
+    <ng-template *ngIf="column.dataKey == 'startDate'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.startDate | formatDate: 'MMM DD, YYYY' }}
+    </ng-template>
 
-            <ng-template *ngIf="column.title == 'Estado'" let-rowIndex="rowIndex" let-value="value" let-row="row"
-              let-expanded="expanded" ngx-datatable-cell-template>
-              <div class="status-alert" [ngClass]="{'danger': row.interested === 'Sem interesse', 'warning': row.interested === 'Aguardando/Entrou em contato'}">
-              </div>
-            </ng-template>
+    <ng-template *ngIf="column.dataKey == 'endDate'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.endDate | formatDate: 'MMM DD, YYYY' }}
+    </ng-template>
 
-            <ng-template *ngIf="column.dataKey == 'edit'" let-rowIndex="rowIndex" let-value="value" let-row="row"
-              let-expanded="expanded" ngx-datatable-cell-template>
-              <a [routerLink]="" class="text-warning" (click)="emitEvent('edit', row)">
-                <i class="material-icons" data-toggle="tooltip" title="{{ 'general.edit' | translate }}"></i>
-              </a>
-              <a [routerLink]="" class="text-danger" (click)="emitEvent('delete', row)">
-                <i class="material-icons" data-toggle="tooltip" title="{{ 'general.delete' | translate }}"></i>
-              </a>
-            </ng-template>
-          </ngx-datatable-column>
-        </ngx-datatable>
+    <ng-template *ngIf="column.dataKey == 'plantDate'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.plantDate | formatDate: 'MMM DD, YYYY' }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'emergencyDate'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.emergencyDate | formatDate: 'MMM DD, YYYY' }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'rustResistant'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.rustResistant ? ('general.yes' | translate) : ('general.no' | translate) }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'bt'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.bt ? ('general.yes' | translate) : ('general.no' | translate) }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'sporeCollector'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.sporeCollector ? ('general.yes' | translate) : ('general.no' | translate) }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'weighedSeparate'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.weighedSeparate ? ('general.yes' | translate) : ('general.no' | translate) }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'edit'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      <a [routerLink]="" class="text-warning" (click)="emitEvent('edit', row)">
+        <i class="material-icons" data-toggle="tooltip" title="{{ 'general.edit' | translate }}"></i>
+      </a>
+      <a [routerLink]="" class="text-danger" (click)="emitEvent('delete', row)">
+        <i class="material-icons" data-toggle="tooltip" title="{{ 'general.delete' | translate }}"></i>
+      </a>
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'actions'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      <a [routerLink]="" class="primary-color" (click)="emitEvent('collect', row)">
+        <i class="material-icons" data-toggle="tooltip" title="{{ 'general.collect' | translate }}">add_circle</i>
+      </a>
+      <a [routerLink]="" class="primary-color" (click)="emitEvent('list', row)">
+        <i class="material-icons" data-toggle="tooltip" title="{{ 'general.list' | translate }}">list</i>
+      </a>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>

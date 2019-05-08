@@ -1,0 +1,49 @@
+<div id="pest-survey-wrapper">
+  <div class="card-body">
+    <div id="loader" class="config-loader" *ngIf="loading">
+      <app-loading></app-loading>
+    </div>
+    <div *ngIf="!loading">
+      <div>
+        <div class="align-row row">
+          <div class="col-sm-8 align-left">
+            <h2 class="m-0">{{ 'pestSurvey.title' | translate }}</h2>
+          </div>
+        </div>
+        <div class="align-row row">
+          <div class="col-sm-6 align-left">
+            <div class="results-per-page">
+              <ngx-select [noAutoComplete]="true" [(ngModel)]="config.itemsPerPage" [items]="maxResults"
+                optionValueField="maxResults" (select)="doSelect($event, 'maxResults')">
+              </ngx-select>
+              <div>
+                <div class="caption-text">{{ 'general.results' | translate }}</div>
+              </div>
+            </div>
+          </div>
+          <form>
+            <input class="form-control" placeholder="{{ 'general.search' | translate }}.." type="text" (keyup)="keyUp($event)" required
+              [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" />
+            <button class="close-icon" type="reset" (click)="setSearch('')"></button>
+          </form>
+        </div>
+
+        <div *ngIf="!pestSurveysTable.length">
+          <h3 *ngIf="!searchText">{{ 'general.emptyData' | translate }}</h3>
+          <h3 *ngIf="searchText">{{ 'general.emptyDataForSearch' | translate }}</h3>
+        </div>
+        <app-table [tableData]="pestSurveysTable" [tableHeaders]="('pestSurvey.tableHeaders' | translate)" [tableKeys]="tableKeys" [tableWidth]="tableWidth" (event)="action($event)"></app-table>
+        <div class="align-row row pt-3">
+          <div class="col-sm-6 align-left">
+          <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ pestSurveysTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ config.itemsPerPage * config.currentPage < allFilteredPestSurveys.length ? config.itemsPerPage * config.currentPage : allFilteredPestSurveys.length }} {{ 'general.of' | translate }} {{ allFilteredPestSurveys.length }} {{ 'general.registries' | translate }}.</span>
+            <span *ngIf="allPestSurveys.length !== allFilteredPestSurveys.length"> ({{ 'general.filtered' | translate }} {{ 'general.from' | translate }} {{ allPestSurveys.length }} {{ 'general.registries' | translate }})</span>
+          </div>
+          <div>
+            <ngb-pagination [collectionSize]="allFilteredPestSurveys.length" [(page)]="config.currentPage" [(pageSize)]="config.itemsPerPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+            (pageChange)="onPageChange($event)"></ngb-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

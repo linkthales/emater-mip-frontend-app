@@ -157,6 +157,70 @@
     "tableHeaders": ["Identification", "Location", "City", "Farmer", "Supervisor", "Actions"]
   },
 
+  "harvest": {
+    "name": "Harvest",
+    "title": "Harvests Management",
+    "create": "Create new Harvest",
+    "edit": "Edit Harvest",
+    "delete": "Delete Harvest",
+    "deleteMessage": "Are you sure you want to delete the Harvest",
+    "tableHeaders": ["Description", "Start Date", "End Date", "Actions"]
+  },
+
+  "surveyField": {
+    "name": "Survey Field",
+    "title": "Survey Fields Management",
+    "create": "Add Field to Survey",
+    "edit": "Edit Survey Field",
+    "delete": "Remove Field from Survey",
+    "deleteMessage": "Are you sure you want to remove the Field from this Survey",
+    "tableHeaders": ["Harvest", "Plant", "Is Rust Resistant", "BT", "Has Spore Collector", "Plant Date"]
+  },
+
+  "fieldForm": {
+    "name": "Field Form",
+    "title": "Data from Field",
+    "tabHeaders": {"harvest": "Harvest", "area": "Area", "productivity": "Productivity", "dates": "Dates"},
+    "formFields": {
+      "rustResistant": "Is Rust Resistant", "bt": "BT", "sporeCollector": "Has Spore Collector",
+      "unitArea": "Unit Area (UO/UR)", "totalCultivatedArea": "Total Area Cultivated", "plantPerMeter": "No. Plant/Meter", "latitude": "Latitude", "longitude": "Longitude",
+      "unitProductivity": "Unit Productivity (UO/UR)", "totalProductivity": "Total Farmer Area Productivity", "weighedSeparately": "Weighed Separately",
+      "plantDate": "Plant Date", "emergencyDate": "Emergency", "harvestDate": "Harvest Date"
+    }
+  },
+
+  "pest": {
+    "name": "Pest",
+    "title": "Pests Management",
+    "create": "Create new Pest",
+    "edit": "Edit Pest",
+    "delete": "Delete Pest",
+    "deleteMessage": "Are you sure you want to delete the Pest",
+    "tableHeaders": ["Name", "Scientific Name", "Size", "Actions"]
+  },
+
+  "pestSurvey": {
+    "name": "Pest Survey",
+    "title": "Field Notation on Pest Fluctuation",
+    "tableHeaders": ["Harvest", "Identification", "Location", "City", "Plant", "Farmer", "Supervisor", "Actions"]
+  },
+
+  "addSample": {
+    "name": "Add Sample",
+    "title": "New Sample",
+    "tabHeaders": {"samplingData": "Sampling Data", "populationFluctuation": "Population Fluctuation", "pestPopulationFluctuation": "Population Fluctuation of Pests"},
+    "formFields": {
+      "collectionDate": "Collection Date", "stadiumOfCulture": "Stadium of Culture", "defoliation": "% of defoliation (in whole numbers)",
+      "pests": "Pests", "average": "Average Found"
+    }
+  },
+
+  "listSamples": {
+    "name": "List Samples",
+    "title": "MIP Samples Collected for",
+    "tableHeaders": ["Collection Date", "Days after Emergency", "% of defoliation (in whole numbers)", "Stadium of Culture", "Actions"]
+  },
+
   "general": {
     "changeLanguage": "Change language",
     "search": "Search",
@@ -164,19 +228,33 @@
     "name": "Name",
     "email": "E-mail",
     "location": "Location",
+    "description": "Description",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "scientificName": "Scientific Name",
+    "size": "Size",
     "create": "Create",
     "save": "Save",
     "saveChanges": "Save Changes",
+    "select": "Select",
+    "yes": "Yes",
+    "no": "No",
     "cancel": "Cancel",
     "edit": "Edit",
     "delete": "Delete",
+    "collect": "Collect Sample",
+    "list": "List collected samples",
     "cannotUndo": "This action CANNOT be undone",
     "emptyData": "No data to display!",
     "emptyDataForSearch": "No data to display with search term!",
     "showing": "Showing from",
     "to": "to",
     "of": "of",
+    "in": "in",
+    "for": "for",
     "from": "from",
+    "previous": "Previous",
+    "next": "Next",
     "registries": "registries",
     "filtered": "Filtered"
   }

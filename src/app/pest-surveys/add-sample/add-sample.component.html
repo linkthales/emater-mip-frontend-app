@@ -1,0 +1,96 @@
+<div id="add-sample-wrapper">
+  <div class="card-body">
+    <div id="loader" class="config-loader" *ngIf="loading">
+      <app-loading></app-loading>
+    </div>
+    <div *ngIf="!loading">
+      <div>
+        <div class="align-row row">
+          <div class="col-sm-12 align-left">
+            <h2 class="m-0">{{ 'addSample.title' | translate }}</h2>
+          </div>
+        </div>
+
+        <ngb-tabset (tabChange)="null">
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div>{{ 'addSample.tabHeaders.samplingData' | translate }}</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="card">
+                <div class="card-header">
+                  <h4>{{ 'addSample.tabHeaders.samplingData' | translate }}</h4>
+                </div>
+
+                <div class="card-body">
+                  <form class="row">
+                    <div class="descriptionInput col-sm-12 col-md-6 col-lg-4">
+                      <label class="input-label" for="name">{{ 'addSample.formFields.collectionDate' | translate }}</label><br>
+                      <input class="form-control" type="date" name="collectionDate" />
+                      <!-- [(ngModel)]="selectedSupervisor.name" -->
+                      <!-- (keyup)="validateInput('name', $event)" -->
+                    </div><br>
+                    <div class="card-selects col-sm-12 col-md-6 col-lg-4">
+                        <label class="input-label">{{ 'addSample.formFields.collectionDate' | translate }}:</label>
+                        <ngx-select [items]="stadiumOfCulture" name="stadiumOfCulture" [defaultValue]="stadiumOfCulture[0]"
+                        optionValueField="id" optionTextField="name" (select)="doSelect($event, 'cityId')"></ngx-select>
+                      </div><br>
+                    <div class="descriptionInput col-sm-12 col-md-6 col-lg-4">
+                      <label class="input-label" for="name">{{ 'addSample.formFields.defoliation' | translate }}</label><br>
+                      <input class="form-control" type="date" name="defoliation" />
+                      <!-- [(ngModel)]="selectedSupervisor.name" -->
+                      <!-- (keyup)="validateInput('name', $event)" -->
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div>{{ 'addSample.tabHeaders.populationFluctuation' | translate }}</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="card">
+                <div class="card-header">
+                  <h4>{{ 'addSample.tabHeaders.pestPopulationFluctuation' | translate }}</h4>
+                </div>
+
+                <div class="card-body">
+                  <div class="card-header row">
+                    <div class="col-sm-9 p-0">{{ 'addSample.formFields.pests' | translate }}</div>
+                    <div class="col-sm-3">{{ 'addSample.formFields.average' | translate }}</div>
+                  </div>
+
+                  <div *ngFor="let pest of pestsTable" class="row pest-table">
+                    <div class="col-sm-8">{{ pest.name }} - {{ pest.scientificName }} ( {{ pest.size }} )</div>
+                    <div class="col-sm-4 pl-0">
+                      <input class="form-control" type="number" step="0.01" name="totalProductivity" />
+                      <!-- [(ngModel)]="selectedSupervisor.name" -->
+                      <!-- (keyup)="validateInput('name', $event)" -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+        <div class="align-row row pt-3">
+          <div class="col-sm-12 text-right">
+            <button type="button" class="btn btn-primary">
+              <span>
+                {{ 'general.previous' | translate }}
+              </span>
+            </button>
+            <button type="button" class="btn btn-primary">
+              <span>
+                {{ 'general.next' | translate }}
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

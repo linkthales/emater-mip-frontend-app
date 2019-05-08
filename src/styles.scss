@@ -203,3 +203,18 @@ a.ngx-select__item.dropdown-item, ul.ngx-select__choices.dropdown-menu.show, li.
 .important {
     color: #FF2222;
 }
+
+.formCheckbox {
+  position: fixed;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.input-label {
+  font-size: 1.2em !important;
+  margin-bottom: 10px !important;
+}
+
+.descriptionInput {
+  margin-bottom: 10px;
+}

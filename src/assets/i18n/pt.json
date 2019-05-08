@@ -157,6 +157,70 @@
     "tableHeaders": ["Identificação", "Localização", "Município", "Produtor", "Responsável Técnico", "Ações"]
   },
 
+  "harvest": {
+    "name": "Safra",
+    "title": "Gerenciamento de Safras",
+    "create": "Criar nova Safra",
+    "edit": "Alterar Safra",
+    "delete": "Apagar Safra",
+    "deleteMessage": "Você tem certeza que deseja apagar a Safra",
+    "tableHeaders": ["Descrição", "Data Início", "Data Término", "Ações"]
+  },
+
+  "surveyField": {
+    "name": "Unidade de Referência Participante da Pesquisa",
+    "title": "Unidades de Referência Participantes da Pesquisa",
+    "create": "Adicionar Unidade de Referência à Pesquisa",
+    "edit": "Alterar Unidade de Referência",
+    "delete": "Retirar da Pesquisa Unidade de Referência",
+    "deleteMessage": "Você tem certeza que deseja retirar a seguinte Unidade de Referência da pesquisa atual",
+    "tableHeaders": ["Safra", "Cultivar", "Resistente à Ferrugem", "BT", "Tem coletor de esporos", "Data da Semeadura"]
+  },
+
+  "fieldForm": {
+    "name": "Formulário das URs",
+    "title": "Dados da UR",
+    "tabHeaders": {"harvest": "Cultivar", "area": "Área", "productivity": "Produtividade", "dates": "Datas"},
+    "formFields": {
+      "rustResistant": "Resistente à Ferrugem", "bt": "BT", "sporeCollector": "Tem coletor de esporos",
+      "unitArea": "Área da Unidade (UO/UR)", "totalCultivatedArea": "Área Total Cultivada", "plantPerMeter": "No. Plantas/Metro", "latitude": "Latitude", "longitude": "Longitude",
+      "unitProductivity": "Produtividade da Unidade (UO/UR)", "totalProductivity": "Produtividade da Área total do Produtor", "weighedSeparately": "Pesou em Separado",
+      "plantDate": "Data da Semeadura", "emergencyDate": "Data da Emergência", "harvestDate": "Data da Colheita"
+    }
+  },
+
+  "pest": {
+    "name": "Praga",
+    "title": "Gerenciamento de Insetos Pragas",
+    "create": "Criar nova Praga",
+    "edit": "Alterar Praga",
+    "delete": "Apagar Praga",
+    "deleteMessage": "Você tem certeza que deseja apagar a Praga",
+    "tableHeaders": ["Nome", "Nome Científico", "Tamanho", "Ações"]
+  },
+
+  "pestSurvey": {
+    "name": "Flutuação das Pragas",
+    "title": "Anotação de Campo sobre a Flutuação das Pragas",
+    "tableHeaders": ["Safra", "Identificação", "Localização", "Município", "Cultivar", "Produtor", "Responsável Técnico", "Ações"]
+  },
+
+  "addSample": {
+    "name": "Adicionar Amostra",
+    "title": "Nova Amostra",
+    "tabHeaders": {"samplingData": "Dados da Amostragem", "populationFluctuation": "Flutuação Populacional", "pestPopulationFluctuation": "Flutuação Populacional dos Insetos Pragas"},
+    "formFields": {
+      "collectionDate": "Data da Coleta", "stadiumOfCulture": "Estádio da Cultura", "defoliation": "% de Desfolha (em números inteiros)",
+      "pests": "Insetos Praga", "average": "Média Encontrada"
+    }
+  },
+
+  "listSamples": {
+    "name": "Listar Amostras",
+    "title": "Amostras MIP Coletadas para",
+    "tableHeaders": ["Data da Coleta", "Dias após Emergência", "% de Desfolha (em números inteiros)", "Estádio da Cultura", "Ações"]
+  },
+
   "general": {
     "changeLanguage": "Alterar idioma",
     "search": "Pesquisar",
@@ -164,19 +228,33 @@
     "name": "Nome",
     "email": "E-mail",
     "location": "Localização",
+    "description": "Descrição",
+    "startDate": "Data Início",
+    "endDate": "Data Término",
+    "scientificName": "Nome Científico",
+    "size": "Tamanho",
     "create": "Criar",
     "save": "Salvar",
     "saveChanges": "Salvar Alterações",
+    "select": "Selecionar",
+    "yes": "Sim",
+    "no": "Não",
     "cancel": "Cancelar",
     "edit": "Alterar",
     "delete": "Apagar",
+    "collect": "Coletar Amostra",
+    "list": "Listar Amostras Coletadas",
     "cannotUndo": "Esta ação NÃO pode ser desfeita",
     "emptyData": "Sem dados cadastrados!",
     "emptyDataForSearch": "Sem dados cadastrados com o termo pesquisado!",
     "showing": "Mostrando de",
     "to": "até",
     "of": "de",
+    "in": "em",
+    "for": "para",
     "from": "de",
+    "previous": "Anterior",
+    "next": "Próximo",
     "registries": "registros",
     "filtered": "Filtrados"
   }

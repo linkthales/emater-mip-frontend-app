@@ -19,6 +19,7 @@ export class TableComponent implements OnChanges {
   @Input() tableHeaders: any[];
   @Input() tableKeys: any[];
   @Input() tableWidth: any[];
+  @Input() fromPage: any;
   @Output() event: EventEmitter<any> = new EventEmitter();
 
   public tableColumns: any[];
@@ -31,6 +32,10 @@ export class TableComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges() {
+    if(this.fromPage){
+      this.tableHeaders.pop();
+    }
+
     this.tableColumns = this.tableHeaders.map((elem, index) => {
       const card = {
         title: this.tableHeaders[index],
