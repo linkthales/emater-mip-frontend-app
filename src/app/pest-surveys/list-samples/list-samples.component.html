@@ -7,7 +7,7 @@
       <div>
         <div class="align-row row">
           <div class="col-sm-12 align-left">
-            <h2 class="m-0">{{ 'listSamples.title' | translate }} {{ pestSurveysTable[0].farmer.name }} {{ 'general.in' | translate }} {{ pestSurveysTable[0].harvest.description }}</h2>
+            <h2 class="m-0">{{ 'listSamples.title' | translate }} {{ pestSurvey.farmer.name }} {{ 'general.in' | translate }} {{ pestSurvey.harvest.description }}</h2>
           </div>
         </div>
         <div class="align-row row">
@@ -28,18 +28,18 @@
           </form>
         </div>
 
-        <div *ngIf="!pestSurveysTable.length">
+        <div *ngIf="!pestSamplesTable.length">
           <h3 *ngIf="!searchText">{{ 'general.emptyData' | translate }}</h3>
           <h3 *ngIf="searchText">{{ 'general.emptyDataForSearch' | translate }}</h3>
         </div>
-        <app-table [tableData]="pestSurveysTable" [tableHeaders]="('listSamples.tableHeaders' | translate)" [tableKeys]="tableKeys" [tableWidth]="tableWidth" (event)="action($event)"></app-table>
+        <app-table [tableData]="pestSamplesTable" [tableHeaders]="('listSamples.tableHeaders' | translate)" [tableKeys]="tableKeys" [tableWidth]="tableWidth" (event)="action($event)"></app-table>
         <div class="align-row row pt-3">
           <div class="col-sm-6 align-left">
-          <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ pestSurveysTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ config.itemsPerPage * config.currentPage < allFilteredPestSurveys.length ? config.itemsPerPage * config.currentPage : allFilteredPestSurveys.length }} {{ 'general.of' | translate }} {{ allFilteredPestSurveys.length }} {{ 'general.registries' | translate }}.</span>
-            <span *ngIf="allPestSurveys.length !== allFilteredPestSurveys.length"> ({{ 'general.filtered' | translate }} {{ 'general.from' | translate }} {{ allPestSurveys.length }} {{ 'general.registries' | translate }})</span>
+          <span>{{ 'general.showing' | translate }} {{ config.currentPage !== 1 ? (config.currentPage - 1) : '' }}{{ pestSamplesTable.length ? 1 : 0 }} {{ 'general.to' | translate }} {{ config.itemsPerPage * config.currentPage < allFilteredPestSamples.length ? config.itemsPerPage * config.currentPage : allFilteredPestSamples.length }} {{ 'general.of' | translate }} {{ allFilteredPestSamples.length }} {{ 'general.registries' | translate }}.</span>
+            <span *ngIf="allPestSamples.length !== allFilteredPestSamples.length"> ({{ 'general.filtered' | translate }} {{ 'general.from' | translate }} {{ allPestSamples.length }} {{ 'general.registries' | translate }})</span>
           </div>
           <div>
-            <ngb-pagination [collectionSize]="allFilteredPestSurveys.length" [(page)]="config.currentPage" [(pageSize)]="config.itemsPerPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+            <ngb-pagination [collectionSize]="allFilteredPestSamples.length" [(page)]="config.currentPage" [(pageSize)]="config.itemsPerPage" [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
             (pageChange)="onPageChange($event)"></ngb-pagination>
           </div>
         </div>
@@ -47,3 +47,24 @@
     </div>
   </div>
 </div>
+
+<ng-template #delete let-c="close">
+  <div class="modalBox">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ 'listSamples.delete' | translate }}</h4>
+      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="descriptionInput">
+          <h5 class="m-0">{{ 'listSamples.deleteMessage' | translate }} "<span class="delete">{{ selectedPestSample.collectionDate | formatDate: 'MMM DD, YYYY' }}</span>"?</h5><br>
+          <h5 class="important">{{ 'general.cannotUndo' | translate }}</h5>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-link btn-secondary" (click)="closeModal()">{{ 'general.cancel' | translate }}</button>
+      <button type="button" class="btn btn-danger" (click)="deleteSample()">{{ 'general.delete' | translate }}</button>
+    </div>
+  </div>
+</ng-template>

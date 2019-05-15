@@ -407,7 +407,6 @@ export class DashboardComponent implements OnInit {
   }
 
   chartHovered(e: any): void {
-    console.log(e);
   }
 
   hexToRGB(hex, alpha) {

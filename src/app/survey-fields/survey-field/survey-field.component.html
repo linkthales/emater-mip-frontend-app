@@ -79,30 +79,6 @@
   </div>
 </ng-template>
 
-<ng-template #edit let-c="close">
-  <div class="modalBox">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">{{ 'surveyField.edit' | translate }}</h4>
-      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form action="">
-        <label>{{ 'harvest.name' | translate }}:</label>
-        <div class="card-selects">
-          <ngx-select [(ngModel)]="selectedSurveyField.harvestId" [items]="harvestsList" name="harvestId"
-            optionValueField="id" optionTextField="name" (select)="doSelect($event, 'harvestId')"></ngx-select>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-link btn-secondary" (click)="closeModal()">{{ 'general.cancel' | translate }}</button>
-      <button type="button" class="btn btn-primary" (click)="updateSurveyField()" [disabled]="!validForm">{{ 'general.saveChanges' | translate }}</button>
-    </div>
-  </div>
-</ng-template>
-
 <ng-template #delete let-c="close">
   <div class="modalBox">
     <div class="modal-header">
@@ -113,7 +89,7 @@
     </div>
     <div class="modal-body">
       <div class="descriptionInput">
-          <h5 class="m-0">{{ 'surveyField.deleteMessage' | translate }} "<span class="delete">{{ selectedSurveyField.name }}</span>"?</h5><br>
+          <h5 class="m-0">{{ 'surveyField.deleteMessage' | translate }} "<span class="delete">{{ selectedSurveyField.plant }}</span>"?</h5><br>
           <h5 class="important">{{ 'general.cannotUndo' | translate }}</h5>
       </div>
     </div>

@@ -11,10 +11,10 @@
           </div>
         </div>
 
-        <ngb-tabset (tabChange)="null">
-          <ngb-tab>
+        <ngb-tabset (tabChange)="null" #tabs="ngbTabset">
+          <ngb-tab id="tab-selectbyid1">
             <ng-template ngbTabTitle>
-              <div>{{ 'addSample.tabHeaders.samplingData' | translate }}</div>
+              <div (click)="buttonAction('previous')">{{ 'addSample.tabHeaders.samplingData' | translate }}</div>
             </ng-template>
             <ng-template ngbTabContent>
               <div class="card">
@@ -26,20 +26,16 @@
                   <form class="row">
                     <div class="descriptionInput col-sm-12 col-md-6 col-lg-4">
                       <label class="input-label" for="name">{{ 'addSample.formFields.collectionDate' | translate }}</label><br>
-                      <input class="form-control" type="date" name="collectionDate" />
-                      <!-- [(ngModel)]="selectedSupervisor.name" -->
-                      <!-- (keyup)="validateInput('name', $event)" -->
+                      <input class="form-control" type="date" name="collectionDate" [(ngModel)]="sampleForm.collectionDate" (keyup)="validateInput('collectionDate', $event)" />
                     </div><br>
                     <div class="card-selects col-sm-12 col-md-6 col-lg-4">
                         <label class="input-label">{{ 'addSample.formFields.collectionDate' | translate }}:</label>
-                        <ngx-select [items]="stadiumOfCulture" name="stadiumOfCulture" [defaultValue]="stadiumOfCulture[0]"
-                        optionValueField="id" optionTextField="name" (select)="doSelect($event, 'cityId')"></ngx-select>
+                        <ngx-select [items]="stadiumOfCulture" name="stadiumOfCulture"
+                        optionValueField="id" optionTextField="name" [(ngModel)]="sampleForm.stadiumOfCulture" (select)="validateInput('stadiumOfCulture', $event)"></ngx-select>
                       </div><br>
                     <div class="descriptionInput col-sm-12 col-md-6 col-lg-4">
                       <label class="input-label" for="name">{{ 'addSample.formFields.defoliation' | translate }}</label><br>
-                      <input class="form-control" type="date" name="defoliation" />
-                      <!-- [(ngModel)]="selectedSupervisor.name" -->
-                      <!-- (keyup)="validateInput('name', $event)" -->
+                      <input class="form-control" type="number" name="defoliation" [(ngModel)]="sampleForm.defoliation" (keyup)="validateInput('defoliation', $event)" />
                     </div>
                   </form>
                 </div>
@@ -47,9 +43,9 @@
             </ng-template>
           </ngb-tab>
 
-          <ngb-tab>
+          <ngb-tab id="tab-selectbyid2">
             <ng-template ngbTabTitle>
-              <div>{{ 'addSample.tabHeaders.populationFluctuation' | translate }}</div>
+              <div (click)="buttonAction('next')">{{ 'addSample.tabHeaders.populationFluctuation' | translate }}</div>
             </ng-template>
             <ng-template ngbTabContent>
               <div class="card">
@@ -66,9 +62,7 @@
                   <div *ngFor="let pest of pestsTable" class="row pest-table">
                     <div class="col-sm-8">{{ pest.name }} - {{ pest.scientificName }} ( {{ pest.size }} )</div>
                     <div class="col-sm-4 pl-0">
-                      <input class="form-control" type="number" step="0.01" name="totalProductivity" />
-                      <!-- [(ngModel)]="selectedSupervisor.name" -->
-                      <!-- (keyup)="validateInput('name', $event)" -->
+                      <input class="form-control" type="number" step="0.01" name="average" [(ngModel)]="sampleForm.pestList[pest.id].average" />
                     </div>
                   </div>
                 </div>
@@ -78,14 +72,19 @@
         </ngb-tabset>
         <div class="align-row row pt-3">
           <div class="col-sm-12 text-right">
-            <button type="button" class="btn btn-primary">
+            <button *ngIf="lastStep" type="button" class="btn btn-secondary" (click)="tabs.select('tab-selectbyid1'); buttonAction('previous')">
               <span>
                 {{ 'general.previous' | translate }}
               </span>
             </button>
-            <button type="button" class="btn btn-primary">
+            <button *ngIf="!lastStep" type="button" class="btn btn-secondary" (click)="tabs.select('tab-selectbyid2'); buttonAction('next')">
               <span>
                 {{ 'general.next' | translate }}
+              </span>
+            </button>
+            <button *ngIf="lastStep" type="button" class="btn btn-primary" (click)="buttonAction('saveSample')" [disabled]="!validForm">
+              <span>
+                {{ 'addSample.saveSample' | translate }}
               </span>
             </button>
           </div>

@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnChanges,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild
-} from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -32,10 +25,6 @@ export class TableComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges() {
-    if(this.fromPage){
-      this.tableHeaders.pop();
-    }
-
     this.tableColumns = this.tableHeaders.map((elem, index) => {
       const card = {
         title: this.tableHeaders[index],
@@ -50,7 +39,7 @@ export class TableComponent implements OnChanges {
   onDetailToggle(event) {}
 
   toggleExpandRow(row) {
-    const rowSize = this.calculateRowSize(row);
+    const rowSize = 11;
     this.detailsHeight = rowSize * this.spanSize;
 
     setTimeout(() => {
@@ -58,7 +47,7 @@ export class TableComponent implements OnChanges {
         if (this.expandedRow === row) {
           this.table.rowDetail.toggleExpandRow(row);
         } else {
-          this.table.rowDetail.collapseAllRows();
+          // this.table.rowDetail.collapseAllRows();
           this.expandedRow = row;
           this.table.rowDetail.toggleExpandRow(row);
         }
@@ -67,22 +56,6 @@ export class TableComponent implements OnChanges {
         this.table.rowDetail.toggleExpandRow(row);
       }
     }, 50);
-  }
-
-  calculateRowSize(row) {
-    const scheduledExamSize = this.calculateObjectSize(row.scheduledExam);
-    const secondGraduationSize = this.calculateObjectSize(row.secondGraduation);
-    const transferRequestSize = this.calculateObjectSize(row.transferRequest);
-    const additionalInfoSize = this.calculateObjectSize(row.additionalInfo) + 1;
-
-    const rowSize = Math.max(
-      scheduledExamSize,
-      secondGraduationSize,
-      transferRequestSize,
-      additionalInfoSize
-    );
-
-    return rowSize;
   }
 
   calculateObjectSize(obj) {
@@ -99,5 +72,13 @@ export class TableComponent implements OnChanges {
 
   emitEvent(event, object) {
     this.event.emit({ event: event, object: object });
+  }
+
+  onActivate(event) {
+    if (this.fromPage) {
+      if (event.type === 'click') {
+        this.event.emit({ object: event.row });
+      }
+    }
   }
 }

@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UtilService } from '../../shared/services/utilities.service';
 import { PaginationInstance } from 'ngx-pagination';
 import { HTTPService } from '../../shared/services/http.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-select-field',
@@ -16,6 +15,7 @@ export class SelectFieldComponent implements OnInit {
 
   public searchText = '';
   public maxResults = [10, 25, 50, 100];
+  public harvestId;
   public fieldsTable = [];
   public citiesList = [];
   public farmersList = [];
@@ -40,16 +40,14 @@ export class SelectFieldComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private modalService: NgbModal,
     private httpService: HTTPService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.getFields(1);
-    this.getCities();
-    this.getFarmers();
-    this.getSupervisors();
+    this.harvestId = this.activatedRoute.snapshot.params.harvestId;
     this.searchText = this.activatedRoute.snapshot.params.search
       ? this.activatedRoute.snapshot.params.search
       : '';
@@ -63,7 +61,7 @@ export class SelectFieldComponent implements OnInit {
 
     await this.utilService.pause(1000);
 
-    this.httpService.get('fields?_expand=city&_expand=farmer&_expand=supervisor').subscribe(data => {
+    this.httpService.get('fields?onSurvey=false&_expand=city&_expand=farmer&_expand=supervisor').subscribe(data => {
       this.fieldsTable = data;
       this.allFields = data;
       this.allFilteredFields = data;
@@ -77,39 +75,6 @@ export class SelectFieldComponent implements OnInit {
     }, error => {
       this.loading = false;
     });
-  }
-
-  async getCities() {
-    this.httpService.get('cities').subscribe(
-      data => {
-        this.citiesList = data;
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  }
-
-  async getFarmers() {
-    this.httpService.get('farmers').subscribe(
-      data => {
-        this.farmersList = data;
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  }
-
-  async getSupervisors() {
-    this.httpService.get('supervisors').subscribe(
-      data => {
-        this.supervisorsList = data;
-      },
-      error => {
-        console.error(error);
-      }
-    );
   }
 
   setSearch(text) {
@@ -183,112 +148,10 @@ export class SelectFieldComponent implements OnInit {
       this.config.currentPage = 1;
       this.config.itemsPerPage = page;
       this.getFields(1);
-    } else {
-      this.selectedField[type] = page;
-      this.validateInput(type);
     }
   }
 
   action(event) {
-    console.log(event.object)
-    this.selectedField = { ...event.object };
-    this.openModal(this[event.event]);
-  }
-
-  openModal(content, newModal?) {
-    if (!newModal) {
-      Object.keys(this.validFormFields).map(
-        key => (this.validFormFields[key] = true)
-      );
-    }
-    this.validForm = !newModal;
-
-    this.selectedField = newModal
-      ? { name: '' }
-      : this.selectedField;
-    this.modalInstance = this.modalService.open(content, {});
-  }
-
-  closeModal() {
-    this.modalInstance.close();
-  }
-
-  createField() {
-    this.httpService.post('fields', this.selectedField).subscribe(
-      data => {
-        this.getFields(1);
-        this.closeModal();
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  }
-
-  updateField() {
-    this.httpService
-      .put(
-        `fields/${this.selectedField.id}`,
-        this.selectedField
-      )
-      .subscribe(
-        data => {
-          this.getFields(1);
-          this.closeModal();
-        },
-        error => {
-          console.error(error);
-        }
-      );
-  }
-
-  deleteField() {
-    this.httpService
-      .delete(`fields/${this.selectedField.id}`)
-      .subscribe(
-        data => {
-          this.getFields(1);
-          this.closeModal();
-        },
-        error => {
-          console.error(error);
-        }
-      );
-  }
-
-  validateInput(param, ev?) {
-    if (param === 'name' || param === 'location') {
-      if (this.selectedField[param].length >= 5) {
-        this.validFormFields[param] = true;
-        ev.path[1].setAttribute('class', 'form-group has-success');
-      } else {
-        this.validFormFields[param] = false;
-        ev.path[1].setAttribute('class', 'form-group has-danger');
-      }
-    } else if (param === 'cityId' || param === 'farmerId' || param === 'supervisorId') {
-      if (this.selectedField[param] !== null) {
-        this.validFormFields[param] = true;
-        // ev.path[1].setAttribute('class', 'form-group has-success');
-      } else {
-        this.validFormFields[param] = false;
-        // ev.path[1].setAttribute('class', 'form-group has-danger');
-      }
-    }
-
-    this.validateForm();
-  }
-
-  validateForm() {
-    if (
-      this.validFormFields.name &&
-      this.validFormFields.location &&
-      this.validFormFields.cityId &&
-      this.validFormFields.farmerId &&
-      this.validFormFields.supervisorId
-    ) {
-      this.validForm = true;
-    } else {
-      this.validForm = false;
-    }
+    this.router.navigate(['/survey-field/field-form', { harvestId: this.harvestId, fieldId: event.object.id }]);
   }
 }

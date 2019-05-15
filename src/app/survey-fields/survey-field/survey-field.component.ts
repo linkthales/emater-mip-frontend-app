@@ -61,7 +61,7 @@ export class SurveyFieldComponent implements OnInit {
 
     await this.utilService.pause(1000);
 
-    this.httpService.get('survey-fields?_expand=harvest&_expand=field').subscribe(
+    this.httpService.get('surveyFields?_expand=harvest&_expand=field').subscribe(
       data => {
         this.surveyFieldsTable = data;
         this.allSurveyFields = data;
@@ -207,8 +207,22 @@ export class SurveyFieldComponent implements OnInit {
     this.router.navigate(['/survey-field/select-field', { harvestId: this.selectedSurveyField.harvestId }]);
   }
 
-  deleteSurveyField() {
-    this.httpService.delete(`survey-fields/${this.selectedSurveyField.id}`).subscribe(
+  async deleteSurveyField() {
+    this.httpService.delete(`surveyFields/${this.selectedSurveyField.id}`).subscribe(
+      data => {
+        // this.getSurveyFields(1);
+        // this.closeModal();
+      },
+      error => {
+        console.error(error);
+      }
+    );
+
+    await this.utilService.pause(3000);
+
+    this.selectedSurveyField.field.onSurvey = false;
+
+    this.httpService.put(`fields/${this.selectedSurveyField.field.id}`, this.selectedSurveyField.field).subscribe(
       data => {
         this.getSurveyFields(1);
         this.closeModal();

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HTTPService {
-  private backendURL = 'http://127.0.0.1:3000/';
+  private backendURL = 'http://192.168.100.17:3000/';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

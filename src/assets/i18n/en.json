@@ -174,12 +174,25 @@
     "edit": "Edit Survey Field",
     "delete": "Remove Field from Survey",
     "deleteMessage": "Are you sure you want to remove the Field from this Survey",
-    "tableHeaders": ["Harvest", "Plant", "Is Rust Resistant", "BT", "Has Spore Collector", "Plant Date"]
+    "tableHeaders": ["Harvest", "Plant", "Is Rust Resistant", "BT", "Has Spore Collector", "Plant Date"],
+    "details": {
+      "harvestDate": "Harvest Date",
+      "unitProductivity": "Unit Productivity (UO/UR)",
+      "totalProductivity": "Total Farmer Area Productivity",
+      "weighedSeparately": "Weighed Separately",
+      "unitArea": "Unit Area (UO/UR)",
+      "totalCultivatedArea": "Total Area Cultivated",
+      "plantPerMeter": "No. Plant/Meter",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "field": "Field"
+    }
   },
 
   "fieldForm": {
     "name": "Field Form",
     "title": "Data from Field",
+    "tableHeaders": ["Identification", "Location", "City", "Farmer", "Supervisor"],
     "tabHeaders": {"harvest": "Harvest", "area": "Area", "productivity": "Productivity", "dates": "Dates"},
     "formFields": {
       "rustResistant": "Is Rust Resistant", "bt": "BT", "sporeCollector": "Has Spore Collector",
@@ -208,6 +221,7 @@
   "addSample": {
     "name": "Add Sample",
     "title": "New Sample",
+    "saveSample": "Save Sample",
     "tabHeaders": {"samplingData": "Sampling Data", "populationFluctuation": "Population Fluctuation", "pestPopulationFluctuation": "Population Fluctuation of Pests"},
     "formFields": {
       "collectionDate": "Collection Date", "stadiumOfCulture": "Stadium of Culture", "defoliation": "% of defoliation (in whole numbers)",
@@ -218,6 +232,8 @@
   "listSamples": {
     "name": "List Samples",
     "title": "MIP Samples Collected for",
+    "delete": "Delete Sample",
+    "deleteMessage": "Are you sure you want to delete the Sample",
     "tableHeaders": ["Collection Date", "Days after Emergency", "% of defoliation (in whole numbers)", "Stadium of Culture", "Actions"]
   },
 
@@ -241,11 +257,14 @@
     "no": "No",
     "cancel": "Cancel",
     "edit": "Edit",
+    "actions": "Actions",
+    "details": "Details",
     "delete": "Delete",
     "collect": "Collect Sample",
     "list": "List collected samples",
     "cannotUndo": "This action CANNOT be undone",
     "emptyData": "No data to display!",
+    "emptyFields": "No fields available for this research!",
     "emptyDataForSearch": "No data to display with search term!",
     "showing": "Showing from",
     "to": "to",

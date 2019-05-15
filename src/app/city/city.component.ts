@@ -134,9 +134,7 @@ export class CityComponent implements OnInit {
 
   action(event) {
     if (event === 'edit') {
-      console.log(event);
     } else {
-      console.log(event);
     }
   }
 }

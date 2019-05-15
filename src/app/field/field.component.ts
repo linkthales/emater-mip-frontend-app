@@ -190,7 +190,6 @@ export class FieldComponent implements OnInit {
   }
 
   action(event) {
-    console.log(event.object)
     this.selectedField = { ...event.object };
     this.openModal(this[event.event]);
   }
@@ -204,7 +203,7 @@ export class FieldComponent implements OnInit {
     this.validForm = !newModal;
 
     this.selectedField = newModal
-      ? { name: '' }
+      ? { name: '', onSurvey: false }
       : this.selectedField;
     this.modalInstance = this.modalService.open(content, {});
   }

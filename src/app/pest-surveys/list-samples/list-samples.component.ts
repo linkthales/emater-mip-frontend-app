@@ -4,6 +4,7 @@ import { UtilService } from '../../shared/services/utilities.service';
 import { PaginationInstance } from 'ngx-pagination';
 import { HTTPService } from '../../shared/services/http.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-list-samples',
@@ -11,22 +12,18 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./list-samples.component.scss']
 })
 export class ListSamplesComponent implements OnInit {
-  @ViewChild('edit') edit: ElementRef;
   @ViewChild('delete') delete: ElementRef;
 
   public searchText = '';
   public maxResults = [10, 25, 50, 100];
-  public pestSurveysTable = [];
-  public harvestsList = [];
-  public fieldsList = [];
+  public pestSamplesTable = [];
   public surveyFieldId;
-  public validForm = true;
-  public validFormFields = { harvestId: false };
-  public selectedPestSurvey: any = {};
-  public allPestSurveys = this.pestSurveysTable;
-  public allFilteredPestSurveys = this.pestSurveysTable;
-  public pestSurveysOriginalTable: any = [];
-  public tableKeys = [];
+  public pestSurvey: any = {};
+  public selectedPestSample: any = {};
+  public allPestSamples = this.pestSamplesTable;
+  public allFilteredPestSamples = this.pestSamplesTable;
+  public pestSamplesOriginalTable: any = [];
+  public tableKeys = ['collectionDate', 'daysAfterEmergency', 'defoliation', 'stadiumOfCulture', 'sampleActions'];
   public tableWidth = [150, 200, 300, 150, 100];
   public config: PaginationInstance = {
     id: 'advanced',
@@ -46,14 +43,15 @@ export class ListSamplesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.surveyFieldId = this.activatedRoute.snapshot.params.pestSurveyId
-    this.getPestSurveys(1);
+    this.surveyFieldId = this.activatedRoute.snapshot.params.pestSurveyId;
+    this.getPestSamples(1);
+    this.getPestSurveys();
     this.searchText = this.activatedRoute.snapshot.params.search
       ? this.activatedRoute.snapshot.params.search
       : '';
   }
 
-  async getPestSurveys(startPage) {
+  async getPestSamples(startPage) {
     this.loading = true;
 
     const startElement = this.config.itemsPerPage * (startPage - 1);
@@ -61,14 +59,18 @@ export class ListSamplesComponent implements OnInit {
 
     await this.utilService.pause(1000);
 
-    this.httpService.get(`survey-fields?id=${this.surveyFieldId}&_expand=harvest&_expand=field&_expand=city&_expand=farmer&_expand=supervisor`).subscribe(
+    this.httpService.get(`samples?surveyFieldId=${this.surveyFieldId}&_expand=surveyField`).subscribe(
       data => {
-        this.pestSurveysTable = data;
-        this.allPestSurveys = data;
-        this.allFilteredPestSurveys = data;
-        console.log(this.pestSurveysTable)
+        data = data.map((sample) => {
+          sample.daysAfterEmergency = moment(sample.collectionDate).diff(sample.surveyField.emergencyDate, 'days');
+          return sample;
+        });
 
-        this.pestSurveysTable = this.allFilteredPestSurveys.slice(
+        this.pestSamplesTable = data;
+        this.allPestSamples = data;
+        this.allFilteredPestSamples = data;
+
+        this.pestSamplesTable = this.allFilteredPestSamples.slice(
           startElement,
           endElement
         );
@@ -82,16 +84,35 @@ export class ListSamplesComponent implements OnInit {
     );
   }
 
+  async getPestSurveys() {
+    this.httpService.get(`surveyFields?id=${this.surveyFieldId}&_expand=harvest&_expand=field&_expand=city&_expand=farmer&_expand=supervisor`).subscribe(
+      data => {
+        this.pestSurvey = data[0];
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
   setSearch(text) {
     this.searchText = text;
 
     this.keyUp();
   }
 
+  openModal(content, newModal?) {
+    this.modalInstance = this.modalService.open(content, {});
+  }
+
+  closeModal() {
+    this.modalInstance.close();
+  }
+
   keyUp(event?) {
     this.config.currentPage = 1;
-    this.allFilteredPestSurveys = this.allPestSurveys.filter(this.filterPestSurveys, this);
-    this.pestSurveysTable = this.allFilteredPestSurveys;
+    this.allFilteredPestSamples = this.allPestSamples.filter(this.filterPestSamples, this);
+    this.pestSamplesTable = this.allFilteredPestSamples;
 
     this.resizeTable();
   }
@@ -104,20 +125,20 @@ export class ListSamplesComponent implements OnInit {
     }
   }
 
-  filterPestSurveys(pestSurveys) {
-    for (const key in pestSurveys) {
-      if (pestSurveys.hasOwnProperty(key)) {
+  filterPestSamples(pestSamples) {
+    for (const key in pestSamples) {
+      if (pestSamples.hasOwnProperty(key)) {
         if (
-          this.formatObject(pestSurveys[key]).includes(
+          this.formatObject(pestSamples[key]).includes(
             this.formatText(this.searchText)
           )
         ) {
           return true;
         }
-        for (const childKey in pestSurveys[key]) {
-          if (pestSurveys[key].hasOwnProperty(childKey)) {
+        for (const childKey in pestSamples[key]) {
+          if (pestSamples[key].hasOwnProperty(childKey)) {
             if (
-              this.formatObject(pestSurveys[key][childKey]).includes(
+              this.formatObject(pestSamples[key][childKey]).includes(
                 this.formatText(this.searchText)
               )
             ) {
@@ -145,20 +166,33 @@ export class ListSamplesComponent implements OnInit {
 
   onPageChange(pageNumber: number) {
     this.config.currentPage = pageNumber;
-    this.getPestSurveys(pageNumber);
+    this.getPestSamples(pageNumber);
   }
 
   doSelect(page) {
     this.config.currentPage = 1;
     this.config.itemsPerPage = page;
-    this.getPestSurveys(1);
+    this.getPestSamples(1);
+  }
+
+  deleteSample() {
+    this.httpService.delete(`samples/${this.selectedPestSample.id}`).subscribe(
+      data => {
+        this.getPestSamples(1);
+        this.closeModal();
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   action(event) {
-    if (event.event === 'collect') {
-      this.router.navigate(['/pest-survey/add-sample', { pestSurveyId: event.object.id }]);
+    if (event.event === 'details') {
+      // this.router.navigate(['/pest-survey/add-sample', { pestSampleId: event.object.id }]);
     } else {
-      this.router.navigate(['/pest-survey/list-samples', { pestSurveyId: event.object.id }]);
+      this.selectedPestSample = { ...event.object };
+      this.openModal(this[event.event]);
     }
   }
 }

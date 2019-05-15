@@ -59,12 +59,11 @@ export class PestSurveyComponent implements OnInit {
 
     await this.utilService.pause(1000);
 
-    this.httpService.get('survey-fields?_expand=harvest&_expand=field&_expand=city&_expand=farmer&_expand=supervisor').subscribe(
+    this.httpService.get('surveyFields?_expand=harvest&_expand=field&_expand=city&_expand=farmer&_expand=supervisor').subscribe(
       data => {
         this.pestSurveysTable = data;
         this.allPestSurveys = data;
         this.allFilteredPestSurveys = data;
-        console.log(this.pestSurveysTable)
 
         this.pestSurveysTable = this.allFilteredPestSurveys.slice(
           startElement,
