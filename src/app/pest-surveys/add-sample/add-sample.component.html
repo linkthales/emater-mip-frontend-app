@@ -29,7 +29,7 @@
                       <input class="form-control" type="date" name="collectionDate" [(ngModel)]="sampleForm.collectionDate" (keyup)="validateInput('collectionDate', $event)" />
                     </div><br>
                     <div class="card-selects col-sm-12 col-md-6 col-lg-4">
-                        <label class="input-label">{{ 'addSample.formFields.collectionDate' | translate }}:</label>
+                        <label class="input-label">{{ 'addSample.formFields.stadiumOfCulture' | translate }}:</label>
                         <ngx-select [items]="stadiumOfCulture" name="stadiumOfCulture"
                         optionValueField="id" optionTextField="name" [(ngModel)]="sampleForm.stadiumOfCulture" (select)="validateInput('stadiumOfCulture', $event)"></ngx-select>
                       </div><br>
