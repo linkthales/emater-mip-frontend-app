@@ -1,0 +1,178 @@
+<div id="field-form-wrapper">
+  <div class="card-body">
+    <div id="loader" class="config-loader" *ngIf="loading">
+      <app-loading></app-loading>
+    </div>
+    <div *ngIf="!loading">
+      <div>
+        <div class="align-row row">
+          <div class="col-sm-12 align-left">
+            <h2 *ngIf="field && harvest" class="m-0">{{ 'fieldForm.title' | translate }} '{{ field.name }}' ({{ field.farmer.name }},
+              {{ field.city.name }}) {{ 'general.for' | translate }} {{ harvest.description }}</h2>
+          </div>
+        </div>
+
+        <ngb-tabset (tabChange)="checkStep($event)" #tabs="ngbTabset">
+          <ngb-tab id="tab-selectbyid1">
+            <ng-template ngbTabTitle>
+              <div>{{ 'fieldForm.tabHeaders.harvest' | translate }}</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="card">
+                <div class="card-header">
+                  <h4>{{ 'fieldForm.tabHeaders.harvest' | translate }}</h4>
+                </div>
+
+                <div class="card-body">
+                  <form>
+                    <div class="descriptionInput">
+                      <label class="input-label" for="plant">{{ 'general.name' | translate }}</label><br>
+                      <input class="form-control" type="text" class="form-control" name="plant" [(ngModel)]="fieldForm.plant" (keyup)="validateInput('plant', $event)" />
+                    </div><br>
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="formCheckbox" type="checkbox" [checked]="fieldForm.rustResistant"  (click)="checkItem($event, 'rustResistant')" />
+                          <span class="input-label form-check-sign" [ngClass]="{'checked': fieldForm.rustResistant}">{{ 'fieldForm.formFields.rustResistant' | translate }}</span>
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="formCheckbox" type="checkbox" [checked]="fieldForm.bt" (click)="checkItem($event, 'bt')" />
+                          <span class="input-label form-check-sign" [ngClass]="{'checked': fieldForm.bt}">{{ 'fieldForm.formFields.bt' | translate }}</span>
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="formCheckbox" type="checkbox" [checked]="fieldForm.sporeCollector" (click)="checkItem($event, 'sporeCollector')" />
+                          <span class="input-label form-check-sign" [ngClass]="{'checked': fieldForm.sporeCollector}">{{ 'fieldForm.formFields.sporeCollector' | translate }}</span>
+                      </label>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab id="tab-selectbyid2">
+            <ng-template ngbTabTitle>
+              <div>{{ 'fieldForm.tabHeaders.area' | translate }}</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="card">
+                <div class="card-header">
+                  <h4>{{ 'fieldForm.tabHeaders.area' | translate }}</h4>
+                </div>
+
+                <div class="card-body">
+                  <form class="row">
+                    <div class="descriptionInput col-sm-12 col-md-6 col-lg-4">
+                      <label class="input-label" for="unitArea">{{ 'fieldForm.formFields.unitArea' | translate }}</label><br>
+                      <input class="form-control" type="number" step="0.01" name="unitArea" [(ngModel)]="fieldForm.unitArea" (keyup)="validateInput('unitArea', $event)" />
+                    </div><br>
+                    <div class="descriptionInput col-sm-12 col-md-6 col-lg-4">
+                      <label class="input-label" for="totalCultivatedArea">{{ 'fieldForm.formFields.totalCultivatedArea' | translate }}</label><br>
+                      <input class="form-control" type="number" step="0.01" name="totalCultivatedArea" [(ngModel)]="fieldForm.totalCultivatedArea" (keyup)="validateInput('totalCultivatedArea', $event)" />
+                    </div><br>
+                    <div class="descriptionInput col-sm-12 col-md-6 col-lg-4">
+                      <label class="input-label" for="plantPerMeter">{{ 'fieldForm.formFields.plantPerMeter' | translate }}</label><br>
+                      <input class="form-control" type="number" step="0.01" name="plantPerMeter" [(ngModel)]="fieldForm.plantPerMeter" (keyup)="validateInput('plantPerMeter', $event)" />
+                    </div><br>
+                    <div class="descriptionInput col-sm-12 col-md-6">
+                      <label class="input-label" for="latitude">{{ 'fieldForm.formFields.latitude' | translate }}</label><br>
+                      <input class="form-control" type="number" step="0.01" name="latitude" [(ngModel)]="fieldForm.latitude" (keyup)="validateInput('latitude', $event)" />
+                    </div><br>
+                    <div class="descriptionInput col-sm-12 col-md-6">
+                      <label class="input-label" for="longitude">{{ 'fieldForm.formFields.longitude' | translate }}</label><br>
+                      <input class="form-control" type="number" step="0.01" name="longitude" [(ngModel)]="fieldForm.longitude" (keyup)="validateInput('longitude', $event)" />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab id="tab-selectbyid3">
+            <ng-template ngbTabTitle>
+              <div>{{ 'fieldForm.tabHeaders.productivity' | translate }}</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="card">
+                <div class="card-header">
+                  <h4>{{ 'fieldForm.tabHeaders.productivity' | translate }}</h4>
+                </div>
+
+                <div class="card-body">
+                  <form class="row">
+                    <div class="descriptionInput col-sm-12 col-md-6">
+                      <label class="input-label" for="unitProductivity">{{ 'fieldForm.formFields.unitProductivity' | translate }}</label><br>
+                      <input class="form-control" type="number" step="0.01" name="unitProductivity" [(ngModel)]="fieldForm.unitProductivity" (keyup)="validateInput('unitProductivity', $event)" />
+                    </div><br>
+                    <div class="descriptionInput col-sm-12 col-md-6">
+                      <label class="input-label" for="totalProductivity">{{ 'fieldForm.formFields.totalProductivity' | translate }}</label><br>
+                      <input class="form-control" type="number" step="0.01" name="totalProductivity" [(ngModel)]="fieldForm.totalProductivity" (keyup)="validateInput('totalProductivity', $event)" />
+                    </div><br>
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="formCheckbox" type="checkbox" [checked]="fieldForm.weighedSeparately" (click)="checkItem($event, 'weighedSeparately')" />
+                          <span class="input-label form-check-sign" [ngClass]="{'checked': fieldForm.weighedSeparately}">{{ 'fieldForm.formFields.weighedSeparately' | translate }}</span>
+                      </label>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab id="tab-selectbyid4">
+            <ng-template ngbTabTitle>
+              <div>{{ 'fieldForm.tabHeaders.dates' | translate }}</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="card">
+                <div class="card-header">
+                  <h4>{{ 'fieldForm.tabHeaders.dates' | translate }}</h4>
+                </div>
+
+                <div class="card-body">
+                  <form class="row">
+                    <div class="descriptionInput col-sm-12 col-md-6 col-lg-4">
+                      <label class="input-label" for="name">{{ 'fieldForm.formFields.plantDate' | translate }}</label><br>
+                      <input class="form-control" type="date" name="plantDate" [(ngModel)]="fieldForm.plantDate" (keyup)="validateInput('plantDate', $event)" />
+                    </div><br>
+                    <div class="descriptionInput col-sm-12 col-md-6 col-lg-4">
+                      <label class="input-label" for="name">{{ 'fieldForm.formFields.emergencyDate' | translate }}</label><br>
+                      <input class="form-control" type="date" name="emergencyDate" [(ngModel)]="fieldForm.emergencyDate" (keyup)="validateInput('emergencyDate', $event)" />
+                    </div><br>
+                    <div class="descriptionInput col-sm-12 col-md-6 col-lg-4">
+                      <label class="input-label" for="name">{{ 'fieldForm.formFields.harvestDate' | translate }}</label><br>
+                      <input class="form-control" type="date" name="harvestDate" [(ngModel)]="fieldForm.harvestDate" (keyup)="validateInput('harvestDate', $event)" />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+        <div class="align-row row pt-3">
+          <div class="col-sm-12 text-right">
+            <button *ngIf="!firstStep" type="button" class="btn btn-secondary" (click)="buttonAction('previous')">
+              <span>
+                {{ 'general.previous' | translate }}
+              </span>
+            </button>
+            <button *ngIf="!lastStep" type="button" class="btn btn-secondary" (click)="buttonAction('next')">
+              <span>
+                {{ 'general.next' | translate }}
+              </span>
+            </button>
+            <button *ngIf="lastStep" type="button" class="btn btn-primary" (click)="buttonAction('saveSurveyField')" [disabled]="!validForm">
+              <span>
+                {{ 'addSample.saveSample' | translate }}
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

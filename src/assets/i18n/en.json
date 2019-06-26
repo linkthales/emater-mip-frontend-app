@@ -1,0 +1,280 @@
+{
+  "navbar": {
+    "mip-mid-system": "MIP/MID System",
+    "information-management": "Information Management",
+    "research-config": "Research Configuration",
+    "integrated-pest-management": "Integrated Pest Management",
+
+    "dropdown": {
+
+      "infoMenu": [{
+          "path": "/macroregion",
+          "navTitle": "Macroregion",
+          "title": "Macroregion",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/region",
+          "navTitle": "Region",
+          "title": "Region",
+          "icon": "fas fa-users"
+        },
+        {
+          "path": "/farmer",
+          "navTitle": "Farmer",
+          "title": "Farmer",
+          "icon": "fas fa-shopping-cart"
+        },
+        {
+          "path": "/supervisor",
+          "navTitle": "Supervisor",
+          "title": "Supervisor",
+          "icon": "fas fa-shopping-cart"
+        },
+        {
+          "path": "/field",
+          "navTitle": "Fields",
+          "title": "Fields",
+          "icon": "fas fa-shopping-cart"
+        }
+      ],
+
+      "researchConfigMenu": [{
+          "path": "/harvest",
+          "navTitle": "Harvest",
+          "title": "Harvest",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/survey-field",
+          "navTitle": "Survey Fields",
+          "title": "Survey Fields",
+          "icon": "fas fa-users"
+        }
+      ],
+
+      "pestMenu": [{
+          "path": "/pest",
+          "navTitle": "Pest",
+          "title": "Pest",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/pest-survey",
+          "navTitle": "Pest Survey",
+          "title": "Pest Survey",
+          "icon": "fas fa-users"
+        }
+      ]
+    }
+  },
+
+  "dashboard": {
+    "cards": [{
+        "title": "Registered SF",
+        "icon": "home",
+        "quantity": 0,
+        "button": "Create new SF"
+      },
+      {
+        "title": "SF's on Current Research",
+        "icon": "assignment",
+        "quantity": 0,
+        "button": "Add SF to Research"
+      },
+      {
+        "title": "Samples collected",
+        "icon": "list",
+        "quantity": 0,
+        "button": "Collect sample"
+      },
+      {
+        "title": "Registered pests",
+        "icon": "bug_report",
+        "quantity": 0,
+        "button": "Observe pest evolution"
+      }
+    ]
+  },
+
+  "macroregion": {
+    "name": "Macroregion",
+    "title": "Macroregions Management",
+    "create": "Create new Macroregion",
+    "edit": "Edit Macroregion",
+    "delete": "Delete Macroregion",
+    "deleteMessage": "Are you sure you want to delete the Macroregion",
+    "tableHeaders": ["Name", "Actions"]
+  },
+
+  "region": {
+    "name": "Region",
+    "title": "Regions Management",
+    "create": "Create new Region",
+    "edit": "Edit Region",
+    "delete": "Delete Region",
+    "deleteMessage": "Are you sure you want to delete the Region",
+    "tableHeaders": ["Name", "Macroregion", "Cities", "Actions"]
+  },
+
+  "city": {
+    "name": "City",
+    "title": "Cities Management",
+    "create": "Create new City",
+    "edit": "Edit City",
+    "delete": "Delete City",
+    "deleteMessage": "Are you sure you want to delete the City",
+    "tableHeaders": ["Name", "Macroregion", "Cities", "Actions"]
+  },
+
+  "farmer": {
+    "name": "Farmer",
+    "title": "Farmers Management",
+    "create": "Create new Farmer",
+    "edit": "Edit Farmer",
+    "delete": "Delete Farmer",
+    "deleteMessage": "Are you sure you want to delete the Farmer",
+    "tableHeaders": ["Name", "Actions"]
+  },
+
+  "supervisor": {
+    "name": "Supervisor",
+    "title": "Supervisors Management",
+    "create": "Create new Supervisor",
+    "edit": "Edit Supervisor",
+    "delete": "Delete Supervisor",
+    "deleteMessage": "Are you sure you want to delete the Supervisor",
+    "tableHeaders": ["Name", "E-mail", "Region", "Actions"]
+  },
+
+  "field": {
+    "name": "Field",
+    "title": "Fields Management",
+    "create": "Create new Field",
+    "edit": "Edit Field",
+    "delete": "Delete Field",
+    "deleteMessage": "Are you sure you want to delete the Field",
+    "tableHeaders": ["Identification", "Location", "City", "Farmer", "Supervisor", "Actions"]
+  },
+
+  "harvest": {
+    "name": "Harvest",
+    "title": "Harvests Management",
+    "create": "Create new Harvest",
+    "edit": "Edit Harvest",
+    "delete": "Delete Harvest",
+    "deleteMessage": "Are you sure you want to delete the Harvest",
+    "tableHeaders": ["Description", "Start Date", "End Date", "Actions"]
+  },
+
+  "surveyField": {
+    "name": "Survey Field",
+    "title": "Survey Fields Management",
+    "create": "Add Field to Survey",
+    "edit": "Edit Survey Field",
+    "delete": "Remove Field from Survey",
+    "deleteMessage": "Are you sure you want to remove the Field from this Survey",
+    "tableHeaders": ["Harvest", "Plant", "Is Rust Resistant", "BT", "Has Spore Collector", "Plant Date"],
+    "details": {
+      "harvestDate": "Harvest Date",
+      "unitProductivity": "Unit Productivity (UO/UR)",
+      "totalProductivity": "Total Farmer Area Productivity",
+      "weighedSeparately": "Weighed Separately",
+      "unitArea": "Unit Area (UO/UR)",
+      "totalCultivatedArea": "Total Area Cultivated",
+      "plantPerMeter": "No. Plant/Meter",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "field": "Field"
+    }
+  },
+
+  "fieldForm": {
+    "name": "Field Form",
+    "title": "Data from Field",
+    "tableHeaders": ["Identification", "Location", "City", "Farmer", "Supervisor"],
+    "tabHeaders": {"harvest": "Harvest", "area": "Area", "productivity": "Productivity", "dates": "Dates"},
+    "formFields": {
+      "rustResistant": "Is Rust Resistant", "bt": "BT", "sporeCollector": "Has Spore Collector",
+      "unitArea": "Unit Area (UO/UR)", "totalCultivatedArea": "Total Area Cultivated", "plantPerMeter": "No. Plant/Meter", "latitude": "Latitude", "longitude": "Longitude",
+      "unitProductivity": "Unit Productivity (UO/UR)", "totalProductivity": "Total Farmer Area Productivity", "weighedSeparately": "Weighed Separately",
+      "plantDate": "Plant Date", "emergencyDate": "Emergency", "harvestDate": "Harvest Date"
+    }
+  },
+
+  "pest": {
+    "name": "Pest",
+    "title": "Pests Management",
+    "create": "Create new Pest",
+    "edit": "Edit Pest",
+    "delete": "Delete Pest",
+    "deleteMessage": "Are you sure you want to delete the Pest",
+    "tableHeaders": ["Name", "Scientific Name", "Size", "Actions"]
+  },
+
+  "pestSurvey": {
+    "name": "Pest Survey",
+    "title": "Field Notation on Pest Fluctuation",
+    "tableHeaders": ["Harvest", "Identification", "Location", "City", "Plant", "Farmer", "Supervisor", "Actions"]
+  },
+
+  "addSample": {
+    "name": "Add Sample",
+    "title": "New Sample",
+    "saveSample": "Save Sample",
+    "tabHeaders": {"samplingData": "Sampling Data", "populationFluctuation": "Population Fluctuation", "pestPopulationFluctuation": "Population Fluctuation of Pests"},
+    "formFields": {
+      "collectionDate": "Collection Date", "stadiumOfCulture": "Stadium of Culture", "defoliation": "% of defoliation (in whole numbers)",
+      "pests": "Pests", "average": "Average Found"
+    }
+  },
+
+  "listSamples": {
+    "name": "List Samples",
+    "title": "MIP Samples Collected for",
+    "delete": "Delete Sample",
+    "deleteMessage": "Are you sure you want to delete the Sample",
+    "tableHeaders": ["Collection Date", "Days after Emergency", "% of defoliation (in whole numbers)", "Stadium of Culture", "Actions"]
+  },
+
+  "general": {
+    "changeLanguage": "Change language",
+    "search": "Search",
+    "results": "results per page",
+    "name": "Name",
+    "email": "E-mail",
+    "location": "Location",
+    "description": "Description",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "scientificName": "Scientific Name",
+    "size": "Size",
+    "create": "Create",
+    "save": "Save",
+    "saveChanges": "Save Changes",
+    "select": "Select",
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "actions": "Actions",
+    "details": "Details",
+    "delete": "Delete",
+    "collect": "Collect Sample",
+    "list": "List collected samples",
+    "cannotUndo": "This action CANNOT be undone",
+    "emptyData": "No data to display!",
+    "emptyFields": "No fields available for this research!",
+    "emptyDataForSearch": "No data to display with search term!",
+    "showing": "Showing from",
+    "to": "to",
+    "of": "of",
+    "in": "in",
+    "for": "for",
+    "from": "from",
+    "previous": "Previous",
+    "next": "Next",
+    "registries": "registries",
+    "filtered": "Filtered"
+  }
+}

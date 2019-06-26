@@ -1,0 +1,220 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  font-family: 'Nunito', sans-serif;
+  // border: 1px solid black;
+}
+
+.navbar[_ngcontent-c3] .container-fluid[_ngcontent-c3] a[_ngcontent-c3] i[_ngcontent-c3].icon-size {
+  font-size: 20px;
+}
+
+.navbar .navbar-nav .nav-link {
+  text-transform: inherit;
+  font-size: 14px;
+}
+
+.navbar[_ngcontent-c3] {
+  padding-left: 0 !important;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+ngx-select {
+  .ngx-select {
+    .ngx-select__selected {
+      .ngx-select__toggle {
+        .ngx-select__toggle-buttons {
+          .dropdown-toggle {
+            display: none !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ngx-select__selected, .ngx-select__toggle {
+  width: 100%;
+  margin: 0;
+}
+
+.ngx-select__choices {
+  margin: 0;
+  padding: 0;
+}
+
+a.ngx-select__item.dropdown-item, ul.ngx-select__choices.dropdown-menu.show, li.ngx-select__item-group {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.ngx-datatable {
+  .visible {
+    .datatable-header {
+      background: #000000;
+      color: #ffffff;
+      font-weight: bold;
+
+      .datatable-header-inner {
+        .datatable-header-cell {
+          display: flex;
+          text-align: center;
+          align-items: center;
+          justify-content: center;
+
+          .datatable-header-cell-label {
+            white-space: normal;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ngx-datatable.scroll-horz .datatable-body {
+  // overflow-x: hidden !important;
+}
+
+.ngx-datatable.bootstrap .datatable-body .datatable-body-row .datatable-body-cell {
+  text-align: center;
+}
+
+.ngx-datatable {
+  .datatable-row-even {
+    background-color: #a9a9a9 !important;
+  }
+
+  .visible {
+    .datatable-header {
+      .datatable-header-cell {
+        border: none;
+      }
+    }
+
+    .datatable-body {
+      max-height: 500px;
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+      padding-right: 17px;
+      box-sizing: content-box;
+
+      .datatable-row-wrapper {
+        .datatable-body-row {
+          width: 100% !important;
+
+          .datatable-row-center {
+            width: 100% !important;
+
+            .datatable-body-cell {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .datatable-body-cell-label {
+                text-align: center;
+                white-space: normal;
+
+                input {
+                  width: 100%;
+                }
+
+                .statusAlert {
+                  width: 15px;
+                  height: 15px;
+                  border-radius: 50%;
+                  background-color: #00ff00;
+
+                  &.warning {
+                    background-color: #ffff00;
+                  }
+
+                  &.danger {
+                    background-color: #ff0000;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .datatable-row-detail {
+          .contactDetails {
+            display: flex;
+
+            .contactInfo {
+              flex: 50%;
+              display: flex;
+              height: 250px;
+              overflow: auto;
+              font-size: 14px;
+              color: #000000;
+              padding-left: 60px;
+              overflow: hidden;
+
+              ul {
+                li {
+
+                  .inputId,
+                  .inputQty {
+                    margin: 0;
+                    display: inline-block;
+                    width: 90px;
+                  }
+
+                  .fa-edit {
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .datatable-summary-row {
+        .datatable-body-cell-label {
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+  background-color: #000;
+}
+
+.ngx-datatable .datatable-row-left, .ngx-datatable .datatable-row-right {
+  background-color: #FFF;
+}
+
+.datatable-row-even .datatable-row-left  {
+  background-color: #a9a9a9;
+}
+
+.delete {
+  color: #FFF;
+  background: #FF2222;
+}
+
+.important {
+    color: #FF2222;
+}
+
+.formCheckbox {
+  position: fixed;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.input-label {
+  font-size: 1.2em !important;
+  margin-bottom: 10px !important;
+}
+
+.descriptionInput {
+  margin-bottom: 10px;
+}

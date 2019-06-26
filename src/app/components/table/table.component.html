@@ -1,0 +1,146 @@
+<ngx-datatable *ngIf="tableData.length" #myTable class="bootstrap fixed-header expandable"
+  [loadingIndicator]="loadingIndicator" [rows]="tableData" columnMode="force" [headerHeight]="30"
+  [footerHeight]="0" [rowHeight]="40" [scrollbarV]="false" [scrollbarH]="true" (activate)="onActivate($event)">
+
+  <ngx-datatable-row-detail [rowHeight]="detailsHeight" #myDetailRow (toggle)="onDetailToggle($event)">
+    <ng-template let-row="row" let-rowIndex="rowIndex" let-expanded="expanded"
+      ngx-datatable-row-detail-template>
+      <div class="table-details">
+        <div class="table-info">
+          <ul *ngIf="!row.pestList">
+            <li *ngIf="row.harvestDate">
+              <b>{{ 'surveyField.details.harvestDate' | translate }}</b> {{ row.harvestDate | formatDate: 'MMM DD, YYYY' }}
+            </li>
+            <li *ngIf="row.unitProductivity">
+              <b>{{ 'surveyField.details.unitProductivity' | translate }}</b> {{ row.unitProductivity }}
+            </li>
+            <li *ngIf="row.totalProductivity">
+              <b>{{ 'surveyField.details.totalProductivity' | translate }}</b> {{ row.totalProductivity }}
+            </li>
+            <li *ngIf="row.weighedSeparately !== null">
+              <b>{{ 'surveyField.details.weighedSeparately' | translate }}</b> {{ row.weighedSeparately ? ('general.yes' | translate) : ('general.no' | translate) }}
+            </li>
+            <li *ngIf="row.unitArea">
+              <b>{{ 'surveyField.details.unitArea' | translate }}</b> {{ row.unitArea }}
+            </li>
+            <li *ngIf="row.totalCultivatedArea">
+              <b>{{ 'surveyField.details.totalCultivatedArea' | translate }}</b> {{ row.totalCultivatedArea }}
+            </li>
+            <li *ngIf="row.plantPerMeter">
+              <b>{{ 'surveyField.details.plantPerMeter' | translate }}</b> {{ row.plantPerMeter }}
+            </li>
+            <li *ngIf="row.latitude">
+              <b>{{ 'surveyField.details.latitude' | translate }}</b> {{ row.latitude }}
+            </li>
+            <li *ngIf="row.longitude">
+              <b>{{ 'surveyField.details.longitude' | translate }}</b> {{ row.longitude }}
+            </li>
+            <li *ngIf="row.field?.name">
+              <b>{{ 'surveyField.details.field' | translate }}</b> {{ row.field.name }}
+            </li>
+            <li>
+              <b>{{ 'general.actions' | translate }}:</b>
+              <a [routerLink]="" class="text-danger" (click)="emitEvent('delete', row)">
+                <i class="material-icons" data-toggle="tooltip" title="{{ 'general.delete' | translate }}">clear</i>
+              </a>
+            </li>
+          </ul>
+          <ul *ngIf="row.pestList">
+            <li *ngFor="let pest of row.pests">
+              <b>{{ pest.name }} {{ pest.size }} {{ pest.scientificName ? "(" + pest.scientificName + ")" : "" }}</b>: {{ row.pestList[pest.id].average }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-template>
+  </ngx-datatable-row-detail>
+
+  <ngx-datatable-column *ngFor="let column of tableColumns" name="{{ column.title }}" prop="{{ column.dataKey }}"
+    [width]="column.width">
+    <ng-template *ngIf="column.dataKey == 'harvest.description'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      <a href="javascript:void(0);" [class.datatable-icon-right]="!expanded"
+        [class.datatable-icon-down]="expanded" title="Expand/Collapse Row" (click)="toggleExpandRow(row, rowIndex)"
+        class="desktop-hidden">
+      </a>
+      {{ row.harvest.description }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'startDate'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.startDate | formatDate: 'MMM DD, YYYY' }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'endDate'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.endDate | formatDate: 'MMM DD, YYYY' }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'plantDate'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.plantDate | formatDate: 'MMM DD, YYYY' }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'emergencyDate'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.emergencyDate | formatDate: 'MMM DD, YYYY' }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'rustResistant'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.rustResistant ? ('general.yes' | translate) : ('general.no' | translate) }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'bt'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.bt ? ('general.yes' | translate) : ('general.no' | translate) }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'sporeCollector'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.sporeCollector ? ('general.yes' | translate) : ('general.no' | translate) }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'weighedSeparate'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.weighedSeparate ? ('general.yes' | translate) : ('general.no' | translate) }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'collectionDate'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      {{ row.collectionDate | formatDate: 'MMM DD, YYYY' }}
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'edit'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      <a [routerLink]="" class="text-warning" (click)="emitEvent('edit', row)">
+        <i class="material-icons" data-toggle="tooltip" title="{{ 'general.edit' | translate }}"></i>
+      </a>
+      <a [routerLink]="" class="text-danger" (click)="emitEvent('delete', row)">
+        <i class="material-icons" data-toggle="tooltip" title="{{ 'general.delete' | translate }}"></i>
+      </a>
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'actions'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      <a [routerLink]="" class="primary-color" (click)="emitEvent('collect', row)">
+        <i class="material-icons" data-toggle="tooltip" title="{{ 'general.collect' | translate }}">add_circle</i>
+      </a>
+      <a [routerLink]="" class="primary-color" (click)="emitEvent('list', row)">
+        <i class="material-icons" data-toggle="tooltip" title="{{ 'general.list' | translate }}">list</i>
+      </a>
+    </ng-template>
+
+    <ng-template *ngIf="column.dataKey == 'sampleActions'" let-rowIndex="rowIndex" let-value="value" let-row="row"
+      let-expanded="expanded" ngx-datatable-cell-template>
+      <a href="javascript:void(0);" title="Expand/Collapse Row" (click)="toggleExpandRow(row, rowIndex)"
+        class="desktop-hidden">
+        <i *ngIf="!expanded" class="material-icons" data-toggle="tooltip" title="{{ 'general.details' | translate }}">details</i>
+        <i *ngIf="expanded" class="material-icons" data-toggle="tooltip" title="{{ 'general.details' | translate }}">change_history</i>
+      </a>
+      <a [routerLink]="" class="text-danger" (click)="emitEvent('delete', row)">
+        <i class="material-icons" data-toggle="tooltip" title="{{ 'general.delete' | translate }}">clear</i>
+      </a>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>

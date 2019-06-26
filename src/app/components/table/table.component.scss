@@ -1,0 +1,52 @@
+.customCard {
+  .card {
+    height: 200px;
+    display: flex;
+    border-top: 6px solid #334069;
+
+    .card-header {
+      padding: 0;
+      text-align: center;
+
+      .card-title {
+        font-size: 23px;
+      }
+    }
+
+    .card-body {
+      font-size: 24px;
+      font-weight: bold;
+      height: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .card-icon {
+        font-size: 50px;
+      }
+
+      .card-content {
+        width: 85%;
+        text-align: center;
+
+        h4 {
+          margin: 0;
+          font-size: 18px;
+        }
+      }
+    }
+
+    .card-footer {
+      background-color: hsl(0, 0%, 24%);
+      height: 60px;
+      padding: 0;
+
+      .stats {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: hsl(0, 0%, 74%);
+      }
+    }
+  }
+}

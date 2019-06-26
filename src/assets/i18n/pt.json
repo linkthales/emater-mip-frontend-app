@@ -1,0 +1,280 @@
+{
+  "navbar": {
+    "mip-mid-system": "Sistema MIP/MID",
+    "information-management": "Gerenciamento de Informações",
+    "research-config": "Configuração da Pesquisa",
+    "integrated-pest-management": "Manejo Integrado de Pragas",
+
+    "dropdown": {
+
+      "infoMenu": [{
+          "path": "/macroregion",
+          "navTitle": "Macrorregião",
+          "title": "Macrorregião",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/region",
+          "navTitle": "Região",
+          "title": "Região",
+          "icon": "fas fa-users"
+        },
+        {
+          "path": "/farmer",
+          "navTitle": "Produtor",
+          "title": "Produtor",
+          "icon": "fas fa-shopping-cart"
+        },
+        {
+          "path": "/supervisor",
+          "navTitle": "Responsável Técnico",
+          "title": "Responsável Técnico",
+          "icon": "fas fa-shopping-cart"
+        },
+        {
+          "path": "/field",
+          "navTitle": "Unidades de Referência",
+          "title": "Unidades de Referência",
+          "icon": "fas fa-shopping-cart"
+        }
+      ],
+
+      "researchConfigMenu": [{
+          "path": "/harvest",
+          "navTitle": "Safra",
+          "title": "Safra",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/survey-field",
+          "navTitle": "UR's Participantes",
+          "title": "UR's Participantes",
+          "icon": "fas fa-users"
+        }
+      ],
+
+      "pestMenu": [{
+          "path": "/pest",
+          "navTitle": "Insetos Pragas",
+          "title": "Insetos Pragas",
+          "icon": "fas fa-chart-pie"
+        },
+        {
+          "path": "/pest-survey",
+          "navTitle": "Flutuação das Pragas",
+          "title": "Flutuação das Pragas",
+          "icon": "fas fa-users"
+        }
+      ]
+    }
+  },
+
+  "dashboard": {
+    "cards": [{
+        "title": "UR's Cadastradas",
+        "icon": "home",
+        "quantity": 0,
+        "button": "Criar nova UR"
+      },
+      {
+        "title": "UR's na Pesquisa Atual",
+        "icon": "assignment",
+        "quantity": 0,
+        "button": "Adicionar UR à Pesquisa"
+      },
+      {
+        "title": "Amostras coletadas",
+        "icon": "list",
+        "quantity": 0,
+        "button": "Coletar amostra"
+      },
+      {
+        "title": "Pragas registradas",
+        "icon": "bug_report",
+        "quantity": 0,
+        "button": "Observar evolução das pragas"
+      }
+    ]
+  },
+
+  "macroregion": {
+    "name": "Macrorregião",
+    "title": "Gerenciamento de Macrorregiões",
+    "create": "Criar nova Macrorregião",
+    "edit": "Alterar Macrorregião",
+    "delete": "Apagar Macrorregião",
+    "deleteMessage": "Você tem certeza que deseja apagar a Macrorregião",
+    "tableHeaders": ["Nome", "Ações"]
+  },
+
+  "region": {
+    "name": "Região",
+    "title": "Gerenciamento de Regiões",
+    "create": "Criar nova Região",
+    "edit": "Alterar Região",
+    "delete": "Apagar Região",
+    "deleteMessage": "Você tem certeza que deseja apagar a Região",
+    "tableHeaders": ["Nome", "Macrorregião", "Municípios", "Ações"]
+  },
+
+  "city": {
+    "name": "Município",
+    "title": "Gerenciamento de Municípios",
+    "create": "Criar novo Município",
+    "edit": "Alterar Município",
+    "delete": "Apagar Município",
+    "deleteMessage": "Você tem certeza que deseja apagar o Município",
+    "tableHeaders": ["Nome", "Macrorregião", "Municípios", "Ações"]
+  },
+
+  "farmer": {
+    "name": "Produtor",
+    "title": "Gerenciamento de Produtores",
+    "create": "Criar novo Produtor",
+    "edit": "Alterar Produtor",
+    "delete": "Apagar Produtor",
+    "deleteMessage": "Você tem certeza que deseja apagar a Produtor",
+    "tableHeaders": ["Nome", "Ações"]
+  },
+
+  "supervisor": {
+    "name": "Responsável Técnico",
+    "title": "Gerenciamento de Responsáveis Técnicos",
+    "create": "Criar novo Responsável Técnico",
+    "edit": "Alterar Responsável Técnico",
+    "delete": "Apagar Responsável Técnico",
+    "deleteMessage": "Você tem certeza que deseja apagar a Responsável Técnico",
+    "tableHeaders": ["Nome", "E-mail", "Região", "Ações"]
+  },
+
+  "field": {
+    "name": "Unidade de Referência",
+    "title": "Gerenciamento de Unidades de Referência",
+    "create": "Criar nova Unidade de Referência",
+    "edit": "Alterar Unidade de Referência",
+    "delete": "Apagar Unidade de Referência",
+    "deleteMessage": "Você tem certeza que deseja apagar a Unidade de Referência",
+    "tableHeaders": ["Identificação", "Localização", "Município", "Produtor", "Responsável Técnico", "Ações"]
+  },
+
+  "harvest": {
+    "name": "Safra",
+    "title": "Gerenciamento de Safras",
+    "create": "Criar nova Safra",
+    "edit": "Alterar Safra",
+    "delete": "Apagar Safra",
+    "deleteMessage": "Você tem certeza que deseja apagar a Safra",
+    "tableHeaders": ["Descrição", "Data Início", "Data Término", "Ações"]
+  },
+
+  "surveyField": {
+    "name": "Unidade de Referência Participante da Pesquisa",
+    "title": "Unidades de Referência Participantes da Pesquisa",
+    "create": "Adicionar Unidade de Referência à Pesquisa",
+    "edit": "Alterar Unidade de Referência",
+    "delete": "Retirar da Pesquisa Unidade de Referência",
+    "deleteMessage": "Você tem certeza que deseja retirar a seguinte Unidade de Referência da pesquisa atual",
+    "tableHeaders": ["Safra", "Cultivar", "Resistente à Ferrugem", "BT", "Tem coletor de esporos", "Data da Semeadura"],
+    "details": {
+      "harvestDate": "Data da Colheita",
+      "unitProductivity": "Produtividade da Unidade",
+      "totalProductivity": "Produtividade da Área total do Produtor",
+      "weighedSeparately": "Pesou em Separado",
+      "unitArea": "Área da Unidade",
+      "totalCultivatedArea": "Área Total Cultivada",
+      "plantPerMeter": "No. Plantas/Metro",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "field": "Unidade de Referência"
+    }
+  },
+
+  "fieldForm": {
+    "name": "Formulário das URs",
+    "title": "Dados da UR",
+    "tableHeaders": ["Identificação", "Localização", "Município", "Produtor", "Responsável Técnico"],
+    "tabHeaders": {"harvest": "Cultivar", "area": "Área", "productivity": "Produtividade", "dates": "Datas"},
+    "formFields": {
+      "rustResistant": "Resistente à Ferrugem", "bt": "BT", "sporeCollector": "Tem coletor de esporos",
+      "unitArea": "Área da Unidade (UO/UR)", "totalCultivatedArea": "Área Total Cultivada", "plantPerMeter": "No. Plantas/Metro", "latitude": "Latitude", "longitude": "Longitude",
+      "unitProductivity": "Produtividade da Unidade (UO/UR)", "totalProductivity": "Produtividade da Área total do Produtor", "weighedSeparately": "Pesou em Separado",
+      "plantDate": "Data da Semeadura", "emergencyDate": "Data da Emergência", "harvestDate": "Data da Colheita"
+    }
+  },
+
+  "pest": {
+    "name": "Praga",
+    "title": "Gerenciamento de Insetos Pragas",
+    "create": "Criar nova Praga",
+    "edit": "Alterar Praga",
+    "delete": "Apagar Praga",
+    "deleteMessage": "Você tem certeza que deseja apagar a Praga",
+    "tableHeaders": ["Nome", "Nome Científico", "Tamanho", "Ações"]
+  },
+
+  "pestSurvey": {
+    "name": "Flutuação das Pragas",
+    "title": "Anotação de Campo sobre a Flutuação das Pragas",
+    "tableHeaders": ["Safra", "Identificação", "Localização", "Município", "Cultivar", "Produtor", "Responsável Técnico", "Ações"]
+  },
+
+  "addSample": {
+    "name": "Adicionar Amostra",
+    "title": "Nova Amostra",
+    "saveSample": "Gravar Amostra",
+    "tabHeaders": {"samplingData": "Dados da Amostragem", "populationFluctuation": "Flutuação Populacional", "pestPopulationFluctuation": "Flutuação Populacional dos Insetos Pragas"},
+    "formFields": {
+      "collectionDate": "Data da Coleta", "stadiumOfCulture": "Estádio da Cultura", "defoliation": "% de Desfolha (em números inteiros)",
+      "pests": "Insetos Praga", "average": "Média Encontrada"
+    }
+  },
+
+  "listSamples": {
+    "name": "Listar Amostras",
+    "title": "Amostras MIP Coletadas para",
+    "delete": "Apagar Amostra",
+    "deleteMessage": "Você tem certeza que deseja apagar a Amostra",
+    "tableHeaders": ["Data da Coleta", "Dias após Emergência", "% de Desfolha (em números inteiros)", "Estádio da Cultura", "Ações"]
+  },
+
+  "general": {
+    "changeLanguage": "Alterar idioma",
+    "search": "Pesquisar",
+    "results": "resultados por página",
+    "name": "Nome",
+    "email": "E-mail",
+    "location": "Localização",
+    "description": "Descrição",
+    "startDate": "Data Início",
+    "endDate": "Data Término",
+    "scientificName": "Nome Científico",
+    "size": "Tamanho",
+    "create": "Criar",
+    "save": "Salvar",
+    "saveChanges": "Salvar Alterações",
+    "select": "Selecionar",
+    "yes": "Sim",
+    "no": "Não",
+    "cancel": "Cancelar",
+    "edit": "Alterar",
+    "actions": "Ações",
+    "details": "Detalhes",
+    "delete": "Apagar",
+    "collect": "Coletar Amostra",
+    "list": "Listar Amostras Coletadas",
+    "cannotUndo": "Esta ação NÃO pode ser desfeita",
+    "emptyData": "Sem dados cadastrados!",
+    "emptyFields": "Sem Unidades de Referência para associar a pesquisa!",
+    "emptyDataForSearch": "Sem dados cadastrados com o termo pesquisado!",
+    "showing": "Mostrando de",
+    "to": "até",
+    "of": "de",
+    "in": "em",
+    "for": "para",
+    "from": "de",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "registries": "registros",
+    "filtered": "Filtrados"
+  }
+}
