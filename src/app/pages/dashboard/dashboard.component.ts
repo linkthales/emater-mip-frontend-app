@@ -17,7 +17,7 @@ export class Chart {
 })
 export class DashboardComponent implements OnInit {
   public loading = true;
-  public quantities = [5, 10, 25, 7];
+  public quantities = [5, 5, 25, 7];
 
   constructor(
     private router: Router,

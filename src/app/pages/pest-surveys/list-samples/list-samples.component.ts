@@ -17,6 +17,7 @@ export class ListSamplesComponent implements OnInit {
   public searchText = '';
   public maxResults = [10, 25, 50, 100];
   public pestSamplesTable = [];
+  public pests = [];
   public surveyFieldId;
   public pestSurvey: any = {};
   public selectedPestSample: any = {};
@@ -42,10 +43,11 @@ export class ListSamplesComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.surveyFieldId = this.activatedRoute.snapshot.params.pestSurveyId;
-    this.getPestSamples(1);
+    await this.getPestSamples(1);
     this.getPestSurveys();
+    this.getPests();
     this.searchText = this.activatedRoute.snapshot.params.search
       ? this.activatedRoute.snapshot.params.search
       : '';
@@ -74,8 +76,6 @@ export class ListSamplesComponent implements OnInit {
           startElement,
           endElement
         );
-
-        this.loading = false;
       },
       error => {
         console.error(error);
@@ -88,6 +88,23 @@ export class ListSamplesComponent implements OnInit {
     this.httpService.get(`surveyFields?id=${this.surveyFieldId}&_expand=harvest&_expand=field&_expand=city&_expand=farmer&_expand=supervisor`).subscribe(
       data => {
         this.pestSurvey = data[0];
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  async getPests() {
+    this.httpService.get(`pests`).subscribe(
+      data => {
+        this.pests = data;
+        this.pestSamplesTable.map((pestSample) => {
+          pestSample.pests = this.pests;
+        });
+        console.log(this.pestSamplesTable);
+
+        this.loading = false;
       },
       error => {
         console.error(error);

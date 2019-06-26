@@ -7,7 +7,7 @@
       ngx-datatable-row-detail-template>
       <div class="table-details">
         <div class="table-info">
-          <ul>
+          <ul *ngIf="!row.pestList">
             <li *ngIf="row.harvestDate">
               <b>{{ 'surveyField.details.harvestDate' | translate }}</b> {{ row.harvestDate | formatDate: 'MMM DD, YYYY' }}
             </li>
@@ -35,7 +35,7 @@
             <li *ngIf="row.longitude">
               <b>{{ 'surveyField.details.longitude' | translate }}</b> {{ row.longitude }}
             </li>
-            <li *ngIf="row.field.name">
+            <li *ngIf="row.field?.name">
               <b>{{ 'surveyField.details.field' | translate }}</b> {{ row.field.name }}
             </li>
             <li>
@@ -43,6 +43,11 @@
               <a [routerLink]="" class="text-danger" (click)="emitEvent('delete', row)">
                 <i class="material-icons" data-toggle="tooltip" title="{{ 'general.delete' | translate }}">clear</i>
               </a>
+            </li>
+          </ul>
+          <ul *ngIf="row.pestList">
+            <li *ngFor="let pest of row.pests">
+              <b>{{ pest.name }} {{ pest.size }} {{ pest.scientificName ? "(" + pest.scientificName + ")" : "" }}</b>: {{ row.pestList[pest.id].average }}
             </li>
           </ul>
         </div>
@@ -54,11 +59,7 @@
     [width]="column.width">
     <ng-template *ngIf="column.dataKey == 'harvest.description'" let-rowIndex="rowIndex" let-value="value" let-row="row"
       let-expanded="expanded" ngx-datatable-cell-template>
-      <a *ngIf="rowIndex === 0" href="javascript:void(0);" [class.datatable-icon-right]="!expanded"
-        [class.datatable-icon-down]="expanded" title="Expand/Collapse Row" (click)="toggleExpandRow(row, rowIndex)"
-        class="desktop-hidden">
-      </a>
-      <a *ngIf="rowIndex !== 0" href="javascript:void(0);" [class.datatable-icon-right]="!expanded"
+      <a href="javascript:void(0);" [class.datatable-icon-right]="!expanded"
         [class.datatable-icon-down]="expanded" title="Expand/Collapse Row" (click)="toggleExpandRow(row, rowIndex)"
         class="desktop-hidden">
       </a>
@@ -132,8 +133,10 @@
 
     <ng-template *ngIf="column.dataKey == 'sampleActions'" let-rowIndex="rowIndex" let-value="value" let-row="row"
       let-expanded="expanded" ngx-datatable-cell-template>
-      <a [routerLink]="" class="primary-color" (click)="emitEvent('details', row)">
-        <i class="material-icons" data-toggle="tooltip" title="{{ 'general.details' | translate }}">details</i>
+      <a href="javascript:void(0);" title="Expand/Collapse Row" (click)="toggleExpandRow(row, rowIndex)"
+        class="desktop-hidden">
+        <i *ngIf="!expanded" class="material-icons" data-toggle="tooltip" title="{{ 'general.details' | translate }}">details</i>
+        <i *ngIf="expanded" class="material-icons" data-toggle="tooltip" title="{{ 'general.details' | translate }}">change_history</i>
       </a>
       <a [routerLink]="" class="text-danger" (click)="emitEvent('delete', row)">
         <i class="material-icons" data-toggle="tooltip" title="{{ 'general.delete' | translate }}">clear</i>

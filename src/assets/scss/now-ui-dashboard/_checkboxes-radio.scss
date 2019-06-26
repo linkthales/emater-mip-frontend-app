@@ -46,9 +46,9 @@
   text-align: center;
   font-size: 14px;
   opacity: 0;
-  color: $dark-background;
+  color: $white;
   border: 0;
-  background-color: inherit;
+  background-color: $primary-color;
 }
 
 .form-check.disabled .form-check-label,
